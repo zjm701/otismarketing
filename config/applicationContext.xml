@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	  http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/beans/spring-jdbc.xsd
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+      ">
+
+	<!-- 自动扫描注入 注解 扫描com.ssm目录下所有文件 -->
+	<!-- @Repository：数据访问层组件，@Service：业务层组件，@Controller：控制层组件 -->
+	<context:component-scan base-package="com.otis.marketing" />
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>jdbc:mysql://127.0.0.1:3306/otismarketing?useUnicode=true&amp;characterEncoding=utf-8</value>
+		</property>
+		<property name="user">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>admin</value>
+		</property>
+		<property name="minPoolSize">
+			<value>1</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>50</value>
+		</property>
+		<property name="initialPoolSize">
+			<value>1</value>
+		</property>
+		<property name="maxIdleTime">
+			<value>25000</value>
+		</property>
+		<property name="acquireIncrement">
+			<value>1</value>
+		</property>
+		<property name="acquireRetryAttempts">
+			<value>30</value>
+		</property>
+		<property name="acquireRetryDelay">
+			<value>1000</value>
+		</property>
+		<property name="testConnectionOnCheckin">
+			<value>true</value>
+		</property>
+		<property name="automaticTestTable">
+			<value>t_c3p0</value>
+		</property>
+		<property name="idleConnectionTestPeriod">
+			<value>18000</value>
+		</property>
+		<property name="checkoutTimeout">
+			<value>5000</value>
+		</property>
+	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+       <property name="dataSource" ref="dataSource" />
+       <property name="hibernateProperties">
+           <props>
+              <prop key="hibernate.dialect">
+                  org.hibernate.dialect.MySQLDialect
+              </prop>
+              <prop key="hibernate.default_schema">
+              	  otismarketing
+              </prop>
+              <prop key="hibernate.show_sql">false</prop>
+           </props>
+       </property>
+       <property name="packagesToScan">
+            <list>
+                <value>com.otis.marketing.entity</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+  		<property name="sessionFactory" ref="sessionFactory" />
+ 	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans>
