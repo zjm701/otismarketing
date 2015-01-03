@@ -10,8 +10,6 @@
       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
       ">
 
-	<!-- 自动扫描注入 注解 扫描com.ssm目录下所有文件 -->
-	<!-- @Repository：数据访问层组件，@Service：业务层组件，@Controller：控制层组件 -->
 	<context:component-scan base-package="com.otis.marketing" />
 
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">

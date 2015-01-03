@@ -1,7 +1,5 @@
 package com.otis.marketing.dao.impl;
 
-
-
 import com.otis.marketing.dao.LoginDao;
 import com.otis.marketing.entity.User;
 
