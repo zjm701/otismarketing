@@ -1,5 +1,6 @@
 package com.otis.marketing.web.action;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -12,18 +13,21 @@ import com.otis.marketing.service.UserService;
 @Controller("loginAction")
 public class LoginAction extends ActionSupport {
 
+	private static Logger logger = Logger.getLogger(LoginAction.class);
+
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private UserService userService;
-	
+
 	private String password;
 
 	private String userName;
 
 	public String execute() throws Exception {
+		
 		User user = userService.findUserByNameAndPassword(userName, password);
-		if(user == null) {
+		if (user == null) {
 			return ERROR;
 		}
 		return SUCCESS;
