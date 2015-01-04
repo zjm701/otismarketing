@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="otismarketing" default="deploy.war" basedir=".">
+	
+	<property name="app.name" value="otismarketing"/> 
+	<property name="app.version" value="1.0"/>
+	<property name="deploy.webapps" value="C:/SoftWare/apache-tomcat-8.0.15/webapps"/>
+	
+	<property name="build.dir" value="build"/>
+	<property name="webroot.dir" value="WebContent"/>
+	<property name="webxml.file" value="${webroot.dir}/WEB-INF/web.xml"/>
+	<property name="src.dir" value="src"/>
+	<property name="config.dir" value="config"/>
+	<property name="lib.dir" value="${webroot.dir}/WEB-INF/lib"/> 
+	<property name="classes.dir" value="${webroot.dir}/WEB-INF/classes"/>
+	
+	<property name="compile.debug" value="true"/>
+	<property name="compile.deprecation" value="false"/>
+	<property name="compile.optimize" value="true"/>
+	
+	<path id="complie.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+	
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+		<delete dir="${classes.dir}"/>
+	</target>
+	
+	<target name="init" depends="clean">
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${classes.dir}"/>
+	</target>
+	
+	<target name="compiler" depends="init">
+		<javac srcdir="${src.dir}" 
+				destdir="${classes.dir}"
+				debug="${compile.debug}"
+				deprecation="${compile.deprecation}"
+				optimize="${compile.optimize}" 
+				encoding="UTF-8"
+				includeantruntime="on">
+			<classpath refid="complie.classpath"></classpath>
+		</javac>
+		
+		<copy todir="${classes.dir}">
+			<fileset dir="${src.dir}">
+				<include name="**/*.xml"/>
+				<include name="**/*.properties"/>
+			</fileset>
+			
+			<fileset dir="${config.dir}">
+				<include name="**/*.xml"/>
+				<include name="**/*.properties"/>
+			</fileset>
+			
+		</copy>
+	</target>
+	
+	<target name="create.war" depends="compiler">
+		<war destfile="${build.dir}/${app.name}.war" webxml="${webxml.file}">
+			<fileset dir="${webroot.dir}"/>
+		</war>
+	</target>
+	
+	<!-- for testing -->
+	<target name="deploy.war" depends="create.war">
+		<delete dir="${deploy.webapps}/${app.name}"/>
+		<copy todir="${deploy.webapps}">
+			<fileset dir="${build.dir}"/>
+		</copy>
+		<delete dir="${classes.dir}"/>
+	</target>
+</project>
