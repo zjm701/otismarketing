@@ -12,8 +12,8 @@ CREATE  TABLE `otismarketing`.`tbl_role` (
 -- ----------------------------
 -- Records of t_role
 -- ----------------------------
-INSERT INTO `tbl_role` VALUES ('1', 'ROLE_ADMIN', 'Admin', 1, '2015-01-04 05:43:54', '2015-01-04 05:43:54');
-INSERT INTO `tbl_role` VALUES ('2', 'ROLE_USER', 'User', 1, '2015-01-04 05:44:39', '2015-01-04 05:44:39');
+INSERT INTO `tbl_role` VALUES ('1', 'ROLE_ADMIN', 'Admin');
+INSERT INTO `tbl_role` VALUES ('2', 'ROLE_USER', 'User');
 
 -- ----------------------------
 -- Table structure for `t_user`
