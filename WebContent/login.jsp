@@ -28,6 +28,7 @@
 					<TD><input type="submit" value="确认"></TD>
 				</TR>
 			</TBODY>
+		</TABLE>
 	</s:form>
 
 </body>

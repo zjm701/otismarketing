@@ -11,10 +11,20 @@
 <!-- 		</global-results> -->
 
 		<action name="login" class="loginAction">
-			<result name="success">/WEB-INF/jsps/index.jsp</result>
-   	  	 	<result name="error">/WEB-INF/jsps/error.jsp</result>
+			<result name="success">/pages/welcome.jsp</result>
+   	  	 	<result name="error">/pages/error.jsp</result>
 		</action>
 
+		<action name="logout" class="loginAction" method="logout">
+			<result name="success">/login.jsp</result>
+		</action>
+	</package>
+	
+	<package name="survey" namespace="/survey" extends="struts-default">
+		<action name="findAllSurvey" class="surveyAction" method="findAllSurvey">
+			<result name="list">/pages/survey/survey_list.jsp</result>
+   	  	 	<result name="error">/pages/error.jsp</result>
+		</action>
 	</package>
 
 </struts>
