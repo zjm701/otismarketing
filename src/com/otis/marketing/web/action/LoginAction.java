@@ -34,6 +34,10 @@ public class LoginAction extends BaseAction {
 	public String logout() throws Exception {
 		return SUCCESS;
 	}
+	
+	public String toWelcome() throws Exception {
+		return SUCCESS;
+	}
 
 	public String getPassword() {
 		return password;

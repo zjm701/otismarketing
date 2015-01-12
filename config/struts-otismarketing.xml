@@ -18,6 +18,11 @@
 		<action name="logout" class="loginAction" method="logout">
 			<result name="success">/login.jsp</result>
 		</action>
+		
+		<action name="toWelcome" class="loginAction" method="toWelcome">
+			<result name="success">/pages/welcome.jsp</result>
+		</action>
+		
 	</package>
 	
 	<package name="survey" namespace="/survey" extends="struts-default">

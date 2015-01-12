@@ -7,6 +7,7 @@
 <title>Survey List</title>
 </head>
 <body>
+<a href="../toWelcome" >To Welcome</a>
 <a href="toAdd" >Add Survey</a>
 <hr>
 Survey List
