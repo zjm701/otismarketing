@@ -5,15 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 import com.otis.marketing.entity.User;
 import com.otis.marketing.service.UserService;
 
 @SuppressWarnings("serial")
 @Scope("request")
 @Controller("loginAction")
-public class LoginAction extends ActionSupport {
+public class LoginAction extends BaseAction {
 
 	private static Logger logger = Logger.getLogger(LoginAction.class);
 
@@ -29,8 +27,7 @@ public class LoginAction extends ActionSupport {
 		if (user == null) {
 			return ERROR;
 		}
-		ActionContext ctx = ActionContext.getContext();
-		ctx.getSession().put("user", getUserName());
+		getSession().put("user", user);
 		return SUCCESS;
 	}
 

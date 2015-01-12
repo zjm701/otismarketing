@@ -5,13 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>登陆成功</title>
+<title>新增调查成功</title>
 </head>
 <body>
-${sessionScope.user.userName}，您已成功登陆！
+新增调查成功，标题：  ${sessionScope.currentSurvey.title}！
 <hr>
 
-<a href="logout" >Logout</a>
-<a href="survey/findAllSurvey" >To Survey</a>
+<a href="findAllSurvey" >To Survey</a>
 </body>
 </html>

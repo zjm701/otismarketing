@@ -12,6 +12,8 @@ public interface SurveyService {
 
 	public void delete(int surveyId);
 
+	public Survey getById(int id);
+
 	public List<Survey> findAllSurvey();
 
 }
