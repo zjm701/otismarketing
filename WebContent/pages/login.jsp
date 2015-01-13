@@ -16,7 +16,7 @@
 				</TR>
 				<TR>
 					<TD>用户名:</TD>
-					<TD><INPUT style="WIDTH: 150px" name="userName"></TD>
+					<TD><INPUT style="WIDTH: 150px" name="username"></TD>
 				</TR>
 				<TR>
 					<TD>密码:</TD>

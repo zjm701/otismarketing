@@ -8,7 +8,7 @@
 <title>登陆成功</title>
 </head>
 <body>
-${sessionScope.user.userName}，您已成功登陆！
+${sessionScope.user.username}，您已成功登陆！
 <hr>
 
 <a href="logout" >Logout</a>

@@ -20,14 +20,15 @@ public class LoginAction extends BaseAction {
 
 	private String password;
 
-	private String userName;
+	private String username;
 
 	public String execute() throws Exception {
-//		User user = userService.findUserByNameAndPassword(userName, password);
-//		if (user == null) {
-//			return ERROR;
-//		}
-//		getSession().put("user", user);
+		Users user = userService.findUserByNameAndPassword(username, password);
+		if (user == null) {
+			return ERROR;
+		}
+		
+		getSession().put("user", user);
 		return SUCCESS;
 	}
 
@@ -47,12 +48,12 @@ public class LoginAction extends BaseAction {
 		this.password = password;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }
