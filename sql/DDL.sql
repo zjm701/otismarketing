@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS `otismarketing`.`tbl_role`;
 CREATE  TABLE `otismarketing`.`tbl_role` (
   `id` INT NOT NULL auto_increment,
   `name` varchar(20) default NULL,
-  `descr` varchar(20) default NULL,
+  `descr` varchar(50) default NULL,
   PRIMARY KEY (`id`) 
 )ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
@@ -55,6 +55,49 @@ CREATE TABLE  `otismarketing`.`tbl_user_role` (
 -- ----------------------------
 INSERT INTO `tbl_user_role` VALUES ('1', '1', '1');
 INSERT INTO `tbl_user_role` VALUES ('2', '2', '2');
+
+-- ----------------------------
+-- Table structure for `tbl_resource`
+-- ----------------------------
+DROP TABLE IF EXISTS `otismarketing`.`tbl_resource`;
+CREATE TABLE `tbl_resource` (
+  `id` INT NOT NULL auto_increment,
+  `name` varchar(20) NOT NULL,
+  `descr` varchar(50) default NULL,
+  `url` varchar(50) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tbl_resource
+-- ----------------------------
+INSERT INTO `tbl_resource` VALUES ('1', 'User Edit', '', '/pages/userInfo.jsp');
+INSERT INTO `tbl_resource` VALUES ('2', 'Index Page', '', '/pages/index.jsp');
+--TODO==================
+--/pages/survey/survey_list.jsp
+--/pages/survey/add.jsp
+
+-- ----------------------------
+-- Table structure for `tbl_role_resource`
+-- ----------------------------
+DROP TABLE IF EXISTS `otismarketing`.`tbl_role_resource`;
+CREATE TABLE `tbl_role_resource` (
+  `id` INT NOT NULL auto_increment,
+  `resourceid` INT default NULL,
+  `roleid` INT default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `FK_RES_1` (`resourceid`),
+  KEY `FK_RES_2` (`roleid`),
+  CONSTRAINT `FK_RES_1` FOREIGN KEY (`resourceid`) REFERENCES `tbl_resource` (`id`),
+  CONSTRAINT `FK_RES_2` FOREIGN KEY (`roleid`) REFERENCES `tbl_role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tbl_role_resource
+-- ----------------------------
+INSERT INTO `tbl_role_resource` VALUES ('1', '1', '1');
+INSERT INTO `tbl_role_resource` VALUES ('2', '2', '1');
+INSERT INTO `tbl_role_resource` VALUES ('3', '2', '2');
 
 -- begining of survey module
 

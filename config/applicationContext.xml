@@ -86,4 +86,11 @@
 	
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
+	<bean id="userDao" class="com.otis.marketing.dao.impl.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="resourceDao" class="com.otis.marketing.dao.impl.ResourceDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
 </beans>

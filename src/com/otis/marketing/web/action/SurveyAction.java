@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.otis.marketing.entity.Survey;
-import com.otis.marketing.entity.User;
+import com.otis.marketing.entity.Users;
 import com.otis.marketing.service.SurveyService;
 import com.otis.marketing.utils.CalendarUtils;
 
@@ -36,7 +36,7 @@ public class SurveyAction extends BaseAction {
 		Survey s = new Survey();
 		s.setTitle(title);
 		s.setStatus(0);
-		s.setAuthorId(((User) getSession().get("user")).getId());
+		s.setAuthorId(((Users) getSession().get("user")).getId());
 		s.setCreateTime(CalendarUtils.currentTime());
 		surveyService.create(s);
 		getSession().put("currentSurvey", s);

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.otis.marketing.entity.User;
+import com.otis.marketing.entity.Users;
 import com.otis.marketing.service.UserService;
 
 @SuppressWarnings("serial")
@@ -23,11 +23,11 @@ public class LoginAction extends BaseAction {
 	private String userName;
 
 	public String execute() throws Exception {
-		User user = userService.findUserByNameAndPassword(userName, password);
-		if (user == null) {
-			return ERROR;
-		}
-		getSession().put("user", user);
+//		User user = userService.findUserByNameAndPassword(userName, password);
+//		if (user == null) {
+//			return ERROR;
+//		}
+//		getSession().put("user", user);
 		return SUCCESS;
 	}
 

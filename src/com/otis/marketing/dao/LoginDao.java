@@ -1,8 +1,8 @@
 package com.otis.marketing.dao;
 
-import com.otis.marketing.entity.User;
+import com.otis.marketing.entity.Users;
 
 public interface LoginDao {
 
-	public User getUserInfo(User user);
+	public Users getUserInfo(Users user);
 }

@@ -8,7 +8,7 @@
     <package name="struts-otismarketing" extends="struts-default">
 
         <global-results>
-            <result name="error">/jsps/error.jsp</result>
+            <result name="error">/pages/error.jsp</result>
         </global-results>
 
         <global-exception-mappings>

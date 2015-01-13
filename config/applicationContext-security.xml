@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+   xmlns:beans="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+      
+    <http pattern="/js/**/**" security="none"/>
+    <http pattern="/css/**/**" security="none"/>
+    <http pattern="/images/**/**" security="none"/>
+    <http pattern="/pages/login.jsp" security="none"/>
+    <http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint" access-denied-page="/pages/error.jsp">
+    	
+        <logout invalidate-session="false" logout-success-url="/pages/login.jsp" logout-url="/j_spring_security_logout"/>
+		<!-- <remember-me data-source-ref="dataSource" /> -->
+        <remember-me />
+        
+        <session-management invalid-session-url="/pages/timeout.jsp">
+            <concurrency-control  max-sessions="1" error-if-maximum-exceeded="true" expired-url="/pages/login.jsp"></concurrency-control>
+        </session-management>
+       	<custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER"  />
+		<custom-filter ref="securityFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+		
+    </http>
+    
+    <beans:bean id="loginFilter"
+		class="com.otis.marketing.security.OtisUsernamePasswordAuthenticationFilter">
+		<beans:property name="filterProcessesUrl" value="/j_spring_security_check"></beans:property>
+		<beans:property name="authenticationSuccessHandler" ref="loginLogAuthenticationSuccessHandler"></beans:property>
+		<beans:property name="authenticationFailureHandler" ref="simpleUrlAuthenticationFailureHandler"></beans:property>
+		<beans:property name="authenticationManager" ref="otisAuthenticationManager"></beans:property>
+		<beans:property name="userDao" ref="userDao"></beans:property>
+	</beans:bean>
+	<beans:bean id="loginLogAuthenticationSuccessHandler"
+		class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+		<beans:property name="defaultTargetUrl" value="/pages/index.jsp"></beans:property>
+	</beans:bean>
+	<beans:bean id="simpleUrlAuthenticationFailureHandler"
+		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+		<beans:property name="defaultFailureUrl" value="/pages/login.jsp"></beans:property>
+	</beans:bean>
+	
+    <beans:bean id="securityFilter" class="com.otis.marketing.security.OtisSecurityFilter">
+    	<beans:property name="authenticationManager" ref="otisAuthenticationManager" />
+    	<beans:property name="accessDecisionManager" ref="otisAccessDecisionManager" />
+    	<beans:property name="securityMetadataSource" ref="otisSecurityMetadataSource" />
+    </beans:bean>
+    <authentication-manager alias="otisAuthenticationManager">
+        <authentication-provider user-service-ref="otisUserDetailServiceImpl">
+<!--         	<password-encoder ref="passwordEncoder"> -->
+<!--         		<salt-source user-property="username"/> -->
+<!--         	</password-encoder> -->
+        </authentication-provider>
+    </authentication-manager>
+   
+    <beans:bean id="otisAccessDecisionManager" class="com.otis.marketing.security.OtisAccessDecisionManager"></beans:bean>
+	<beans:bean id="otisSecurityMetadataSource" class="com.otis.marketing.security.OtisSecurityMetadataSource">
+		<beans:constructor-arg name="resourceDao" ref="resourceDao"></beans:constructor-arg>
+	</beans:bean>
+	<beans:bean id="otisUserDetailServiceImpl" class="com.otis.marketing.security.OtisUserDetailServiceImpl">
+		<beans:property name="userDao" ref="userDao"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="authenticationProcessingFilterEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<beans:property name="loginFormUrl" value="/pages/login.jsp"></beans:property>
+	</beans:bean>
+</beans:beans>
