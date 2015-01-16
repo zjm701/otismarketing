@@ -116,7 +116,7 @@ CREATE  TABLE `otismarketing`.`tbl_survey` (
   `publishTime` datetime default NULL,
   `startTime` datetime default NULL,
   `endTime` datetime default NULL,
-  `authorId` INT NOT null,
+  `authorId` INT default NULL,
   PRIMARY KEY  (`surveyId`),
   KEY `FK_S_1` (`authorId`),
   CONSTRAINT `FK_S_1` FOREIGN KEY (`authorId`) REFERENCES `tbl_user` (`id`)
@@ -148,7 +148,7 @@ CREATE TABLE `otismarketing`.`tbl_question` (
   `description` varchar(1000) default null,
   `type` INT NOT NULL default 0,
   `isRequired` INT NOT NULL default 0,
-  `index` INT NOT NULL default 1,
+  `orderNO` INT NOT NULL default 1,
   `optionsString` varchar(1000) default null,
   `linkRules` varchar(1000) default null,
   PRIMARY KEY  (`questionId`),

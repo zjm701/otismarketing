@@ -1,17 +1,28 @@
 package com.otis.marketing.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.otis.marketing.utils.CalendarUtils;
+
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "tbl_survey")
 public class Survey implements Serializable {
@@ -37,7 +48,7 @@ public class Survey implements Serializable {
 	@Column(name = "createTime")
 	private Date createTime;
 
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updateTime")
 	private Date updateTime;
 
@@ -53,13 +64,24 @@ public class Survey implements Serializable {
 	@Column(name = "endTime")
 	private Date endTime;
 
-	@Column(name = "authorId", nullable = false)
-	private Integer authorId;
+	@ManyToOne(cascade = { CascadeType.REFRESH }, optional = true, targetEntity = Users.class)
+	@JoinColumn(name = "authorId")
+	private Users author;
 
-	// @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE },
-	// targetEntity = User.class)
-	// @JoinColumn(name = "authorId")
-	// private User user;
+	@OneToMany(mappedBy = "survey", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+	@OrderBy(value = "orderNO ASC")
+	private List<Question> questions = new ArrayList<>();
+
+	public Survey() {
+	}
+
+	public Survey(String title) {
+		this.title = title;
+		this.status = Status.New.getValue();
+		Date now = CalendarUtils.currentTime();
+		this.createTime = now;
+		this.updateTime = now;
+	}
 
 	public Integer getSurveyId() {
 		return surveyId;
@@ -141,11 +163,39 @@ public class Survey implements Serializable {
 		this.endTime = endTime;
 	}
 
-	public Integer getAuthorId() {
-		return authorId;
+	public Users getAuthor() {
+		return author;
 	}
 
-	public void setAuthorId(Integer authorId) {
-		this.authorId = authorId;
+	public void setAuthor(Users author) {
+		this.author = author;
+	}
+
+	public List<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
+	}
+
+	public void addQuestion(Question question) {
+		question.setOrderNO(this.questions.size() + 1);
+		question.setSurvey(this);
+		this.questions.add(question);
+	}
+
+	public enum Status {
+		New(0), Published(1), End(2), Deleted(-1);
+
+		private int value;
+
+		private Status(int value) {
+			this.value = value;
+		}
+
+		public Integer getValue() {
+			return value;
+		}
 	}
 }
