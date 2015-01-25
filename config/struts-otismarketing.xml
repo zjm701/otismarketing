@@ -9,20 +9,17 @@
 <!-- 		<global-results> -->
 <!-- 			<result name="login">/login.jsp</result> -->
 <!-- 		</global-results> -->
-
-		<action name="login" class="loginAction">
-			<result name="success">/pages/welcome.jsp</result>
-   	  	 	<result name="error">/pages/error.jsp</result>
-		</action>
-
-		<action name="logout" class="loginAction" method="logout">
-			<result name="success">/pages/login.jsp</result>
-		</action>
 		
-		<action name="toWelcome" class="loginAction" method="toWelcome">
-			<result name="success">/pages/welcome.jsp</result>
+		<action name="main" class="loginAction" method="toMain">
+			<result name="adminMain">/pages/adminWelcome.jsp</result>
+			<result name="userMain">/pages/welcome.jsp</result>
+			<result name="goLogin">/pages/login.jsp</result>
+			<result name="error">/pages/error.jsp</result>
 		</action>
-		
+		<action name="goLogin" class="loginAction" method="goLogin">
+			<result name="goLogin">/pages/login.jsp</result>
+			<result name="error">/pages/error.jsp</result>
+		</action>
 	</package>
 	
 	<package name="survey" namespace="/survey" extends="struts-default">

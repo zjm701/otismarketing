@@ -9,59 +9,94 @@
     <http pattern="/css/**/**" security="none"/>
     <http pattern="/images/**/**" security="none"/>
     <http pattern="/pages/login.jsp" security="none"/>
+    
     <http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint" access-denied-page="/pages/error.jsp">
     	
-        <logout invalidate-session="false" logout-success-url="/pages/login.jsp" logout-url="/j_spring_security_logout"/>
-		<!-- <remember-me data-source-ref="dataSource" /> -->
-        <remember-me />
+        <logout invalidate-session="true" logout-url="/logout.do" success-handler-ref="logoutFilter" />
         
         <session-management invalid-session-url="/pages/timeout.jsp">
-            <concurrency-control  max-sessions="1" error-if-maximum-exceeded="true" expired-url="/pages/login.jsp"></concurrency-control>
-        </session-management>
+			<concurrency-control max-sessions="1" />
+		</session-management>
+		
        	<custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER"  />
 		<custom-filter ref="securityFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
 		
     </http>
     
-    <beans:bean id="loginFilter"
-		class="com.otis.marketing.security.OtisUsernamePasswordAuthenticationFilter">
-		<beans:property name="filterProcessesUrl" value="/j_spring_security_check"></beans:property>
-		<beans:property name="authenticationSuccessHandler" ref="loginLogAuthenticationSuccessHandler"></beans:property>
-		<beans:property name="authenticationFailureHandler" ref="simpleUrlAuthenticationFailureHandler"></beans:property>
-		<beans:property name="authenticationManager" ref="otisAuthenticationManager"></beans:property>
-		<beans:property name="userDao" ref="userDao"></beans:property>
+    <beans:bean id="authenticationProcessingFilterEntryPoint" class="com.otis.marketing.security.login.MultipleAuthenticationEntryPoint">
+		<beans:property name="directUrl" value="/pages/login.jsp"></beans:property>
 	</beans:bean>
-	<beans:bean id="loginLogAuthenticationSuccessHandler"
-		class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
-		<beans:property name="defaultTargetUrl" value="/pages/index.jsp"></beans:property>
-	</beans:bean>
-	<beans:bean id="simpleUrlAuthenticationFailureHandler"
-		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
-		<beans:property name="defaultFailureUrl" value="/pages/login.jsp"></beans:property>
+
+	<beans:bean id="logoutFilter" class="com.otis.marketing.security.logout.MultipleLogoutSuccessHandler">
+		<beans:property name="directUrl" value="/pages/login.jsp"></beans:property>
 	</beans:bean>
 	
-    <beans:bean id="securityFilter" class="com.otis.marketing.security.OtisSecurityFilter">
-    	<beans:property name="authenticationManager" ref="otisAuthenticationManager" />
-    	<beans:property name="accessDecisionManager" ref="otisAccessDecisionManager" />
-    	<beans:property name="securityMetadataSource" ref="otisSecurityMetadataSource" />
-    </beans:bean>
-    <authentication-manager alias="otisAuthenticationManager">
-        <authentication-provider user-service-ref="otisUserDetailServiceImpl">
-<!--         	<password-encoder ref="passwordEncoder"> -->
-<!--         		<salt-source user-property="username"/> -->
-<!--         	</password-encoder> -->
-        </authentication-provider>
-    </authentication-manager>
-   
-    <beans:bean id="otisAccessDecisionManager" class="com.otis.marketing.security.OtisAccessDecisionManager"></beans:bean>
-	<beans:bean id="otisSecurityMetadataSource" class="com.otis.marketing.security.OtisSecurityMetadataSource">
-		<beans:constructor-arg name="resourceDao" ref="resourceDao"></beans:constructor-arg>
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="multipleAuthenticationProvider"></authentication-provider>
+	</authentication-manager>
+
+	<beans:bean id="multipleAuthenticationProvider"
+		class="com.otis.marketing.security.authentication.provider.MultipleAuthenticationProvider">
+		<beans:property name="authenticationProviders">
+			<beans:list>
+				<beans:ref bean="otisAuthenticationProvider" />
+			</beans:list>
+		</beans:property>
 	</beans:bean>
-	<beans:bean id="otisUserDetailServiceImpl" class="com.otis.marketing.security.OtisUserDetailServiceImpl">
+	
+	<beans:bean id="otisAuthenticationProvider"
+		class="com.otis.marketing.security.authentication.provider.OtisAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="myUserDetailsService"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="myUserDetailsService" class="com.otis.marketing.security.authentication.details.OtisUserDetailsService">
 		<beans:property name="userDao" ref="userDao"></beans:property>
 	</beans:bean>
 	
-	<beans:bean id="authenticationProcessingFilterEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-		<beans:property name="loginFormUrl" value="/pages/login.jsp"></beans:property>
+	<beans:bean id="loginFilter"
+		class="com.otis.marketing.security.authentication.filter.MultipleUsernamePasswordAuthenticationFilter">
+		<beans:property name="requiresAuthenticationRequestMatcher" ref="loginUrl" />
+		<beans:property name="tokenResolver" ref="otisAuthenticationTokenResolver"/>
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="authenticationSuccessHandler" ref="authenticationSuccessHandler" />
+		<beans:property name="authenticationFailureHandler" ref="authenticationFailureHandler" />
 	</beans:bean>
+	
+	<beans:bean id="loginUrl" class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+		<beans:constructor-arg type="java.lang.String" value="/login.do"/>
+	</beans:bean>
+	
+	<beans:bean id="otisAuthenticationTokenResolver"
+		class="com.otis.marketing.security.authentication.filter.OtisAuthenticationTokenResolver">
+	</beans:bean>
+	
+	<beans:bean id="authenticationSuccessHandler"
+		class="com.otis.marketing.security.authentication.handler.MultipleAuthenticationSuccessHandler">
+		<beans:property name="directUrl" value="/main"/>
+	</beans:bean>
+	
+	<beans:bean id="authenticationFailureHandler"
+		class="com.otis.marketing.security.authentication.handler.MultipleAuthenticationFailureHandler">
+		<beans:property name="directUrl" value="/goLogin" />
+	</beans:bean>
+	
+	<beans:bean id="securityFilter"
+		class="com.otis.marketing.security.manage.filter.MultipleFilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="securityMetadataSource" ref="multipleSecurityMetadataSource" />
+		<beans:property name="accessDecisionManager" ref="multipleAccessDecisionManager" />
+	</beans:bean>
+	
+	<beans:bean id="multipleSecurityMetadataSource"
+		class="com.otis.marketing.security.manage.metadata.MultipleFilterInvocationSecurityMetadataSource">
+		<beans:property name="metadataSource" ref="otisSecurityMetadataSource" />
+	</beans:bean>
+	
+	<beans:bean id="otisSecurityMetadataSource" class="com.otis.marketing.security.manage.metadata.OtisSecurityMetadataSource">
+		<beans:property name="resourceDao" ref="resourceDao" />
+	</beans:bean>
+	
+	<beans:bean id="multipleAccessDecisionManager"
+		class="com.otis.marketing.security.manage.decide.MultipleAccessDecisionManager" />
+		
 </beans:beans>
