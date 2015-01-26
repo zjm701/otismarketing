@@ -92,5 +92,9 @@
 	<bean id="resourceDao" class="com.otis.marketing.dao.impl.ResourceDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	<bean id="statisticDao" class="com.otis.marketing.dao.impl.StatisticDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
 	
 </beans>
