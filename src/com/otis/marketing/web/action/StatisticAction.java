@@ -15,4 +15,9 @@ public class StatisticAction extends BaseAction {
 
 	@Autowired
 	private StatisticService statisticService;
+	
+	public String getSurveyStatistic(){
+		statisticService.getSurveyStatistic();
+		return SUCCESS;
+	}
 }
