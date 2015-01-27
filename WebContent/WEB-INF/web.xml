@@ -34,7 +34,8 @@
 
 	<filter>
 		<filter-name>struts2</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+<!-- 		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class> -->
+			<filter-class>com.otis.marketing.common.filter.OtisStruts2Filter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>struts2</filter-name>
@@ -80,19 +81,31 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<filter>
-		<filter-name>struts-execute</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsExecuteFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>struts-execute</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+<!-- 	<filter> -->
+<!-- 		<filter-name>struts-execute</filter-name> -->
+<!-- 		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsExecuteFilter</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>struts-execute</filter-name> -->
+<!-- 		<url-pattern>/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
 
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
 
+	<!-- cxf config -->
+	<servlet>
+    	<servlet-name>CXFServlet</servlet-name>
+    	<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+   		<load-on-startup>1</load-on-startup> 
+  	</servlet>
+
+  	<servlet-mapping>
+   		<servlet-name>CXFServlet</servlet-name>
+   		<url-pattern>/webservice/*</url-pattern>
+  	</servlet-mapping>
+  
 	<session-config>
 		<session-timeout>20</session-timeout>
 	</session-config>

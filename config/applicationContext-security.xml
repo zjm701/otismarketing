@@ -10,6 +10,7 @@
     <http pattern="/images/**/**" security="none"/>
     <http pattern="/thirdparty/**/**" security="none"/>
     <http pattern="/pages/login.jsp" security="none"/>
+    <http pattern="/webservice/**" security="none" />
     
     <http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint" access-denied-page="/pages/error.jsp">
     	
