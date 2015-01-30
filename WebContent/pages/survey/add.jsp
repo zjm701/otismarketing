@@ -4,81 +4,322 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Survey List</title>
+<title>新增调查</title>
+<link rel="stylesheet" href="../thirdparty/jquery-ui-1.10.2/lightness/jquery-ui.css">
+<style type="text/css">
+	#main { float: left; width: auto; height: auto; margin: 10px 10px 10px 0; }
+	#top {float: left; width: 520px; height:50px; margin: 10px 10px 10px 0; }
+	#left { float: left; width: 120px; height: 500px; margin: 10px 10px 10px 0; }
+	#right { float: right; width: 500px; height: 500px; margin: 10px 10px 10px 0; }
+	
+	#divSingle { width: 120px; height: 35px; float: top; margin: 10px 10px 10px 0; }
+	#divMultiple { width: 120px; height: 35px; float: top; margin: 10px 10px 10px 0; }
+	#divQuestion { width: 120px; height: 35px; float: top; margin: 10px 10px 10px 0; }
+</style>
+
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../thirdparty/jquery-ui-1.10.2/jquery-ui.min.js"></script>
+<script type="text/javascript" >
+var left1,left2,left2;
+var top1,top2,top3;
+var cntQuestion = 0;
+var questionType = 0;
+var questionTypeName;
+$(document).ready( function () {
+	left1 =  $("#divSingle").position().left;
+	top1 =  $("#divSingle").position().top;
+	
+	left2 =  $("#divMultiple").position().left;
+	top2 =  $("#divMultiple").position().top;
+	
+	left3 =  $("#divQuestion").position().left;
+	top3 =  $("#divQuestion").position().top;
+});
+
+$(function() {
+	$("#divSingle").draggable({
+		start: function (event, ui) {
+			questionType = 0; //single
+			questionTypeName = "单选题";
+		}
+	}).button({icons: {primary: "ui-icon-radio-on"}});
+	
+	$("#divMultiple").draggable({
+		start: function (event, ui) {
+			questionType = 1; //multiple
+			questionTypeName = "多选题";
+		}
+	}).button({icons: {primary: "ui-icon-check"}});
+	
+	$("#divQuestion").draggable({
+		start: function (event, ui) {
+			questionType = 2; //question
+			questionTypeName = "问答题";
+		}
+	}).button({icons: {primary: "ui-icon-document"}});
+
+	$("#main").droppable({
+		drop: function( event, ui ) {
+			$("#divSingle").css({position: "absolute", left:left1, top:top1});
+			$("#divMultiple").css({position: "absolute", left:left2, top:top2});
+			$("#divQuestion").css({position: "absolute", left:left3, top:top3});
+		}
+	});
+	
+	$("#right").droppable({
+		drop: function( event, ui ) {
+			addQuesion($(this));
+			
+			$("#divSingle").css({position: "absolute", left:left1, top:top1});
+			$("#divMultiple").css({position: "absolute", left:left2, top:top2});
+			$("#divQuestion").css({position: "absolute", left:left3, top:top3});
+		}
+	});
+	
+	$("input[name='save']").click(function() {
+		var title = $("input[name='title']");
+		if($.trim(title.val())==""){
+			alert("请输入调查的标题!");
+			title.focus();
+			return;
+		}
+		if(cntQuestion==0){
+			alert("请至少添加一个问题!");
+			return;
+		}else{
+			var questions = [];
+
+			var isRequired = 0;
+			var question_title = null;
+			var type = 0;
+
+			for(var index = 1; index <= cntQuestion ;index++){	//后续tr依次前移
+				table = $("#question_"+index);
+				if(table.length == 0){
+					break;
+				}else{
+					question_title = table.find("input[name='question_title']").first();
+					if($.trim(question_title.val())==""){
+						alert("Q"+index+":请输入问题!");
+						question_title.focus();
+						return;
+					}
+					
+					if(table.find("input:checkbox").first().is(":checked")){
+						isRequired = 0;
+					}else{
+						isRequired = 1;
+					}
+					
+					type = table.find("input:hidden").first().val();
+
+					var option = null;
+					var options = new Array();
+					var optionsString = "";
+
+					var link = null;
+					var links = new Array();
+					var linksString = "";
+					
+					var cntOption = 0;
+					var needSubmit = true;
+					
+					table.find("tr").each(function(i){
+						cntOption = i - 2;
+						if(i>=2){
+							if(!needSubmit){
+								return;
+							}
+							
+							option = $(this).find("input[name='option']").first();
+							if(option.length >= 1){
+								if($.trim(option.val())==""){
+									needSubmit = false;
+									alert("Q"+index+":请输入选项"+(cntOption+1)+"!");
+									option.focus();
+									return;
+								}else{
+									options[cntOption] = $.trim(option.val());
+								}
+							}
+
+							link = $(this).find("input[name='link']").first();
+							if(link.length >= 1){
+								var val = $.trim(link.val());
+								if(val==""){
+									needSubmit = false;
+									alert("Q"+index+":请输入选项"+(cntOption+1)+"的选中跳至的下一题！");
+									link.focus();
+									return;
+								}else{
+									if(isNaN(val) || parseInt(val) <= 0 || parseInt(val) > cntQuestion){
+										needSubmit = false;
+										alert("Q"+index+":选项"+(cntOption+1)+"的选中跳至的下一题必须是1~"+cntQuestion+"整数！");
+										link.focus();
+										return;
+									}else{
+										links[cntOption] = parseInt(val);
+									}
+								}
+							}
+						}
+					});
+					if(!needSubmit){
+						return;
+					}
+					if(options.length > 0){
+						optionsString = "-";
+						for(var j = 0; j < options.length; j++){
+							optionsString = optionsString + options[j] + "-";
+						}
+					}
+
+					if(links.length > 0){
+						linksString = "-";
+						for(var k = 0; k < options.length; k++){
+							linksString = linksString + links[k] + "-";
+						}
+					}
+					
+					var question = {
+							title: $.trim(question_title.val()),
+							type: parseInt(type),
+							isRequired: isRequired,
+							orderNO: index,
+							optionsString: optionsString,
+							linksString: linksString
+							};
+					questions[index-1] = question;
+				}
+			}
+			
+			var survey = {
+				title: $.trim(title.val()),
+				questions: questions
+			}
+
+			var encoded = JSON.stringify(survey); 
+			alert(":"+encoded);
+			
+			$("input[name='surveyJson']").val(encoded);
+			
+			var f = $("#surveyFrom");
+			f.submit();
+		}
+	});
+});
+
+var addQuesion = function(parent){
+	var i = ++cntQuestion;
+    var question = null;
+    
+    if(questionType == 0 ){
+    	question = $("<table id='question_"+ i + "'>"+
+    			"<tr><td>Q"+i+"</td><td><font color='red'>"+questionTypeName+"</font></td><td>&nbsp;<input type='checkbox' name='isRequired' checked='true' value='1' />该题可跳过不回答</td><td>&nbsp;<input type='button' onclick='deleteQusetion("+i+")' value='删除此题'></td><td><input type='hidden' name='type' value='"+questionType+"'></td></tr>"+
+    			"<tr><td></td><td>问题:</td><td colspan='2'><input type='text' name='question_title' size='30'/></td><td></td></tr>"+
+    			"<tr id='tr_1'><td></td><td>选项1:</td><td><input type='text' name='option' size='10'/></td><td>选中跳至<input type='text' name='link' value='"+i+"' size='1'/>题</td><td></td></tr>"+
+    			"<tr id='tr_2'><td></td><td>选项2：</td><td><input type='text' name='option' size='10'/></td><td>选中跳至<input type='text' name='link' value='"+i+"' size='1'/>题</td><td></td></tr>"+
+    			"<tr><td></td><td colspan='2'><input type='button' onclick=\"addTr("+i+",0)\" value='新增选项'></td><td></td><td></td></tr>"+
+    			"</table>");
+    }else if(questionType == 1){
+    	question = $("<table id='question_"+ i + "'>"+
+				"<tr><td>Q"+i+"</td><td><font color='red'>"+questionTypeName+"</font></td><td>&nbsp;<input type='checkbox' name='isRequired' checked='true' value='1' />该题可跳过不回答</td><td>&nbsp;<input type='button' onclick='deleteQusetion("+i+")' value='删除此题'></td><td><input type='hidden' name='type' value='"+questionType+"'></td></tr>"+
+				"<tr><td></td><td>问题:</td><td colspan='2'><input type='text' name='question_title' size='30'/></td><td></td></tr>"+
+				"<tr id='tr_1'><td></td><td>选项1:</td><td><input type='text' name='option' size='10'/></td><td></td><td></td></tr>"+
+				"<tr id='tr_2'><td></td><td>选项2：</td><td><input type='text' name='option' size='10'/></td><td></td><td></td></tr>"+
+				"<tr><td></td><td colspan='2'><input type='button' onclick=\"addTr("+i+",1)\" value='新增选项'></td><td></td><td></td></tr>"+
+				"</table>");
+	}else if(questionType == 2){
+		question = $("<table id='question_"+ i + "'>"+
+				"<tr><td>Q"+i+"</td><td><font color='red'>"+questionTypeName+"</font></td><td>&nbsp;<input type='checkbox' name='isRequired' checked='true' value='1' />该题可跳过不回答</td><td>&nbsp;<input type='button' onclick='deleteQusetion("+i+")' value='删除此题'></td><td><input type='hidden' name='type' value='"+questionType+"'></td></tr>"+
+				"<tr><td></td><td>问题:</td><td colspan='2'><input type='text' name='question_title' size='30'/></td></tr>"+
+				"</table>");
+	}
+    if(question != null){
+        parent.append(question);        //将子table添加到父div中
+    }
+};
+
+function deleteQusetion(questionIndex){
+	cntQuestion--;
+	$("#question_"+questionIndex).remove();
+	
+	var table = null;
+	for(var index = questionIndex; ;index++){	//后续tr依次前移
+		table = $("#question_"+(index+1));
+		if(table.length == 0){
+			break;
+		}else{
+			table.attr("id", "question_"+index);
+			table.find("tr").each(function(i){
+				if(i==0){//第一行
+					$(this).find("td").first().text("Q"+index);
+					$(this).find("input:button").first().attr("onclick", function(i,origValue){ return origValue.replace("deleteQusetion("+(index+1)+")", "deleteQusetion("+index+")");});
+				}else if(i>=4){
+					$(this).find("input:button").first().attr("onclick", function(i,origValue){ return origValue.replace("deleteTr("+(index+1)+",", "deleteTr("+index+",");});
+					$(this).find("input:button").first().attr("onclick", function(i,origValue){ return origValue.replace("addTr("+(index+1)+",", "addTr("+index+",");});
+				}
+			});
+		}
+	}
+}
+
+function addTr(questionIndex, questionType){
+   var tr=$("#question_"+questionIndex+" tr").eq(-2);
+   var idString = tr.attr("id");
+   var optionIndex = parseInt(idString.substring(idString.indexOf("_")+1)) + 1;
+   
+   var trHtml = null;
+   if(questionType == 0){
+	   trHtml = $("<tr id='tr_"+(optionIndex)+"'><td></td><td>选项"+optionIndex+"：</td><td><input type='text' name='option' size='10'/></td><td>选中跳至<input type='text' name='link' value='"+cntQuestion+"' size='1'/>题</td><td><input type='button' onclick=\"deleteTr("+questionIndex+","+optionIndex+")\" value='删除此项'></td></tr>");
+   }else if(questionType == 1){
+	   trHtml = $("<tr id='tr_"+(optionIndex)+"'><td></td><td>选项"+optionIndex+"：</td><td><input type='text' name='option' size='10'/></td><td></td><td><input type='button' onclick=\"deleteTr("+questionIndex+","+optionIndex+")\" value='删除此项'></td></tr>");
+   }
+   tr.after(trHtml);
+};
+
+function deleteTr(questionIndex, optionIndex){
+	$("#question_"+questionIndex+" #tr_"+optionIndex).remove(); //删除当前tr
+	
+	var tr = null;
+	for(var index = optionIndex; ;index++){	//后续tr依次前移
+		tr = $("#question_"+questionIndex+" #tr_"+(index+1));
+		if(tr.length == 0){
+			break;
+		}else{
+			tr.attr("id", "tr_"+index);
+			tr.find("td").each(function(i){
+				if(i==1){//第二格
+					$(this).text("选项"+index+":");
+				}else if(i==4){//第五格
+					$(this).find("input").attr("onclick", function(i,origValue){ return origValue.replace(","+(index+1)+")", ","+index+")");});
+				}
+			});
+		}
+	}
+}
+
+</script>
 </head>
 <body>
-	<s:form action="add" method="post">
-		<TABLE style="FONT-SIZE: 12px">
-			<TBODY>
-				<TR>
-					<TD>新增调查</TD>
-				</TR>
-				<TR>
-					<TD>调查标题:</TD>
-					<TD><INPUT style="WIDTH: 150px" name="title"></TD>
-				</TR>
-				<TR>
-					<TD>第一题（单选题）:</TD>
-				</TR>
-				<TR>
-					<TD>问题:</TD>
-					<TD><INPUT style="WIDTH: 150px" name="qusetion1"></TD>
-				</TR>
-				<TR>
-					<TD>第一项:</TD>
-					<TD><INPUT style="WIDTH: 150px" name="qusetion1_option1"></TD>
-				</TR>
-				<TR>
-					<TD>跳转至:</TD>
-					<TD><INPUT style="WIDTH: 150px" name="qusetion1_link1"></TD>
-				</TR>
-				<TR>
-					<TD>第二项:</TD>
-					<TD><INPUT style="WIDTH: 150px" name="qusetion1_option2"></TD>
-				</TR>
-				<TR>
-					<TD>跳转至:</TD>
-					<TD><INPUT style="WIDTH: 150px" name="qusetion1_link2"></TD>
-				</TR>
-				<TR>
-					<TD>第二题（问答题）:</TD>
-				</TR>
-				<TR>
-					<TD>问题:</TD>
-					<TD><INPUT style="WIDTH: 150px" name="qusetion2"></TD>
-				</TR>
-				<TR>
-					<TD>第三题（问答题）:</TD>
-				</TR>
-				<TR>
-					<TD>问题:</TD>
-					<TD><INPUT style="WIDTH: 150px" name="qusetion3"></TD>
-				</TR>
-				<TR>
-					<TD>第四题（多选题）:</TD>
-				</TR>
-				<TR>
-					<TD>问题:</TD>
-					<TD><INPUT style="WIDTH: 150px" name="qusetion4"></TD>
-				</TR>
-				<TR>
-					<TD>第一项:</TD>
-					<TD><INPUT style="WIDTH: 150px" name="qusetion4_option1"></TD>
-				</TR>
-				<TR>
-					<TD>第二项:</TD>
-					<TD><INPUT style="WIDTH: 150px" name="qusetion4_option2"></TD>
-				</TR>
-				<TR>
-					<TD>第三项:</TD>
-					<TD><INPUT style="WIDTH: 150px" name="qusetion4_option3"></TD>
-				</TR>
-				<TR>
-					<TD></TD>
-					<TD><input type="submit" value="确认"></TD>
-				</TR>
-			</TBODY>
-		</TABLE>
-	</s:form>
+<s:form id="surveyFrom" action="add" method="post">
+<input type='hidden' name='surveyJson' />
+
+<div id="main">
+	<div id="top">调查标题:&nbsp;<input type="text" name="title" style="width: 400px" ></div>
+	<div id="content">
+		<div id="left">
+			<div>题型选择</div>
+			<div id="divSingle" class="ui-widget-content">单选题</div>
+			<div id="divMultiple" class="ui-widget-content">多选题</div>
+			<div id="divQuestion" class="ui-widget-content">问答题</div>
+		</div>
+		<div id="right">
+		</div>
+	</div>
+</div>
+
+<input type="button" name="save" value="保存">
+</s:form>
 </body>
 </html>

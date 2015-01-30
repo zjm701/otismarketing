@@ -51,10 +51,14 @@ public class Question implements Serializable {
 	}
 
 	public Question(String title) {
+		this(title, Type.Single.value());
+	}
+
+	public Question(String title, int type) {
 		this.title = title;
 		this.description = "";
-		this.type = Type.Single.getValue();
-		this.isRequired = IsRequired.No.getValue();
+		this.type = type;
+		this.isRequired = IsRequired.No.value();
 	}
 
 	public Integer getQuestionId() {
@@ -138,7 +142,7 @@ public class Question implements Serializable {
 			this.value = value;
 		}
 
-		public Integer getValue() {
+		public Integer value() {
 			return value;
 		}
 	}
@@ -152,7 +156,7 @@ public class Question implements Serializable {
 			this.value = value;
 		}
 
-		public Integer getValue() {
+		public Integer value() {
 			return value;
 		}
 	}

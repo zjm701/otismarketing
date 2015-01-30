@@ -77,7 +77,8 @@ public class Survey implements Serializable {
 
 	public Survey(String title) {
 		this.title = title;
-		this.status = Status.New.getValue();
+		this.status = Status.New.value();
+		this.type = Type.Default.value();
 		Date now = CalendarUtils.currentTime();
 		this.createTime = now;
 		this.updateTime = now;
@@ -194,7 +195,21 @@ public class Survey implements Serializable {
 			this.value = value;
 		}
 
-		public Integer getValue() {
+		public Integer value() {
+			return value;
+		}
+	}
+
+	public enum Type {
+		Default(0);
+
+		private int value;
+
+		private Type(int value) {
+			this.value = value;
+		}
+
+		public Integer value() {
 			return value;
 		}
 	}
