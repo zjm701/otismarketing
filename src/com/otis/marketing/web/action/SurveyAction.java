@@ -28,6 +28,10 @@ public class SurveyAction extends BaseAction {
 	private SurveyService surveyService;
 
 	private String surveyJson;
+	
+	private int surveyId;
+	
+	private String message;
 
 	public String execute() throws Exception {
 		return SUCCESS;
@@ -60,10 +64,19 @@ public class SurveyAction extends BaseAction {
 		surveyService.create(s);
 
 		getSession().put("currentSurvey", s);
+		getSession().put("message","新增调查成功，标题为： "+s.getTitle());
 		return SUCCESS;
 	}
 
-	public String tojQuery() throws Exception {
+	public String delete() throws Exception {
+		surveyService.delete(surveyId);
+		this.message = "删除成功!";    
+		return SUCCESS;
+	}
+
+	public String publish() throws Exception {
+		surveyService.publish(surveyId);
+		this.message = "发布成功!";    
 		return SUCCESS;
 	}
 
@@ -79,5 +92,21 @@ public class SurveyAction extends BaseAction {
 
 	public void setSurveyJson(String surveyJson) {
 		this.surveyJson = surveyJson;
+	}
+
+	public int getSurveyId() {
+		return surveyId;
+	}
+
+	public void setSurveyId(int surveyId) {
+		this.surveyId = surveyId;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }

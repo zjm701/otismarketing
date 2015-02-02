@@ -29,16 +29,25 @@ public class SurveyServiceImpl implements SurveyService {
 
 	@Override
 	public void delete(int surveyId) {
-		// TODO Auto-generated method stub
+		Survey s = surveyDao.get(Survey.class, surveyId);
+		s.setStatus(Survey.Status.Deleted.value());
+		surveyDao.update(s);
 	}
 
 	@Override
-	public Survey getById(int id) {
-		return surveyDao.get(Survey.class,id);
+	public void publish(int surveyId) {
+		Survey s = surveyDao.get(Survey.class, surveyId);
+		s.setStatus(Survey.Status.Published.value());
+		surveyDao.update(s);
+	}
+
+	@Override
+	public Survey getById(int surveyId) {
+		return surveyDao.get(Survey.class, surveyId);
 	}
 
 	@Override
 	public List<Survey> findAllSurvey() {
-		return surveyDao.find(" from Survey s order by s.createTime desc");
+		return surveyDao.find(" from Survey s where status!=-1 order by s.createTime desc");
 	}
 }

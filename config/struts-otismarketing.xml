@@ -35,6 +35,14 @@
    	  	 	<result name="error">/pages/error.jsp</result>
 		</action>
 	</package>
+	<package name="surveyJson" namespace="/survey" extends="json-default">
+		<action name="delete" class="surveyAction" method="delete">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="publish" class="surveyAction" method="publish">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
 	
 	<package name="statistic" namespace="/statistic" extends="struts-default">
 		<action name="getSurveyStatistic" class="statisticAction" method="getSurveyStatistic">

@@ -11,8 +11,10 @@ public interface SurveyService {
 	public void update(Survey survey);
 
 	public void delete(int surveyId);
+	
+	public void publish(int surveyId);
 
-	public Survey getById(int id);
+	public Survey getById(int surveyId);
 
 	public List<Survey> findAllSurvey();
 
