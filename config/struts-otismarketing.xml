@@ -50,4 +50,20 @@
 		</action>
 	</package>
 
+	<package name="userManagement" namespace="/userManagement" extends="json-default">
+		<action name="goUserManagement" class="userAction" method="goUserInfoMain">
+			<result name="success">/pages/userInfo.jsp</result>
+		</action>
+		<action name="getAllUsers" class="userAction" method="getUserInfoList">
+			<result name="userInfos" type="json">
+				<param name="includeProperties">
+				^data\[\d+\]\.id,
+				^data\[\d+\]\.name,
+				^data\[\d+\]\.createDate,
+				^data\[\d+\]\.updateDate
+				</param>
+			</result>
+		</action>
+	</package>
+	
 </struts>

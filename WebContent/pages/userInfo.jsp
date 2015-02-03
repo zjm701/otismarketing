@@ -26,9 +26,13 @@ $(document).ready(function () {
         "sPaginationType": "full_numbers",
         'bPaginate': true,
         "bProcessing": true,
-        "bServerSide": false
-        //"sAjaxSource": "Home/GetJsonCitys",
-        
+        "ajax": "<%=basePath%>userManagement/getAllUsers",
+        "columns": [
+                    { "data": "id" },
+                    { "data": "name" },
+                    { "data": "createDate" },
+                    { "data": "updateDate" }
+                   ]
     });
 });
 </script>
@@ -58,112 +62,9 @@ $(document).ready(function () {
 						            <th>姓名</th>
 						            <th>创建时间</th>
 						            <th>更新时间</th>
-						           	<th>操作</th>
+						           	<!-- <th>操作</th> -->
 						        </tr>
 						    </thead>
-						    <!-- 
-						    <tfoot>
-						        <tr>
-						            <th>ID</th>
-						            <th>姓名</th>
-						            <th>创建时间</th>
-						            <th>更新时间</th>
-						        </tr>
-						    </tfoot>
-						     -->
-						    <tbody>
-						        <tr>
-						            <td>1</td>
-						            <td>张三</td>
-						            <td>2014-12-11</td>
-						            <td>2014-12-11</td>
-						            <td><a href="#">删除</a></td>
-						        </tr>
-						        <tr>
-						            <td>2</td>
-						            <td>张三</td>
-						            <td>2014-12-11</td>
-						            <td>2014-12-14</td>
-						            <td><a href="#">删除</a></td>
-						        </tr>
-						        <tr>
-						            <td>3</td>
-						            <td>李3</td>
-						            <td>2014-12-11</td>
-						            <td>2014-12-16</td>
-						            <td><a href="#">删除</a></td>
-						        </tr>
-						        <tr>
-						            <td>4</td>
-						            <td>张4</td>
-						            <td>2014-12-12</td>
-						            <td>2014-12-13</td>
-						            <td><a href="#">删除</a></td>
-						        </tr>
-						        <tr>
-						            <td>5</td>
-						            <td>张5</td>
-						            <td>2014-12-11</td>
-						            <td>2014-12-12</td>
-						            <td><a href="#">删除</a></td>
-						        </tr>
-						        <tr>
-						            <td>6</td>
-						            <td>李6</td>
-						            <td>2014-12-11</td>
-						            <td>2014-12-12</td>
-						            <td><a href="#">删除</a></td>
-						        </tr>
-						        <tr>
-						            <td>7</td>
-						            <td>李7</td>
-						            <td>2014-12-15</td>
-						            <td>2014-12-16</td>
-						            <td><a href="#">删除</a></td>
-						        </tr>
-						        <tr>
-						            <td>8</td>
-						            <td>李8</td>
-						            <td>2014-12-15</td>
-						            <td>2014-12-16</td>
-						            <td><a href="#">删除</a></td>
-						        </tr>
-						        <tr>
-						            <td>9</td>
-						            <td>张9</td>
-						            <td>2014-12-11</td>
-						            <td>2014-12-12</td>
-						            <td><a href="#">删除</a></td>
-						        </tr>
-						        <tr>
-						            <td>10</td>
-						            <td>张10</td>
-						            <td>2014-12-15</td>
-						            <td>2014-12-16</td>
-						            <td><a href="#">删除</a></td>
-						        </tr>
-						        <tr>
-						            <td>11</td>
-						            <td>张11</td>
-						            <td>2015-02-15</td>
-						            <td>2015-02-15</td>
-						            <td><a href="#">删除</a></td>
-						        </tr>
-						        <tr>
-						            <td>12</td>
-						            <td>张12</td>
-						            <td>2015-02-15</td>
-						            <td>2015-02-16</td>
-						            <td><a href="#">删除</a></td>
-						        </tr>
-						        <tr>
-						            <td>13</td>
-						            <td>张13</td>
-						            <td>2015-02-15</td>
-						            <td>2015-02-17</td>
-						            <td><a href="#">删除</a></td>
-						        </tr>
-						    </tbody>
 						</table>
 					
 					<!-- table end -->
