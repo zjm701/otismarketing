@@ -1,20 +1,176 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib uri="/struts-tags" prefix="s"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Oits后台管理</title>
+<link rel="stylesheet" type="text/css" href="<%=path%>/css/common.css" />
+<link rel="stylesheet" type="text/css" href="<%=path%>/css/main.css" />
+<script type="text/javascript" src="<%=path%>/js/modernizr.min.js"></script>
+<script type="text/javascript" src="<%=path%>/thirdparty/dataTables/js/jquery.js"></script>
+<script type="text/javascript" src="<%=path%>/thirdparty/dataTables/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=path%>/thirdparty/dataTables/css/jquery.dataTables.css" />
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
-<HTML>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>My JSP 'a.jsp' starting page</title>
-  </head>
-  
-  <body>
-    	User Edit Page <br>
-  </body>
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#userList').dataTable({
+        "oLanguage": {
+            "sUrl": "<%=path%>/thirdparty/dataTables/jquery.dataTable.cn.txt"
+        },
+        "sPaginationType": "full_numbers",
+        'bPaginate': true,
+        "bProcessing": true,
+        "bServerSide": false
+        //"sAjaxSource": "Home/GetJsonCitys",
+        
+    });
+});
+</script>
+	
+</head>
+<body>
+	<!-- header -->
+	<s:include value="header.jsp" />
+	<div class="container clearfix">
+		<!--sidebar-->
+		<s:include value="leftMenu.jsp"></s:include>
+		<div class="main-wrap">
+			<div class="crumb-wrap">
+				<div class="crumb-list">
+					<a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><span class="crumb-name">用户管理</span>
+				</div>
+			</div>
+			<div class="result-wrap">
+				<div class="result-title">
+					<div class="result-list">
+						<a href="addUser.jsp"><i class="icon-font">&#xe026;</i>新增用户</a><br><br>
+						<!-- table start -->
+						<table id="userList" class="display" cellspacing="0" width="100%">
+						    <thead>
+						        <tr>
+						            <th>ID</th>
+						            <th>姓名</th>
+						            <th>创建时间</th>
+						            <th>更新时间</th>
+						           	<th>操作</th>
+						        </tr>
+						    </thead>
+						    <!-- 
+						    <tfoot>
+						        <tr>
+						            <th>ID</th>
+						            <th>姓名</th>
+						            <th>创建时间</th>
+						            <th>更新时间</th>
+						        </tr>
+						    </tfoot>
+						     -->
+						    <tbody>
+						        <tr>
+						            <td>1</td>
+						            <td>张三</td>
+						            <td>2014-12-11</td>
+						            <td>2014-12-11</td>
+						            <td><a href="#">删除</a></td>
+						        </tr>
+						        <tr>
+						            <td>2</td>
+						            <td>张三</td>
+						            <td>2014-12-11</td>
+						            <td>2014-12-14</td>
+						            <td><a href="#">删除</a></td>
+						        </tr>
+						        <tr>
+						            <td>3</td>
+						            <td>李3</td>
+						            <td>2014-12-11</td>
+						            <td>2014-12-16</td>
+						            <td><a href="#">删除</a></td>
+						        </tr>
+						        <tr>
+						            <td>4</td>
+						            <td>张4</td>
+						            <td>2014-12-12</td>
+						            <td>2014-12-13</td>
+						            <td><a href="#">删除</a></td>
+						        </tr>
+						        <tr>
+						            <td>5</td>
+						            <td>张5</td>
+						            <td>2014-12-11</td>
+						            <td>2014-12-12</td>
+						            <td><a href="#">删除</a></td>
+						        </tr>
+						        <tr>
+						            <td>6</td>
+						            <td>李6</td>
+						            <td>2014-12-11</td>
+						            <td>2014-12-12</td>
+						            <td><a href="#">删除</a></td>
+						        </tr>
+						        <tr>
+						            <td>7</td>
+						            <td>李7</td>
+						            <td>2014-12-15</td>
+						            <td>2014-12-16</td>
+						            <td><a href="#">删除</a></td>
+						        </tr>
+						        <tr>
+						            <td>8</td>
+						            <td>李8</td>
+						            <td>2014-12-15</td>
+						            <td>2014-12-16</td>
+						            <td><a href="#">删除</a></td>
+						        </tr>
+						        <tr>
+						            <td>9</td>
+						            <td>张9</td>
+						            <td>2014-12-11</td>
+						            <td>2014-12-12</td>
+						            <td><a href="#">删除</a></td>
+						        </tr>
+						        <tr>
+						            <td>10</td>
+						            <td>张10</td>
+						            <td>2014-12-15</td>
+						            <td>2014-12-16</td>
+						            <td><a href="#">删除</a></td>
+						        </tr>
+						        <tr>
+						            <td>11</td>
+						            <td>张11</td>
+						            <td>2015-02-15</td>
+						            <td>2015-02-15</td>
+						            <td><a href="#">删除</a></td>
+						        </tr>
+						        <tr>
+						            <td>12</td>
+						            <td>张12</td>
+						            <td>2015-02-15</td>
+						            <td>2015-02-16</td>
+						            <td><a href="#">删除</a></td>
+						        </tr>
+						        <tr>
+						            <td>13</td>
+						            <td>张13</td>
+						            <td>2015-02-15</td>
+						            <td>2015-02-17</td>
+						            <td><a href="#">删除</a></td>
+						        </tr>
+						    </tbody>
+						</table>
+					
+					<!-- table end -->
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</body>
 </html>
