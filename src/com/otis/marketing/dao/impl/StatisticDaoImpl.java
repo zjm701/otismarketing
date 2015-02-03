@@ -13,5 +13,7 @@ public class StatisticDaoImpl extends HibernateDaoSupport implements StatisticDa
 		List list = this.getHibernateTemplate().find("select a.intValue, sum(1) as sum from Answer a where a.question.id=1 group by a.intValue");
 		return null;
 	}
+	
+	
 
 }

@@ -16,6 +16,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tbl_question")
 public class Question implements Serializable {
+	
+	public static final String OPTION_DELIMITER = "-option-";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,7 +48,7 @@ public class Question implements Serializable {
 
 	@Column(name = "linkRules", length = 1000)
 	private String linkRules;
-
+	
 	public Question() {
 	}
 
