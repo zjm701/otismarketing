@@ -1,5 +1,6 @@
 package com.otis.marketing.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.otis.marketing.dao.BaseDAO;
 import com.otis.marketing.entity.Survey;
 import com.otis.marketing.service.SurveyService;
+import com.otis.marketing.utils.CalendarUtils;
 
 @Service("surveyService")
 @Transactional
@@ -19,6 +21,9 @@ public class SurveyServiceImpl implements SurveyService {
 
 	@Override
 	public void create(Survey survey) {
+		Date now = CalendarUtils.currentTime();
+		survey.setCreateTime(now);
+		survey.setUpdateTime(now);
 		surveyDao.save(survey);
 	}
 
@@ -38,6 +43,7 @@ public class SurveyServiceImpl implements SurveyService {
 	public void publish(int surveyId) {
 		Survey s = surveyDao.get(Survey.class, surveyId);
 		s.setStatus(Survey.Status.Published.value());
+		s.setPublishTime(CalendarUtils.currentTime());
 		surveyDao.update(s);
 	}
 

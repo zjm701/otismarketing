@@ -20,8 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.otis.marketing.utils.CalendarUtils;
-
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "tbl_survey")
@@ -52,15 +50,15 @@ public class Survey implements Serializable {
 	@Column(name = "updateTime")
 	private Date updateTime;
 
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "publishTime")
 	private Date publishTime;
 
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.DATE)
 	@Column(name = "startTime")
 	private Date startTime;
 
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.DATE)
 	@Column(name = "endTime")
 	private Date endTime;
 
@@ -79,9 +77,6 @@ public class Survey implements Serializable {
 		this.title = title;
 		this.status = Status.New.value();
 		this.type = Type.Default.value();
-		Date now = CalendarUtils.currentTime();
-		this.createTime = now;
-		this.updateTime = now;
 	}
 
 	public Integer getSurveyId() {
