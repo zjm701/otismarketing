@@ -1,14 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>新增调查</title>
 <link rel="stylesheet" href="../thirdparty/jquery-ui-1.10.2/lightness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="<%=path%>/css/common.css" />
+<link rel="stylesheet" type="text/css" href="<%=path%>/css/main.css"/>
+<script type="text/javascript" src="<%=path%>/js/modernizr.min.js"></script>
+
 <style type="text/css">
 	#main { float: left; width: auto; height: auto; margin: 10px 10px 10px 0; }
-	#top {float: left; width: 520px; height:50px; margin: 10px 10px 10px 0; }
+	#top {float: left; width: 520px; height: auto; margin: 10px 10px 10px 0; }
 	#left { float: left; width: 120px; height: 500px; margin: 10px 10px 10px 0; }
 	#right { float: right; width: 500px; height: 500px; margin: 10px 10px 10px 0; }
 	
@@ -37,6 +45,29 @@ $(document).ready( function () {
 });
 
 $(function() {
+	$("#startTime").datepicker({
+		option: {dateFormat : "yy-mm-dd"},
+		showOtherMonths: true,
+		selectOtherMonths: true,
+	    changeMonth: true,
+	    changeYear: true,
+	    onClose: function( selectedDate ) {
+	    	$("#endTime").datepicker( "option", "minDate", selectedDate );
+	    }
+	});
+	$("#endTime").datepicker({
+		option: $.datepicker.regional[ "zh-CN" ],
+		showOtherMonths: true,
+		selectOtherMonths: true,
+	    changeMonth: true,
+	    changeYear: true,
+	    onClose: function( selectedDate ) {
+	    	$("#startTime").datepicker( "option", "maxDate", selectedDate );
+	    }
+	});
+	$("#startTime").datepicker( "option", "dateFormat", "yy-mm-dd" );
+	$("#endTime").datepicker( "option", "dateFormat", "yy-mm-dd" );
+	
 	$("#divSingle").draggable({
 		start: function (event, ui) {
 			questionType = 0; //single
@@ -195,16 +226,25 @@ $(function() {
 			
 			var survey = {
 				title: $.trim(title.val()),
+				description: $.trim($("#description").val()),
+				startTime: $.trim($("#startTime").val()),
+				endTime: $.trim($("#endTime").val()),
 				questions: questions
-			}
+			};
 
-			var encoded = JSON.stringify(survey); 
-			alert(":"+encoded);
+			alert(":"+JSON.stringify(survey));
 			
-			$("input[name='surveyJson']").val(encoded);
-			
-			var f = $("#surveyFrom");
-			f.submit();
+			$.ajax({
+				url: "add.action",//要访问的后台地址
+				data: "surveyJson=" + JSON.stringify(survey),//要发送的数据
+				type: "post", //使用get方法访问后台
+				dataType: "json", //返回json格式的数据
+				async: true,
+				success: function(msg){//msg为返回的数据，在这里做数据绑定
+					alert(msg.message);
+					location.href = "findAllSurvey.action";
+				}
+			});
 		}
 	});
 });
@@ -302,24 +342,57 @@ function deleteTr(questionIndex, optionIndex){
 </script>
 </head>
 <body>
-<s:form id="surveyFrom" action="add" method="post">
-<input type='hidden' name='surveyJson' />
-
-<div id="main">
-	<div id="top">调查标题:&nbsp;<input type="text" name="title" style="width: 400px" ></div>
-	<div id="content">
-		<div id="left">
-			<div>题型选择</div>
-			<div id="divSingle" class="ui-widget-content">单选题</div>
-			<div id="divMultiple" class="ui-widget-content">多选题</div>
-			<div id="divQuestion" class="ui-widget-content">问答题</div>
-		</div>
-		<div id="right">
-		</div>
-	</div>
-</div>
-
-<input type="button" name="save" value="保存">
-</s:form>
+	<!-- header -->
+	<s:include value="../header.jsp" />
+	<div class="container clearfix">
+		<!--sidebar-->
+		<s:include value="../leftMenu.jsp" />
+		<div class="main-wrap">
+			<div class="crumb-wrap">
+				<div class="crumb-list">
+					<a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/survey/findAllSurvey">问卷管理</a><span class="crumb-step">&gt;</span><span>新增问卷</span></div>
+				</div>
+			</div>
+	        <div class="result-wrap">
+            	<div class="result-title">
+               		<h1>问卷信息</h1>
+            	</div>
+	            <div class="result-content">
+		            <div id="main">
+						<div id="top">
+							<table>
+								<tr>
+									<td>调查标题:&nbsp;</td>
+									<td><input type="text" name="title" style="width: 330px" ></td>
+								</tr>
+								<tr>
+									<td>详细描述:&nbsp;</td>
+									<td><textarea id="description" cols="40" rows="3"></textarea></td>
+								</tr>
+								<tr>
+									<td>调查时间:&nbsp;</td>
+									<td>从&nbsp;<input type="text" id="startTime" name="startTime" size="15">&nbsp;到&nbsp;<input type="text" id="endTime" name="endTime" size="15"></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><input type="button" name="save" value="保存"></td>
+								</tr>
+							</table>
+						</div>
+						<div id="content">
+							<div id="left">
+								<div>题型选择</div>
+								<div id="divSingle" class="ui-widget-content">单选题</div>
+								<div id="divMultiple" class="ui-widget-content">多选题</div>
+								<div id="divQuestion" class="ui-widget-content">问答题</div>
+							</div>
+							<div id="right">
+							</div>
+						</div>
+					</div>            
+	            </div>
+        	</div>
+    	</div>
+    </div>
 </body>
 </html>

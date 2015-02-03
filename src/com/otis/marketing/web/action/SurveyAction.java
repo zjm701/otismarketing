@@ -1,5 +1,7 @@
 package com.otis.marketing.web.action;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -24,13 +26,15 @@ public class SurveyAction extends BaseAction {
 
 	private static Gson gson = new Gson();
 
+	private static DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+
 	@Autowired
 	private SurveyService surveyService;
 
 	private String surveyJson;
-	
+
 	private int surveyId;
-	
+
 	private String message;
 
 	public String execute() throws Exception {
@@ -46,6 +50,13 @@ public class SurveyAction extends BaseAction {
 		JSONObject json = new JSONObject(surveyJson);
 
 		Survey s = new Survey(json.getString("title"));
+		s.setDescription(json.getString("description"));
+		if (json.getString("startTime") != "") {
+			s.setStartTime(df.parse(json.getString("startTime")));
+		}
+		if (json.getString("endTime") != "") {
+			s.setEndTime(df.parse(json.getString("endTime")));
+		}
 		s.setAuthor((Users) getSession().get("user"));
 
 		JSONArray questions = json.getJSONArray("questions");
@@ -64,19 +75,19 @@ public class SurveyAction extends BaseAction {
 		surveyService.create(s);
 
 		getSession().put("currentSurvey", s);
-		getSession().put("message","新增调查成功，标题为： "+s.getTitle());
+		this.message = "新增成功，标题为：" + s.getTitle();
 		return SUCCESS;
 	}
 
 	public String delete() throws Exception {
 		surveyService.delete(surveyId);
-		this.message = "删除成功!";    
+		this.message = "删除成功!";
 		return SUCCESS;
 	}
 
 	public String publish() throws Exception {
 		surveyService.publish(surveyId);
-		this.message = "发布成功!";    
+		this.message = "发布成功!";
 		return SUCCESS;
 	}
 
