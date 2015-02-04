@@ -1,6 +1,8 @@
 package com.otis.marketing.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -45,11 +47,14 @@ public class Question implements Serializable {
 
 	@Column(name = "optionsString", length = 1000)
 	private String optionsString;
+	
+	private List<Option> options;
 
 	@Column(name = "linkRules", length = 1000)
 	private String linkRules;
 	
 	public Question() {
+		setOptions(splitOptionString(getOptionsString()));
 	}
 
 	public Question(String title) {
@@ -134,6 +139,14 @@ public class Question implements Serializable {
 	public void setLinkRules(String linkRules) {
 		this.linkRules = linkRules;
 	}
+	
+	public List<Option> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<Option> options) {
+		this.options = options;
+	}
 
 	public enum Type {
 		Single(0), Multiple(1), Question(2);
@@ -161,5 +174,20 @@ public class Question implements Serializable {
 		public Integer value() {
 			return value;
 		}
+	}
+	
+	public List<Option> splitOptionString(String optionString) {
+		List<Option> result = new ArrayList<Option>();
+		if(org.springframework.util.StringUtils.isEmpty(optionString)){
+			String[] options = optionString.split(Question.OPTION_DELIMITER);
+			int index = 0;
+			for (String desc : options){
+				Option option = new Option();
+				option.setIndex(index ++);
+				option.setDescription(desc);
+				result.add(option);
+			}
+		}
+		return result;
 	}
 }
