@@ -8,17 +8,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>新增调查</title>
+<title>新增问卷</title>
 <link rel="stylesheet" href="../thirdparty/jquery-ui-1.10.2/lightness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/common.css" />
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/main.css"/>
 <script type="text/javascript" src="<%=path%>/js/modernizr.min.js"></script>
 
 <style type="text/css">
-	#main { float: left; width: auto; height: auto; margin: 10px 10px 10px 0; }
-	#top {float: left; width: 520px; height: auto; margin: 10px 10px 10px 0; }
-	#left { float: left; width: 120px; height: 500px; margin: 10px 10px 10px 0; }
-	#right { float: right; width: 500px; height: 500px; margin: 10px 10px 10px 0; }
+	#top {float: left; width: 100%; height: auto; margin: 10px 10px 10px 0; }
+	#left { float: left; width: 120px; height: 200px; margin: 10px 10px 10px 0; }
+	#right { float: left; width: 600px; height: 500px; margin: 10px 10px 10px 0; }
 	
 	#divSingle { width: 120px; height: 35px; float: top; margin: 10px 10px 10px 0; }
 	#divMultiple { width: 120px; height: 35px; float: top; margin: 10px 10px 10px 0; }
@@ -110,7 +109,7 @@ $(function() {
 	$("input[name='save']").click(function() {
 		var title = $("input[name='title']");
 		if($.trim(title.val())==""){
-			alert("请输入调查的标题!");
+			alert("请输入问卷的标题!");
 			title.focus();
 			return;
 		}
@@ -341,7 +340,7 @@ function deleteTr(questionIndex, optionIndex){
 
 </script>
 </head>
-<body>
+<body id="main">
 	<!-- header -->
 	<s:include value="../header.jsp" />
 	<div class="container clearfix">
@@ -350,7 +349,7 @@ function deleteTr(questionIndex, optionIndex){
 		<div class="main-wrap">
 			<div class="crumb-wrap">
 				<div class="crumb-list">
-					<a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/survey/findAllSurvey">问卷管理</a><span class="crumb-step">&gt;</span><span>新增问卷</span></div>
+					<a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/survey/findAllSurvey">问卷管理</a><span class="crumb-step">&gt;</span><span>新增问卷</span>
 				</div>
 			</div>
 	        <div class="result-wrap">
@@ -358,41 +357,39 @@ function deleteTr(questionIndex, optionIndex){
                		<h1>问卷信息</h1>
             	</div>
 	            <div class="result-content">
-		            <div id="main">
-						<div id="top">
-							<table>
-								<tr>
-									<td>调查标题:&nbsp;</td>
-									<td><input type="text" name="title" style="width: 330px" ></td>
-								</tr>
-								<tr>
-									<td>详细描述:&nbsp;</td>
-									<td><textarea id="description" cols="40" rows="3"></textarea></td>
-								</tr>
-								<tr>
-									<td>调查时间:&nbsp;</td>
-									<td>从&nbsp;<input type="text" id="startTime" name="startTime" size="15">&nbsp;到&nbsp;<input type="text" id="endTime" name="endTime" size="15"></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td><input type="button" name="save" value="保存"></td>
-								</tr>
-							</table>
+					<div id="top">
+						<table class="insert-tab" width="100%">
+							<tr>
+								<th width="120"><i class="require-red">*</i>问卷标题:</th>
+								<td><input type="text" name="title" style="width: 430px" ></td>
+							</tr>
+							<tr>
+								<th>详细描述:</th>
+								<td><textarea id="description" cols="50" rows="3"></textarea></td>
+							</tr>
+							<tr>
+								<th>时&nbsp;&nbsp;间:</th>
+								<td>从&nbsp;<input type="text" id="startTime" name="startTime" size="15">&nbsp;到&nbsp;<input type="text" id="endTime" name="endTime" size="15"></td>
+							</tr>
+							<tr>
+								<th></th>
+								<td><input type="button" name="save" value="保存" class="btn btn-primary btn6 mr10" ></td>
+							</tr>
+						</table>
+					</div>
+					<div id="content">
+						<div id="left">
+							<div>题型选择</div>
+							<div id="divSingle" class="ui-widget-content">单选题</div>
+							<div id="divMultiple" class="ui-widget-content">多选题</div>
+							<div id="divQuestion" class="ui-widget-content">问答题</div>
 						</div>
-						<div id="content">
-							<div id="left">
-								<div>题型选择</div>
-								<div id="divSingle" class="ui-widget-content">单选题</div>
-								<div id="divMultiple" class="ui-widget-content">多选题</div>
-								<div id="divQuestion" class="ui-widget-content">问答题</div>
-							</div>
-							<div id="right">
-							</div>
+						<div id="right">
 						</div>
-					</div>            
-	            </div>
-        	</div>
-    	</div>
+					</div>
+				</div>            
+	        </div>
+        </div>
     </div>
 </body>
 </html>

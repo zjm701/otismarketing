@@ -35,7 +35,7 @@ function publishSurvey(btn){
 	var td = $(btn).parent().siblings().first();
 	var id = td.find("input:hidden").first().val();
 	var title = td.text();
-	if( confirm('您确定要发布调查"'+title+'"么?')){
+	if( confirm('您确定要发布问卷("'+title+'")么?')){
 		$.ajax({
 			url: "publish.action",//要访问的后台地址
 			data: "surveyId=" + id,//要发送的数据
@@ -54,7 +54,7 @@ function deleteSurvey(btn){
 	var td = $(btn).parent().siblings().first();
 	var id = td.find("input:hidden").first().val();
 	var title = td.text();
-	if( confirm('您确定要删除调查"'+title+'"么?')){
+	if( confirm('您确定要删除问卷("'+title+'")么?')){
 		$.ajax({
 			url: "delete.action",//要访问的后台地址
 			data: "surveyId=" + id,//要发送的数据
@@ -100,7 +100,7 @@ function deleteSurvey(btn){
 								<s:iterator value="#session.AllSurvey" >
 								<tr>
 									<td><input type='hidden' name='surveyId' value='<s:property value="surveyId"/>' /><s:property value="title" /></td>
-									<td><s:property value="createTime" /></td>
+									<td><s:date name="createTime" format="yyyy-MM-dd HH:mm"/></td>
 									<td>
 										<s:if test="status==0">未发布</s:if>
 										<s:elseif test="status==1">已发布</s:elseif>

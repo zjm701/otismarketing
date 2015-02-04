@@ -54,11 +54,11 @@ public class Survey implements Serializable {
 	@Column(name = "publishTime")
 	private Date publishTime;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "startTime")
 	private Date startTime;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "endTime")
 	private Date endTime;
 

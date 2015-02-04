@@ -26,7 +26,7 @@ public class SurveyAction extends BaseAction {
 
 	private static Gson gson = new Gson();
 
-	private static DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+	private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	@Autowired
 	private SurveyService surveyService;
@@ -52,10 +52,10 @@ public class SurveyAction extends BaseAction {
 		Survey s = new Survey(json.getString("title"));
 		s.setDescription(json.getString("description"));
 		if (json.getString("startTime") != "") {
-			s.setStartTime(df.parse(json.getString("startTime")));
+			s.setStartTime(df.parse(json.getString("startTime") + " 00:00:00"));
 		}
 		if (json.getString("endTime") != "") {
-			s.setEndTime(df.parse(json.getString("endTime")));
+			s.setEndTime(df.parse(json.getString("endTime") + " 23:59:59"));
 		}
 		s.setAuthor((Users) getSession().get("user"));
 
@@ -73,8 +73,6 @@ public class SurveyAction extends BaseAction {
 		}
 
 		surveyService.create(s);
-
-		getSession().put("currentSurvey", s);
 		this.message = "新增成功，标题为：" + s.getTitle();
 		return SUCCESS;
 	}
