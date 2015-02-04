@@ -54,6 +54,6 @@ public class SurveyServiceImpl implements SurveyService {
 
 	@Override
 	public List<Survey> findAllSurvey() {
-		return surveyDao.find(" from Survey s where status!=-1 order by s.createTime desc");
+		return surveyDao.find(" from Survey s where s.status!=-1 order by s.createTime desc");
 	}
 }

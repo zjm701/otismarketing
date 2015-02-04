@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <h1>用户信息</h1>
             </div>
             <div class="result-content">
-                <form action="#" method="post" id="myform" name="myform">
+                <form action="<%=path%>/userManagement/addUser" method="post" id="myform" name="myform">
                     <table class="insert-tab" width="100%">
                         <tbody>
                         	<tr>
@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <tr>
                                 <th><i class="require-red">*</i>密码：</th>
                                 <td>
-                                    <input class="common-text required" id="title" name="title" size="50" value="" type="password">
+                                    <input class="common-text required" id="password" name="password" size="50" value="" type="password">
                                 </td>
                             </tr>
                             <tr>

@@ -1,10 +1,19 @@
 package com.otis.marketing.dao;
 
+import java.util.List;
+
 import org.springframework.dao.DataAccessException;
 
+import com.otis.marketing.entity.Role;
 import com.otis.marketing.entity.Users;
 
 public interface UserDao {
 
 	public Users findByName(String userName) throws DataAccessException;
+	
+	public void saveUser(Users user) throws DataAccessException;
+	
+	public Role findRoleByName(String roleName) throws DataAccessException;
+
+	public List<Users> findAllUser() throws DataAccessException;
 }

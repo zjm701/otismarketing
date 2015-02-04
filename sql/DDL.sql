@@ -174,3 +174,23 @@ CREATE TABLE `otismarketing`.`tbl_answer` (
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 -- end of survey module
+
+
+-- ----------------------------
+-- Table structure for `tbl_news`
+-- ----------------------------
+DROP TABLE IF EXISTS `otismarketing`.`tbl_news`;
+CREATE TABLE `otismarketing`.`tbl_news` (
+  `id` INT NOT NULL auto_increment,
+  `title` varchar(200) default NULL,
+  `content` text,
+  `enabled` INT default 1,
+  `status` INT default 0,
+  `authorId` INT NOT NULL,
+  `createTime` datetime default NULL,
+  `updateTime` datetime default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `FK_NEWS_1` (`authorId`),
+  CONSTRAINT `FK_NEWS_1` FOREIGN KEY (`authorId`) REFERENCES `tbl_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+
