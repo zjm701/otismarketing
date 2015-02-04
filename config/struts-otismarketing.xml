@@ -64,6 +64,9 @@
 				</param>
 			</result>
 		</action>
+		<action name="addUser" class="userAction" method="addUser">
+			<result name="success">/pages/userInfo.jsp</result>
+		</action>
 	</package>
 	
 </struts>

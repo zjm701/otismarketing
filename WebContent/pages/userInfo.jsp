@@ -53,7 +53,7 @@ $(document).ready(function () {
 			<div class="result-wrap">
 				<div class="result-title">
 					<div class="result-list">
-						<a href="addUser.jsp"><i class="icon-font">&#xe026;</i>新增用户</a><br><br>
+						<a href="<%=path%>/pages/addUser.jsp"><i class="icon-font">&#xe026;</i>新增用户</a><br><br>
 						<!-- table start -->
 						<table id="userList" class="display" cellspacing="0" width="100%">
 						    <thead>

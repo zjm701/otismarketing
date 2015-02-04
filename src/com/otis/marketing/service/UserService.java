@@ -2,19 +2,11 @@ package com.otis.marketing.service;
 
 import java.util.List;
 
-import com.otis.marketing.entity.Users;
+import com.otis.marketing.web.dto.User;
 
 public interface UserService {
 
-	public void saveUser(Users user);
+	public void addUser(User userDto);
 
-	public void updateUser(Users user);
-
-	public Users findUserById(int id);
-
-	public void deleteUser(Users user);
-
-	public List<Users> findAllList();
-
-	public Users findUserByNameAndPassword(String username, String password);
+	public List<User> getAllUser();
 }
