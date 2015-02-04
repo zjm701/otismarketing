@@ -187,8 +187,8 @@ CREATE TABLE `otismarketing`.`tbl_news` (
   `enabled` INT default 1,
   `status` INT default 0,
   `authorId` INT NOT NULL,
-  `createtime` datetime default NULL,
-  `updatetime` datetime default NULL,
+  `createTime` datetime default NULL,
+  `updateTime` datetime default NULL,
   PRIMARY KEY  (`id`),
   KEY `FK_NEWS_1` (`authorId`),
   CONSTRAINT `FK_NEWS_1` FOREIGN KEY (`authorId`) REFERENCES `tbl_user` (`id`)
