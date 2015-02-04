@@ -48,8 +48,19 @@ public class Question implements Serializable {
 
 	@Column(name = "linkRules", length = 1000)
 	private String linkRules;
-	
+
 	public Question() {
+	}
+	
+	public Question(Question q) {
+		this.questionId = q.questionId;
+		this.title = q.title;
+		this.description = q.description;
+		this.type = q.type;
+		this.isRequired = q.isRequired;
+		this.orderNO = q.orderNO;
+		this.optionsString = q.optionsString;
+		this.linkRules = q.linkRules;
 	}
 
 	public Question(String title) {

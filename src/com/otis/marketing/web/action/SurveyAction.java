@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.otis.marketing.entity.Question;
 import com.otis.marketing.entity.Survey;
 import com.otis.marketing.entity.Users;
@@ -24,9 +25,16 @@ public class SurveyAction extends BaseAction {
 
 	private static Logger logger = Logger.getLogger(SurveyAction.class);
 
-	private static Gson gson = new Gson();
+	private static String dateformatString = "yyyy-MM-dd HH:mm:ss";
 
-	private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private static DateFormat df = null;
+
+	private static Gson gson = null;
+
+	static {
+		df = new SimpleDateFormat(dateformatString);
+		gson = new GsonBuilder().setDateFormat(dateformatString).create();
+	}
 
 	@Autowired
 	private SurveyService surveyService;
@@ -74,6 +82,14 @@ public class SurveyAction extends BaseAction {
 
 		surveyService.create(s);
 		this.message = "新增成功，标题为：" + s.getTitle();
+		return SUCCESS;
+	}
+
+	public String preview() throws Exception {
+		Survey s = new Survey(surveyService.getById(surveyId));
+		this.surveyJson = gson.toJson(s);
+		getSession().put("currentSurvey", s);
+		getSession().put("currentSurveyJson", this.surveyJson);
 		return SUCCESS;
 	}
 

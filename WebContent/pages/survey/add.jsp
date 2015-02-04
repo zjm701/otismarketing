@@ -231,8 +231,6 @@ $(function() {
 				questions: questions
 			};
 
-			alert(":"+JSON.stringify(survey));
-			
 			$.ajax({
 				url: "add.action",//要访问的后台地址
 				data: "surveyJson=" + JSON.stringify(survey),//要发送的数据
@@ -254,24 +252,24 @@ var addQuesion = function(parent){
     
     if(questionType == 0 ){
     	question = $("<table id='question_"+ i + "'>"+
-    			"<tr><td>Q"+i+"</td><td><font color='red'>"+questionTypeName+"</font></td><td>&nbsp;<input type='checkbox' name='isRequired' checked='true' value='1' />该题可跳过不回答</td><td>&nbsp;<input type='button' onclick='deleteQusetion("+i+")' value='删除此题'></td><td><input type='hidden' name='type' value='"+questionType+"'></td></tr>"+
-    			"<tr><td></td><td>问题:</td><td colspan='2'><input type='text' name='question_title' size='30'/></td><td></td></tr>"+
-    			"<tr id='tr_1'><td></td><td>选项1:</td><td><input type='text' name='option' size='10'/></td><td>选中跳至<input type='text' name='link' value='"+i+"' size='1'/>题</td><td></td></tr>"+
-    			"<tr id='tr_2'><td></td><td>选项2：</td><td><input type='text' name='option' size='10'/></td><td>选中跳至<input type='text' name='link' value='"+i+"' size='1'/>题</td><td></td></tr>"+
+    			"<tr><td width='40'>Q"+i+"</td><td width='60'><font color='red'>"+questionTypeName+"</font></td><td width='160'><input type='checkbox' name='isRequired' checked='true' value='1' />该题可跳过不回答</td><td width='140'><input type='button' onclick='deleteQusetion("+i+")' value='删除此题'/></td><td><input type='hidden' name='type' value='"+questionType+"'/></td></tr>"+
+    			"<tr><td></td><td>问&nbsp;&nbsp;题:</td><td colspan='2'><input type='text' name='question_title' size='35'/></td><td></td></tr>"+
+    			"<tr id='tr_1'><td></td><td>选项1:</td><td><input type='text' name='option' size='15'/></td><td>选中跳至<input type='text' name='link' value='"+i+"' size='1'/>题</td><td></td></tr>"+
+    			"<tr id='tr_2'><td></td><td>选项2:</td><td><input type='text' name='option' size='15'/></td><td>选中跳至<input type='text' name='link' value='"+i+"' size='1'/>题</td><td></td></tr>"+
     			"<tr><td></td><td colspan='2'><input type='button' onclick=\"addTr("+i+",0)\" value='新增选项'></td><td></td><td></td></tr>"+
     			"</table>");
     }else if(questionType == 1){
     	question = $("<table id='question_"+ i + "'>"+
-				"<tr><td>Q"+i+"</td><td><font color='red'>"+questionTypeName+"</font></td><td>&nbsp;<input type='checkbox' name='isRequired' checked='true' value='1' />该题可跳过不回答</td><td>&nbsp;<input type='button' onclick='deleteQusetion("+i+")' value='删除此题'></td><td><input type='hidden' name='type' value='"+questionType+"'></td></tr>"+
-				"<tr><td></td><td>问题:</td><td colspan='2'><input type='text' name='question_title' size='30'/></td><td></td></tr>"+
-				"<tr id='tr_1'><td></td><td>选项1:</td><td><input type='text' name='option' size='10'/></td><td></td><td></td></tr>"+
-				"<tr id='tr_2'><td></td><td>选项2：</td><td><input type='text' name='option' size='10'/></td><td></td><td></td></tr>"+
+				"<tr><td width='40'>Q"+i+"</td><td width='60'><font color='red'>"+questionTypeName+"</font></td><td width='160'><input type='checkbox' name='isRequired' checked='true' value='1' />该题可跳过不回答</td><td width='140'><input type='button' onclick='deleteQusetion("+i+")' value='删除此题'/></td><td><input type='hidden' name='type' value='"+questionType+"'/></td></tr>"+
+				"<tr><td></td><td>问&nbsp;&nbsp;题:</td><td colspan='2'><input type='text' name='question_title' size='35'/></td><td></td></tr>"+
+				"<tr id='tr_1'><td></td><td>选项1:</td><td><input type='text' name='option' size='15'/></td><td></td><td></td></tr>"+
+				"<tr id='tr_2'><td></td><td>选项2:</td><td><input type='text' name='option' size='15'/></td><td></td><td></td></tr>"+
 				"<tr><td></td><td colspan='2'><input type='button' onclick=\"addTr("+i+",1)\" value='新增选项'></td><td></td><td></td></tr>"+
 				"</table>");
 	}else if(questionType == 2){
 		question = $("<table id='question_"+ i + "'>"+
-				"<tr><td>Q"+i+"</td><td><font color='red'>"+questionTypeName+"</font></td><td>&nbsp;<input type='checkbox' name='isRequired' checked='true' value='1' />该题可跳过不回答</td><td>&nbsp;<input type='button' onclick='deleteQusetion("+i+")' value='删除此题'></td><td><input type='hidden' name='type' value='"+questionType+"'></td></tr>"+
-				"<tr><td></td><td>问题:</td><td colspan='2'><input type='text' name='question_title' size='30'/></td></tr>"+
+				"<tr><td width='40'>Q"+i+"</td><td width='60'><font color='red'>"+questionTypeName+"</font></td><td width='160'><input type='checkbox' name='isRequired' checked='true' value='1' />该题可跳过不回答</td><td width='140'><input type='button' onclick='deleteQusetion("+i+")' value='删除此题'/></td><td><input type='hidden' name='type' value='"+questionType+"'/></td></tr>"+
+				"<tr><td></td><td>问&nbsp;&nbsp;题:</td><td colspan='2'><input type='text' name='question_title' size='35'/></td></tr>"+
 				"</table>");
 	}
     if(question != null){
@@ -310,9 +308,9 @@ function addTr(questionIndex, questionType){
    
    var trHtml = null;
    if(questionType == 0){
-	   trHtml = $("<tr id='tr_"+(optionIndex)+"'><td></td><td>选项"+optionIndex+"：</td><td><input type='text' name='option' size='10'/></td><td>选中跳至<input type='text' name='link' value='"+cntQuestion+"' size='1'/>题</td><td><input type='button' onclick=\"deleteTr("+questionIndex+","+optionIndex+")\" value='删除此项'></td></tr>");
+	   trHtml = $("<tr id='tr_"+(optionIndex)+"'><td></td><td>选项"+optionIndex+":</td><td><input type='text' name='option' size='15'/></td><td>选中跳至<input type='text' name='link' value='"+cntQuestion+"' size='1'/>题</td><td><input type='button' onclick=\"deleteTr("+questionIndex+","+optionIndex+")\" value='删除此项'></td></tr>");
    }else if(questionType == 1){
-	   trHtml = $("<tr id='tr_"+(optionIndex)+"'><td></td><td>选项"+optionIndex+"：</td><td><input type='text' name='option' size='10'/></td><td></td><td><input type='button' onclick=\"deleteTr("+questionIndex+","+optionIndex+")\" value='删除此项'></td></tr>");
+	   trHtml = $("<tr id='tr_"+(optionIndex)+"'><td></td><td>选项"+optionIndex+":</td><td><input type='text' name='option' size='15'/></td><td></td><td><input type='button' onclick=\"deleteTr("+questionIndex+","+optionIndex+")\" value='删除此项'></td></tr>");
    }
    tr.after(trHtml);
 };
@@ -361,14 +359,14 @@ function deleteTr(questionIndex, optionIndex){
 						<table class="insert-tab" width="100%">
 							<tr>
 								<th width="120"><i class="require-red">*</i>问卷标题:</th>
-								<td><input type="text" name="title" style="width: 430px" ></td>
+								<td><input type="text" name="title" style="width: 440px" ></td>
 							</tr>
 							<tr>
 								<th>详细描述:</th>
 								<td><textarea id="description" cols="50" rows="3"></textarea></td>
 							</tr>
 							<tr>
-								<th>时&nbsp;&nbsp;间:</th>
+								<th>时&nbsp;&nbsp;&nbsp;&nbsp;间:</th>
 								<td>从&nbsp;<input type="text" id="startTime" name="startTime" size="15">&nbsp;到&nbsp;<input type="text" id="endTime" name="endTime" size="15"></td>
 							</tr>
 							<tr>

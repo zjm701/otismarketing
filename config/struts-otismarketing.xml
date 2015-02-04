@@ -35,6 +35,9 @@
 		<action name="add" class="surveyAction" method="add">
 			<result name="success" type="json"></result>
 		</action>
+		<action name="preview" class="surveyAction" method="preview">
+			<result name="success" type="json"></result>
+		</action>
 		<action name="delete" class="surveyAction" method="delete">
 			<result name="success" type="json"></result>
 		</action>
