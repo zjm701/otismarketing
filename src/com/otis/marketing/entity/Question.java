@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity
@@ -48,13 +49,14 @@ public class Question implements Serializable {
 	@Column(name = "optionsString", length = 1000)
 	private String optionsString;
 	
+	@Transient
 	private List<Option> options;
 
 	@Column(name = "linkRules", length = 1000)
 	private String linkRules;
 
 	public Question() {
-		setOptions(splitOptionString(getOptionsString()));
+//		setOptions(splitOptionString(getOptionsString()));
 	}
 	
 	public Question(Question q) {
