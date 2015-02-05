@@ -17,7 +17,7 @@ public class StatisticAction extends BaseAction {
 	private StatisticService statisticService;
 	
 	public String getSurveyStatistic(){
-		statisticService.getSurveyStatistic();
+//		statisticService.getSurveyStatistic();
 		return SUCCESS;
 	}
 }

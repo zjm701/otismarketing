@@ -1,9 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Survey Statistic</title>
-<script src="../../js/jquery-1.10.2.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=path%>/css/common.css" />
+<link rel="stylesheet" type="text/css" href="<%=path%>/css/main.css"/>
+<script type="text/javascript" src="<%=path%>/thirdparty/dataTables/js/jquery.js"></script>
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
@@ -122,8 +131,15 @@ $(function () {
 </script>
 </head>
 <body>
-<div> <center>Your favorit brand surveys</center></div>
-<div id="container0" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+<s:include value="../header.jsp"/>
+<div class="container clearfix">
+	<!--sidebar-->
+    <s:include value="../leftMenu.jsp"/>
+    <div class="main-wrap">
+        <div> <center>Your favorit brand survey</center></div>
+		<div id="container0" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
 <div id="container1" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+    </div>
+</div>
 </body>
 </html>

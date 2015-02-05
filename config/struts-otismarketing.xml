@@ -48,7 +48,7 @@
 	
 	<package name="statistic" namespace="/statistic" extends="struts-default">
 		<action name="getSurveyStatistic" class="statisticAction" method="getSurveyStatistic">
-			<result name="success">/pages/statistic/survey_stat.jsp</result>
+			<result name="success">/pages/statistic/survey_statistic.jsp</result>
    	  	 	<result name="error">/pages/error.jsp</result>
 		</action>
 	</package>
