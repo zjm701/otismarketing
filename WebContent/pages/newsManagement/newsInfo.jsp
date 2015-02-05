@@ -26,12 +26,12 @@ $(document).ready(function () {
         "sPaginationType": "full_numbers",
         'bPaginate': true,
         "bProcessing": true,
-        "ajax": "<%=basePath%>userManagement/getAllUsers",
+        "ajax": "<%=basePath%>newsManagement/getAllNews",
         "columns": [
                     { "data": "id" },
-                    { "data": "name" },
-                    { "data": "createDate" },
-                    { "data": "updateDate" }
+                    { "data": "title" },
+                    { "data": "status" },
+                    { "data": "createTime" }
                    ]
     });
 });
@@ -40,28 +40,28 @@ $(document).ready(function () {
 </head>
 <body>
 	<!-- header -->
-	<s:include value="header.jsp" />
+	<s:include value="../header.jsp" />
 	<div class="container clearfix">
 		<!--sidebar-->
-		<s:include value="leftMenu.jsp"></s:include>
+		<s:include value="../leftMenu.jsp"></s:include>
 		<div class="main-wrap">
 			<div class="crumb-wrap">
 				<div class="crumb-list">
-					<a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><span class="crumb-name">用户管理</span>
+					<a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><span class="crumb-name">新闻管理</span>
 				</div>
 			</div>
 			<div class="result-wrap">
 				<div class="result-title">
 					<div class="result-list">
-						<a href="<%=path%>/pages/addUser.jsp"><i class="icon-font">&#xe026;</i>新增用户</a><br><br>
+						<a href="<%=path%>/pages/newsManagement/addNews.jsp"><i class="icon-font">&#xe026;</i>新增新闻</a><br><br>
 						<!-- table start -->
 						<table id="userList" class="display" cellspacing="0" width="100%">
 						    <thead>
 						        <tr>
 						            <th>ID</th>
-						            <th>姓名</th>
+						            <th>标题</th>
+						            <th>状态</th>
 						            <th>创建时间</th>
-						            <th>更新时间</th>
 						           	<!-- <th>操作</th> -->
 						        </tr>
 						    </thead>

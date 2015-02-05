@@ -20,7 +20,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" charset="utf-8" src="<%=path%>/thirdparty/umeditor1_2_2/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=path%>/thirdparty/umeditor1_2_2/umeditor.min.js"></script>
 <script type="text/javascript" src="<%=path%>/thirdparty/umeditor1_2_2/lang/zh-cn/zh-cn.js"></script>
-    
+<script type="text/javascript">
+	function submitForm(){
+		document.getElementById("content").value = getContent();
+		document.addForm.submit();
+	}
+	
+</script>
 </head>
 <body>
 <!-- header -->
@@ -30,14 +36,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <s:include value="../leftMenu.jsp"/>
     <div class="main-wrap">
          <div class="crumb-wrap">
-            <div class="crumb-list"><a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="#">新闻管理</a><span class="crumb-step">&gt;</span><span>新增新闻</span></div>
+            <div class="crumb-list"><a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/pages/newsManagement/newsInfo.jsp">新闻管理</a><span class="crumb-step">&gt;</span><span>新增新闻</span></div>
         </div>
         <div class="result-wrap">
             <div class="result-title">
-                <h1>新闻编辑</h1>
+                <h1>添加新闻</h1>
             </div>
             <div class="result-content">
-            <script type="text/plain" id="myEditor" style="width:1000px;height:240px;"></script>
+            <form action="<%=path%>/newsManagement/addNews" method="post" id="addForm" name="addForm">
+            	<input type="text" name="title"><br>
+            	<s:hidden name="content" id="content" value=""/>
+            
+            <script type="text/plain" id="newsEditor" style="width:1000px;height:240px;"></script>
+            <input class="btn btn-primary btn6 mr10" value="提交" type="button" onclick="submitForm()">
+			</form>
             </div>
             <div>
 			    <h3 id="focush2"></h3>
@@ -46,15 +58,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <script type="text/javascript">
-    //实例化编辑器
-    var um = UM.getEditor('myEditor');
-    um.addListener('blur',function(){
-        $('#focush2').html('')
-    });
-    um.addListener('focus',function(){
-        $('#focush2').html('')
-    });
-    
+    var um = UM.getEditor('newsEditor');
+    function getContent() {
+    	return UM.getEditor('newsEditor').getContent();
+    }
 </script>
 </body>
 </html>

@@ -1,0 +1,82 @@
+package com.otis.marketing.web.action;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import com.otis.marketing.service.NewsService;
+import com.otis.marketing.web.dto.NewsBean;
+
+@Scope("request")
+@Controller("newsAction")
+public class NewsAction extends BaseAction {
+
+	private static final long serialVersionUID = -1557654686550631734L;
+
+	private static Logger logger = Logger.getLogger(NewsAction.class);
+
+	private String title;
+
+	private String content;
+
+	private Integer status;
+
+	private List<NewsBean> data = new ArrayList<NewsBean>();
+
+	@Autowired
+	private NewsService newsService;
+
+	public String goNewsInfoMain() {
+		return SUCCESS;
+	}
+
+	public String getNewsInfoList() {
+		List<NewsBean> newsList = newsService.getAllNews();
+		data.addAll(newsList);
+
+		return "newsInfos";
+	}
+
+	public String addNews() {
+		NewsBean news = new NewsBean();
+		news.setContent(content);
+		news.setTitle(title);
+
+		newsService.addNews(news);
+
+		return SUCCESS;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public List<NewsBean> getData() {
+		return data;
+	}
+
+}

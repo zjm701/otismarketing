@@ -72,4 +72,22 @@
 		</action>
 	</package>
 	
+	<package name="newsManagement" namespace="/newsManagement" extends="json-default">
+		<action name="goNewsManagement" class="newsAction" method="goNewsInfoMain">
+			<result name="success">/pages/newsManagement/newsInfo.jsp</result>
+		</action>
+		<action name="getAllNews" class="newsAction" method="getNewsInfoList">
+			<result name="newsInfos" type="json">
+				<param name="includeProperties">
+				^data\[\d+\]\.id,
+				^data\[\d+\]\.title,
+				^data\[\d+\]\.status,
+				^data\[\d+\]\.createTime
+				</param>
+			</result>
+		</action>
+		<action name="addNews" class="newsAction" method="addNews">
+			<result name="success">/pages/newsManagement/newsInfo.jsp</result>
+		</action>
+	</package>
 </struts>
