@@ -9,13 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.otis.marketing.dao.NewsDao;
 import com.otis.marketing.entity.News;
-import com.otis.marketing.entity.Users;
 import com.otis.marketing.security.OtisContext;
 import com.otis.marketing.service.NewsService;
 import com.otis.marketing.utils.CalendarUtils;
 import com.otis.marketing.utils.Utils;
 import com.otis.marketing.web.dto.NewsBean;
-import com.otis.marketing.web.dto.User;
 
 @Service("newsService")
 @Transactional
@@ -59,9 +57,14 @@ public class NewsServiceImpl implements NewsService {
 		return newsList;
 	}
 
+	@Override
+	public News getNewsById(Integer newsId) {
+		return newsDao.findNewsById(newsId);
+	}
 
 	@Autowired
 	public void setNewsDao(NewsDao newsDao) {
 		this.newsDao = newsDao;
 	}
+
 }

@@ -11,4 +11,6 @@ public interface NewsDao {
 	public void saveUser(News news) throws DataAccessException;
 	
 	public List<News> findAllNews() throws DataAccessException;
+	
+	public News findNewsById(Integer newsId) throws DataAccessException;
 }

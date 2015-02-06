@@ -13,4 +13,9 @@ public interface OtisMarketingService {
 	@Path(value = "/sayHello")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public String sayHello(@QueryParam("name") String name);
+	
+	@GET
+	@Path(value = "/getNewsDetails")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public String getNewsDetails(@QueryParam("newsId") String newsId);
 }
