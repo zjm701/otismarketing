@@ -60,11 +60,14 @@ public class UserServiceImpl implements UserService {
 		return users;
 	}
 
-	
+	@Override
+	public void updatePwd(Integer userId, String newPassWord) {
+		userDao.changePassWord(newPassWord, userId);
+	}
 
 	@Autowired
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
-	
+
 }

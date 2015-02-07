@@ -70,6 +70,12 @@
 		<action name="addUser" class="userAction" method="addUser">
 			<result name="success">/pages/userInfo.jsp</result>
 		</action>
+		<action name="goUpdatePwd" class="userAction" method="goUpdatePwd">
+			<result name="success">/pages/pwdSetting.jsp</result>
+		</action>
+		<action name="updatePwd" class="userAction" method="changePassword">
+			<result name="success">/pages/userInfo.jsp</result>
+		</action>
 	</package>
 	
 	<package name="newsManagement" namespace="/newsManagement" extends="json-default">

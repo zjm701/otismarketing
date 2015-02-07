@@ -16,4 +16,6 @@ public interface UserDao {
 	public Role findRoleByName(String roleName) throws DataAccessException;
 
 	public List<Users> findAllUser() throws DataAccessException;
+	
+	public void changePassWord(String newPassWord, Integer userId) throws DataAccessException;
 }

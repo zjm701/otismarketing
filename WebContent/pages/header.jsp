@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="top-info-wrap">
             <ul class="top-info-list clearfix">
                 <li>用户：${sessionScope.user.username}</li>
-                <li><a href="#">修改密码</a></li>
+                <li><a href="<%=path%>/userManagement/goUpdatePwd">修改密码</a></li>
                 <li><a href="<%=path%>/logout.do">退出</a></li>
             </ul>
         </div>

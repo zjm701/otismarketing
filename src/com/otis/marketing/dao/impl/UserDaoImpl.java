@@ -44,5 +44,17 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 		
 		return users;
 	}
-	
+
+	@Override
+	public void changePassWord(String newPassWord, Integer userId)
+			throws DataAccessException {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Users.class);
+		criteria.add(Restrictions.eq("id", userId));
+		List findByCriteria = this.getHibernateTemplate().findByCriteria(criteria);
+		
+		List<Users> users = findByCriteria;
+		Users user = (Users)users.get(0);
+		user.setPassword(newPassWord);
+		getHibernateTemplate().update(user);
+	}
 }

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.otis.marketing.entity.Users;
+import com.otis.marketing.security.OtisContext;
 import com.otis.marketing.service.UserService;
 import com.otis.marketing.web.dto.User;
 
@@ -36,31 +38,6 @@ public class UserAction extends BaseAction{
 		
 		List<User> users = userService.getAllUser();
 		data.addAll(users);
-		
-//		User user1 = new User();
-//		user1.setId(1);
-//		user1.setName("user1");
-//		user1.setPassword("123");
-//		user1.setCreateDate("2010-1-1");
-//		user1.setUpdateDate("2010-1-1");
-//		
-//		User user2 = new User();
-//		user2.setId(2);
-//		user2.setName("user2");
-//		user2.setPassword("123");
-//		user2.setCreateDate("2010-1-2");
-//		user2.setUpdateDate("2010-1-2");
-//		
-//		User user3 = new User();
-//		user3.setId(3);
-//		user3.setName("user3");
-//		user3.setPassword("123");
-//		user3.setCreateDate("2010-1-3");
-//		user3.setUpdateDate("2010-1-3");
-//		data.add(user1);
-//		data.add(user2);
-//		data.add(user3);
-		
 		return "userInfos";
 	}
 
@@ -74,6 +51,15 @@ public class UserAction extends BaseAction{
 		return SUCCESS;
 	}
 	
+	public String goUpdatePwd() {
+		return SUCCESS;
+	}
+	
+	public String changePassword() {
+		Users user = OtisContext.getContextUser();
+		userService.updatePwd(user.getId(), password);
+		return SUCCESS;
+	}
 	
 	public List<User> getData() {
 		return data;

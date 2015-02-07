@@ -9,4 +9,6 @@ public interface UserService {
 	public void addUser(User userDto);
 
 	public List<User> getAllUser();
+	
+	public void updatePwd(Integer userId, String newPassWord);
 }
