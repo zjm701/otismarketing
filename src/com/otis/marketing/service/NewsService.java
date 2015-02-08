@@ -12,4 +12,8 @@ public interface NewsService {
 	public List<NewsBean> getAllNews();
 	
 	public News getNewsById(Integer newsId);
+	
+	public void updateNews(NewsBean news);
+	
+	public void deleteNews(Integer newsId);
 }

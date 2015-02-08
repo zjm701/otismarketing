@@ -13,7 +13,7 @@ import com.otis.marketing.entity.News;
 
 public class NewsDaoImpl extends HibernateDaoSupport implements NewsDao {
 
-	public void saveUser(News news) throws DataAccessException {
+	public void saveNews(News news) throws DataAccessException {
 		this.getHibernateTemplate().save(news);
 	}
 
@@ -43,6 +43,16 @@ public class NewsDaoImpl extends HibernateDaoSupport implements NewsDao {
 		}
 
 		return news;
+	}
+
+	@Override
+	public void updateNews(News news) throws DataAccessException {
+		this.getHibernateTemplate().update(news);
+	}
+
+	@Override
+	public void deleteNews(News news) throws DataAccessException {
+		this.getHibernateTemplate().delete(news);
 	}
 
 }

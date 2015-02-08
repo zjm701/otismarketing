@@ -95,5 +95,14 @@
 		<action name="addNews" class="newsAction" method="addNews">
 			<result name="success">/pages/newsManagement/newsInfo.jsp</result>
 		</action>
+		<action name="initUpdateNews" class="newsAction" method="initUpdate">
+			<result name="success">/pages/newsManagement/updateNews.jsp</result>
+		</action>
+		<action name="updateNews" class="newsAction" method="updateNews">
+			<result name="success">/pages/newsManagement/newsInfo.jsp</result>
+		</action>
+		<action name="deleteNews" class="newsAction" method="deleteNews">
+			<result name="success">/pages/newsManagement/newsInfo.jsp</result>
+		</action>
 	</package>
 </struts>

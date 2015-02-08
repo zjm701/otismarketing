@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.otis.marketing.entity.News;
 import com.otis.marketing.service.NewsService;
 import com.otis.marketing.web.dto.NewsBean;
 
@@ -24,6 +25,8 @@ public class NewsAction extends BaseAction {
 	private String content;
 
 	private Integer status;
+
+	private Integer newsId;
 
 	private List<NewsBean> data = new ArrayList<NewsBean>();
 
@@ -51,6 +54,32 @@ public class NewsAction extends BaseAction {
 		return SUCCESS;
 	}
 
+	public String initUpdate() {
+
+		News news = newsService.getNewsById(newsId);
+		this.title = news.getTitle();
+		this.content = news.getContent();
+
+		return SUCCESS;
+	}
+
+	public String updateNews() {
+		NewsBean news = new NewsBean();
+		news.setContent(content);
+		news.setTitle(title);
+		news.setId(newsId);
+
+		newsService.updateNews(news);
+		
+		return SUCCESS;
+	}
+
+	public String deleteNews() {
+		newsService.deleteNews(newsId);
+		
+		return SUCCESS;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -77,6 +106,14 @@ public class NewsAction extends BaseAction {
 
 	public List<NewsBean> getData() {
 		return data;
+	}
+
+	public Integer getNewsId() {
+		return newsId;
+	}
+
+	public void setNewsId(Integer newsId) {
+		this.newsId = newsId;
 	}
 
 }

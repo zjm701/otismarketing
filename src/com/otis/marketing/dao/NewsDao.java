@@ -8,9 +8,13 @@ import com.otis.marketing.entity.News;
 
 public interface NewsDao {
 	
-	public void saveUser(News news) throws DataAccessException;
+	public void saveNews(News news) throws DataAccessException;
 	
 	public List<News> findAllNews() throws DataAccessException;
 	
 	public News findNewsById(Integer newsId) throws DataAccessException;
+	
+	public void updateNews(News news) throws DataAccessException;
+	
+	public void deleteNews(News news) throws DataAccessException;
 }

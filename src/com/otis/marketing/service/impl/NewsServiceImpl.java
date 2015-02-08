@@ -32,7 +32,7 @@ public class NewsServiceImpl implements NewsService {
 		news.setUpdateTime(CalendarUtils.currentTime());
 		news.setUser(OtisContext.getContextUser());
 		
-		newsDao.saveUser(news);
+		newsDao.saveNews(news);
 	}
 
 	@Override
@@ -57,6 +57,25 @@ public class NewsServiceImpl implements NewsService {
 		return newsList;
 	}
 
+	@Override
+	public void updateNews(NewsBean news) {
+		News ne = newsDao.findNewsById(news.getId());
+		ne.setContent(news.getContent());
+		ne.setUpdateTime(CalendarUtils.currentTime());
+		ne.setTitle(news.getTitle());
+		if (news.getStatus() != null) {
+			ne.setStatus(news.getStatus());
+		}
+		
+		newsDao.updateNews(ne);
+	}
+	
+	@Override
+	public void deleteNews(Integer newsId) {
+		News news = newsDao.findNewsById(newsId);
+		newsDao.deleteNews(news);
+	}
+	
 	@Override
 	public News getNewsById(Integer newsId) {
 		return newsDao.findNewsById(newsId);

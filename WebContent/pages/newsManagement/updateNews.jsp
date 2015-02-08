@@ -15,15 +15,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="<%=path%>/js/modernizr.min.js"></script>
 
 
-<link href="<%=path%>/thirdparty/umeditor1_2_2/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="<%=path%>/thirdparty/umeditor1_2_2/third-party/jquery.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=path%>/thirdparty/umeditor1_2_2/umeditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=path%>/thirdparty/umeditor1_2_2/umeditor.min.js"></script>
-<script type="text/javascript" src="<%=path%>/thirdparty/umeditor1_2_2/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path%>/thirdparty/ueditor1_4_3/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path%>/thirdparty/ueditor1_4_3/ueditor.all.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path%>/thirdparty/ueditor1_4_3/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
-	function submitForm(){
+	function setValues(){
 		document.getElementById("content").value = getContent();
-		document.addForm.submit();
+		return true;
 	}
 	
 </script>
@@ -36,21 +35,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <s:include value="../leftMenu.jsp"/>
     <div class="main-wrap">
          <div class="crumb-wrap">
-            <div class="crumb-list"><a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/pages/newsManagement/newsInfo.jsp">新闻管理</a><span class="crumb-step">&gt;</span><span>新增新闻</span></div>
+            <div class="crumb-list"><a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/pages/newsManagement/newsInfo.jsp">新闻管理</a><span class="crumb-step">&gt;</span><span>修改新闻</span></div>
         </div>
         <div class="result-wrap">
             <div class="result-title">
-                <h1>添加新闻</h1>
+                <h1>修改新闻</h1>
             </div>
+            <s:form action="updateNews" namespace="/userManagement" method="post" onsubmit="return setValues()">
+	        <table>
+	           	<tr>
+	            	<td><s:textfield name="title" /></td>
+	            </tr>
+	        </table>
+	        <br>
             <div class="result-content">
-            <form action="<%=path%>/newsManagement/addNews" method="post" id="addForm" name="addForm">
-            	标题：<input type="text" name="title"><br><br>
             	<s:hidden name="content" id="content" value=""/>
-            
-            	<script type="text/plain" id="newsEditor" style="width:1000px;height:240px;"></script><br>
-            	<input class="btn btn-primary btn6 mr10" value="提交" type="button" onclick="submitForm()">
-			</form>
+            	<s:hidden name="newsId" id="newsId" />
+	            <div>
+	            	<script type="text/plain" id="newsEditor" style="width:1000px;height:240px;">${requestScope.content}</script>
+	            </div>
+	            <br>
+            	<input class="btn btn-primary btn6 mr10" value="确定" type="submit" >
+            	<input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
             </div>
+            </s:form>
             <div>
 			    <h3 id="focush2"></h3>
 			</div>
@@ -58,9 +66,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <script type="text/javascript">
-    var um = UM.getEditor('newsEditor');
+    var ue = UE.getEditor('newsEditor');
+//     ue.ready(function() {
+//         ue.setContent('<s:property value="content" />');
+//     });
     function getContent() {
-    	return UM.getEditor('newsEditor').getContent();
+    	return ue.getContent();
     }
 </script>
 </body>
