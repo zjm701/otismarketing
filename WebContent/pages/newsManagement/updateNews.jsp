@@ -15,7 +15,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="<%=path%>/js/modernizr.min.js"></script>
 
 
-<script type="text/javascript" src="<%=path%>/thirdparty/umeditor1_2_2/third-party/jquery.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=path%>/thirdparty/ueditor1_4_3/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=path%>/thirdparty/ueditor1_4_3/ueditor.all.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=path%>/thirdparty/ueditor1_4_3/lang/zh-cn/zh-cn.js"></script>

@@ -15,11 +15,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="<%=path%>/js/modernizr.min.js"></script>
 
 
-<link href="<%=path%>/thirdparty/umeditor1_2_2/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-<script type="text/javascript" src="<%=path%>/thirdparty/umeditor1_2_2/third-party/jquery.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=path%>/thirdparty/umeditor1_2_2/umeditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=path%>/thirdparty/umeditor1_2_2/umeditor.min.js"></script>
-<script type="text/javascript" src="<%=path%>/thirdparty/umeditor1_2_2/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path%>/thirdparty/ueditor1_4_3/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path%>/thirdparty/ueditor1_4_3/ueditor.all.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path%>/thirdparty/ueditor1_4_3/lang/zh-cn/zh-cn.js"></script>
+
 <script type="text/javascript">
 	function submitForm(){
 		document.getElementById("content").value = getContent();
@@ -58,9 +57,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <script type="text/javascript">
-    var um = UM.getEditor('newsEditor');
+    var ue = UE.getEditor('newsEditor');
     function getContent() {
-    	return UM.getEditor('newsEditor').getContent();
+    	return UE.getEditor('newsEditor').getContent();
     }
 </script>
 </body>

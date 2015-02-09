@@ -5,20 +5,27 @@
 
 <struts>
 
-    <package name="struts-otismarketing" extends="struts-default">
+	<bean type="org.apache.struts2.dispatcher.multipart.MultiPartRequest"
+		name="otisRequestParser" class="com.otis.marketing.common.RequestParseWrapper"
+		scope="default" optional="true" />
+	<constant name="struts.multipart.handler" value="otisRequestParser" />
 
-        <global-results>
-            <result name="error">/pages/error.jsp</result>
-        </global-results>
 
-        <global-exception-mappings>
-            <exception-mapping exception="java.lang.Exception" result="error"/>
-        </global-exception-mappings>
+	<package name="struts-otismarketing" extends="struts-default">
 
-    </package>
+		<global-results>
+			<result name="error">/pages/error.jsp</result>
+		</global-results>
 
-    <include file="struts-otismarketing.xml"/>
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception"
+				result="error" />
+		</global-exception-mappings>
 
-    <!-- Add packages here -->
+	</package>
+
+	<include file="struts-otismarketing.xml" />
+
+	<!-- Add packages here -->
 
 </struts>
