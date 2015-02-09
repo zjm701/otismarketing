@@ -30,6 +30,9 @@
 		<action name="toAdd" class="surveyAction" method="toAdd">
 			<result name="success">/pages/survey/add.jsp</result>
 		</action>
+		<action name="toEdit" class="surveyAction" method="toEdit">
+			<result name="success">/pages/survey/edit.jsp</result>
+		</action>
 	</package>
 	<package name="surveyJson" namespace="/survey" extends="json-default">
 		<action name="add" class="surveyAction" method="add">

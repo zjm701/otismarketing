@@ -35,10 +35,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<tr height="10"></tr>
 						<tr>
 							<td width="40">Q<s:property value="#st.count"/>:&nbsp;</td>
-							<td><s:property value="title" /><s:property value="optionsString" /></td>
+							<td><s:property value="title" /></td>
 						</tr>
 						<s:if test="type==0 || type==1">
-							<s:generator val="optionsString" separator="-" id="options">
+							<s:generator val="optionsString" separator="-OPT-" id="options">
 							<s:iterator value="#options" id="option">
 								<tr>
 									<td></td>

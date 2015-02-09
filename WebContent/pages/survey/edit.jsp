@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>新增问卷</title>
+<title>修改问卷</title>
 <link rel="stylesheet" href="../thirdparty/jquery-ui-1.10.2/lightness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/common.css" />
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/main.css"/>
@@ -55,7 +55,6 @@ $(function() {
 	    	$("#startTime").datepicker( "option", "maxDate", selectedDate );
 	    }
 	});
-	
 	$("#startTime").datepicker( "option", "dateFormat", "yy-mm-dd" );
 	$("#endTime").datepicker( "option", "dateFormat", "yy-mm-dd" );
 	
@@ -356,15 +355,15 @@ function deleteTr(button){
 						<table class="insert-tab" width="100%">
 							<tr>
 								<th width="120"><i class="require-red">*</i>问卷标题:</th>
-								<td><input type="text" name="title" style="width: 440px" ></td>
+								<td><input type="text" name="title" style="width: 440px" value='<s:property value="#session.currentSurvey.title"/>'></td>
 							</tr>
 							<tr>
 								<th>详细描述:</th>
-								<td><textarea id="description" cols="50" rows="3"></textarea></td>
+								<td><textarea id="description" cols="50" rows="3"><s:property value="#session.currentSurvey.description"/></textarea></td>
 							</tr>
 							<tr>
 								<th>时&nbsp;&nbsp;&nbsp;&nbsp;间:</th>
-								<td>从&nbsp;<input type="text" id="startTime" name="startTime" size="15">&nbsp;到&nbsp;<input type="text" id="endTime" name="endTime" size="15"></td>
+								<td>从&nbsp;<input type="text" id="startTime" name="startTime" size="15" value='<s:date name="#session.currentSurvey.startTime" format="yyyy-MM-dd"/>'>&nbsp;到&nbsp;<input type="text" id="endTime" name="endTime" size="15" value='<s:date name="#session.currentSurvey.endTime" format="yyyy-MM-dd"/>'></td>
 							</tr>
 							<tr>
 								<th></th>
@@ -381,7 +380,6 @@ function deleteTr(button){
 						</div>
 						<div id="right" class="ui-widget-content">
 							<ul id="sortable">
-								<li class="placeholder">拖拽题型到这里，即添加新问题</li>
 						    </ul>
 						</div>
 					</div>

@@ -20,8 +20,8 @@ import javax.persistence.Transient;
 @Table(name = "tbl_question")
 public class Question implements Serializable {
 	
-	public static final String OPTION_DELIMITER = "-option-";
-
+	public static final String OPTION_DELIMITER = "-OPT-";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "questionId")

@@ -126,7 +126,7 @@ function deleteSurvey(a){
 									<td><s:date name="createTime" format="yyyy-MM-dd HH:mm"/></td>
 									<td>
 										<a href="<%=path%>/pages/survey/preview.jsp" target='_blank' onclick="previewSurvey(this)">预览</a>
-										<s:if test="status==0"><a href="#">修改</a><a href="#" onclick="publishSurvey(this)">发布</a></s:if>
+										<s:if test="status==0"><a href="toEdit?surveyId=<s:property value="surveyId"/>" >修改</a><a href="#" onclick="publishSurvey(this)">发布</a></s:if>
 										<s:if test="status==0 || status==2"><a href="#" onclick="deleteSurvey(this)">删除</a></s:if>
 									</td>
 								</tr>

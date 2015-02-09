@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -51,7 +52,15 @@ public class SurveyAction extends BaseAction {
 
 	public String toAdd() throws Exception {
 		return SUCCESS;
+	}
 
+	public String toEdit() throws Exception {
+		Survey s = new Survey(surveyService.getById(surveyId));
+		logger.info("s:"+s);
+		this.surveyJson = gson.toJson(s);
+		getSession().put("currentSurvey", s);
+		getSession().put("currentSurveyJson", this.surveyJson);
+		return SUCCESS;
 	}
 
 	public String add() throws Exception {
@@ -59,10 +68,10 @@ public class SurveyAction extends BaseAction {
 
 		Survey s = new Survey(json.getString("title"));
 		s.setDescription(json.getString("description"));
-		if (json.getString("startTime") != "") {
+		if (!json.getString("startTime").isEmpty()) {
 			s.setStartTime(df.parse(json.getString("startTime") + " 00:00:00"));
 		}
-		if (json.getString("endTime") != "") {
+		if (!json.getString("endTime").isEmpty()) {
 			s.setEndTime(df.parse(json.getString("endTime") + " 23:59:59"));
 		}
 		s.setAuthor((Users) getSession().get("user"));
@@ -87,9 +96,7 @@ public class SurveyAction extends BaseAction {
 
 	public String preview() throws Exception {
 		Survey s = new Survey(surveyService.getById(surveyId));
-		this.surveyJson = gson.toJson(s);
 		getSession().put("currentSurvey", s);
-		getSession().put("currentSurveyJson", this.surveyJson);
 		return SUCCESS;
 	}
 
