@@ -57,14 +57,36 @@ public class UserServiceImpl implements UserService {
 			users.add(dto);
 		}
 		
-		return users;
+		return users; 
 	}
 
+	@Override
+	public void updateUser(User user) {
+		Users u =userDao.findById(user.getId());
+		u.setPassword(user.getPassword());
+		u.setUsername(user.getName());
+		u.setUpdateDate(CalendarUtils.currentTime());
+		
+		userDao.updateUser(u);
+	}
+
+	@Override
+	public void deleteUser(Integer userId) {
+		Users user =userDao.findById(userId);
+		user.setEnabled(0);
+		userDao.updateUser(user);
+	}
+	
 	@Override
 	public void updatePwd(Integer userId, String newPassWord) {
 		userDao.changePassWord(newPassWord, userId);
 	}
 
+	@Override
+	public Users getUserById(Integer userId) {
+		return userDao.findById(userId);
+	}
+	
 	@Autowired
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;

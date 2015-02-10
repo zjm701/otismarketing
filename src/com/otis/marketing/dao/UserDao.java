@@ -18,4 +18,8 @@ public interface UserDao {
 	public List<Users> findAllUser() throws DataAccessException;
 	
 	public void changePassWord(String newPassWord, Integer userId) throws DataAccessException;
+	
+	public void updateUser(Users user) throws DataAccessException;
+	
+	public Users findById(Integer userId) throws DataAccessException;
 }

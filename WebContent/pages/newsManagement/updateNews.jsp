@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="result-title">
                 <h1>修改新闻</h1>
             </div>
-            <s:form action="updateNews" namespace="/userManagement" method="post" onsubmit="return setValues()">
+            <s:form action="updateNews" namespace="/newsManagement" method="post" onsubmit="return setValues()">
 	        <table>
 	           	<tr>
 	            	<td><s:textfield name="title" /></td>

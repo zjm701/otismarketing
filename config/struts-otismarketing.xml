@@ -79,6 +79,15 @@
 		<action name="updatePwd" class="userAction" method="changePassword">
 			<result name="success">/pages/userInfo.jsp</result>
 		</action>
+		<action name="initUpdate" class="userAction" method="initUpdate">
+			<result name="success">/pages/updateUser.jsp</result>
+		</action>
+		<action name="updateUser" class="userAction" method="updateUser">
+			<result name="success">/pages/userInfo.jsp</result>
+		</action>
+		<action name="deleteUser" class="userAction" method="deleteUser">
+			<result name="success">/pages/userInfo.jsp</result>
+		</action>
 	</package>
 	
 	<package name="newsManagement" namespace="/newsManagement" extends="json-default">

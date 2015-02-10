@@ -15,27 +15,29 @@ import com.otis.marketing.web.dto.User;
 
 @Scope("request")
 @Controller("userAction")
-public class UserAction extends BaseAction{
+public class UserAction extends BaseAction {
 
 	private static final long serialVersionUID = -5669378851021056095L;
 
 	private static Logger logger = Logger.getLogger(UserAction.class);
-	
+
 	private List<User> data = new ArrayList<User>();
-	
+
 	private String userName;
-	
+
 	private String password;
-	
+
+	private Integer userId;
+
 	@Autowired
 	private UserService userService;
-	
+
 	public String goUserInfoMain() {
 		return SUCCESS;
 	}
-	
-	public String getUserInfoList () {
-		
+
+	public String getUserInfoList() {
+
 		List<User> users = userService.getAllUser();
 		data.addAll(users);
 		return "userInfos";
@@ -45,22 +47,46 @@ public class UserAction extends BaseAction{
 		User user = new User();
 		user.setName(userName);
 		user.setPassword(password);
-		
+
 		userService.addUser(user);
-		
+
 		return SUCCESS;
 	}
-	
+
+	public String initUpdate() {
+		Users user = userService.getUserById(userId);
+		this.password = user.getPassword();
+		this.userName = user.getUsername();
+
+		return SUCCESS;
+	}
+
+	public String updateUser() {
+		User user = new User();
+		user.setId(userId);
+		user.setName(userName);
+		user.setPassword(password);
+
+		userService.updateUser(user);
+		return SUCCESS;
+	}
+
+	public String deleteUser() {
+		userService.deleteUser(userId);
+
+		return SUCCESS;
+	}
+
 	public String goUpdatePwd() {
 		return SUCCESS;
 	}
-	
+
 	public String changePassword() {
 		Users user = OtisContext.getContextUser();
 		userService.updatePwd(user.getId(), password);
 		return SUCCESS;
 	}
-	
+
 	public List<User> getData() {
 		return data;
 	}
@@ -81,4 +107,11 @@ public class UserAction extends BaseAction{
 		this.password = password;
 	}
 
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 }

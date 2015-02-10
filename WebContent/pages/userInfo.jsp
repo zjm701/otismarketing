@@ -32,7 +32,15 @@ $(document).ready(function () {
                     { "data": "name" },
                     { "data": "createDate" },
                     { "data": "updateDate" }
-                   ]
+                   ],
+        "columnDefs": [ {
+			"targets": 4,
+			"data": "id",
+			"render": function(data, type, full) {
+	            return "<a href='<%=path%>/userManagement/initUpdate?userId=" + data + "'>修改</a>" +
+	            	   "<a href='<%=path%>/userManagement/deleteUser?userId=" + data + "'>删除</a>";
+	        }
+		} ]
     });
 });
 </script>
@@ -62,7 +70,7 @@ $(document).ready(function () {
 						            <th>姓名</th>
 						            <th>创建时间</th>
 						            <th>更新时间</th>
-						           	<!-- <th>操作</th> -->
+						           	<th>操作</th>
 						        </tr>
 						    </thead>
 						</table>
