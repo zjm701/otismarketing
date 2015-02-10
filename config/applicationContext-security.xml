@@ -18,7 +18,7 @@
     	
         <logout invalidate-session="true" logout-url="/logout.do" success-handler-ref="logoutFilter" />
         
-        <session-management invalid-session-url="/pages/sessionTimeout.jsp">
+        <session-management invalid-session-url="/pages/sessionTimeOut.jsp">
 			<concurrency-control max-sessions="1" />
 		</session-management>
 		
