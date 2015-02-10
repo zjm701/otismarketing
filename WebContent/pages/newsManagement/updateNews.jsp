@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            </div>
 	            <br>
             	<input class="btn btn-primary btn6 mr10" value="确定" type="submit" >
-            	<input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
+            	<input class="btn btn6" onclick="window.location.href='<%=path%>/newsManagement/goNewsManagement'" value="返回" type="button">
             </div>
             </s:form>
             <div>

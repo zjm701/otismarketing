@@ -22,11 +22,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <s:include value="leftMenu.jsp"/>
     <div class="main-wrap">
          <div class="crumb-wrap">
-            <div class="crumb-list"><a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/pages/userInfo.jsp">用户管理</a><span class="crumb-step">&gt;</span><span>新增用户</span></div>
+            <div class="crumb-list"><a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/pages/userInfo.jsp">用户管理</a><span class="crumb-step">&gt;</span><span>用户修改</span></div>
         </div>
         <div class="result-wrap">
             <div class="result-title">
-                <h1>用户信息</h1>
+                <h1>用户修改</h1>
             </div>
             <div class="result-content">
                 <s:form action="updateUser" namespace="/userManagement" method="post">
@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th></th>
                                 <td>
                                     <input class="btn btn-primary btn6 mr10" value="确定" type="submit">
-                                    <input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
+                                    <input class="btn btn6" onclick="window.location.href='<%=path%>/userManagement/goUserManagement'" value="返回" type="button">
                                 </td>
                             </tr>
                         </tbody></table>
