@@ -37,11 +37,12 @@ $(document).ready(function () {
 			"targets": 4,
 			"data": "id",
 			"render": function(data, type, full) {
-	            return "<a href='<%=path%>/newsManagement/initUpdateNews?newsId=" + data + "'>修改</a>" +
+	            return "<a href='<%=path%>/newsManagement/previewNews?newsId=" + data + "'>查看</a>" +
+	                   "<a href='<%=path%>/newsManagement/initUpdateNews?newsId=" + data + "'>修改</a>" +
 	            	   "<a href='<%=path%>/newsManagement/deleteNews?newsId=" + data + "'>删除</a>" +
 	            	   "<a href='#'>发布</a>";
 	        }
-		} ],
+		} ]
     });
 //     $('#newsList tbody').on( 'click', 'a', function () {
 //         var data = $('#newsList').dataTable.row( $(this).parents('tr') ).data();

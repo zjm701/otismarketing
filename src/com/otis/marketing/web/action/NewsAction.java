@@ -63,6 +63,14 @@ public class NewsAction extends BaseAction {
 		return SUCCESS;
 	}
 
+	public String previewNews() {
+		
+		News news = newsService.getNewsById(newsId);
+		this.title = news.getTitle();
+		this.content = news.getContent();
+		return SUCCESS;
+	}
+	
 	public String updateNews() {
 		NewsBean news = new NewsBean();
 		news.setContent(content);

@@ -116,5 +116,8 @@
 		<action name="deleteNews" class="newsAction" method="deleteNews">
 			<result name="success">/pages/newsManagement/newsInfo.jsp</result>
 		</action>
+		<action name="previewNews" class="newsAction" method="previewNews">
+			<result name="success">/pages/newsManagement/previewNews.jsp</result>
+		</action>
 	</package>
 </struts>
