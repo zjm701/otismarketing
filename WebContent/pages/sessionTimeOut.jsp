@@ -19,6 +19,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <center>会话超时!您没有登录,或登录超时,请重新登录!</center>
-<center><a href="<%=path%>/jsp/login.jsp">登陆</a></center>
+<center><a href="<%=path%>/pages/login.jsp">登陆</a></center>
 </body>
 </html>
