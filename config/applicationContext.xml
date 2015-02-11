@@ -98,5 +98,7 @@
 	<bean id="newsDao" class="com.otis.marketing.dao.impl.NewsDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
+	<bean id="appVersionDao" class="com.otis.marketing.dao.impl.AppVersionDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 </beans>

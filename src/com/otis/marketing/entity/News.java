@@ -1,5 +1,6 @@
 package com.otis.marketing.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -16,7 +17,9 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "tbl_news")
-public class News {
+public class News implements Serializable {
+
+	private static final long serialVersionUID = -6772655422933498188L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

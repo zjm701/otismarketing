@@ -194,3 +194,21 @@ CREATE TABLE `otismarketing`.`tbl_news` (
   CONSTRAINT `FK_NEWS_1` FOREIGN KEY (`authorId`) REFERENCES `tbl_user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
+-- ------------------------------------
+-- Table structure for `tbl_appversion`
+-- ------------------------------------
+DROP TABLE IF EXISTS `otismarketing`.`tbl_appversion`;
+CREATE TABLE `otismarketing`.`tbl_appversion` (
+  `id` INT NOT NULL auto_increment,
+  `versionId` varchar(50) default NULL,
+  `versionName` varchar(100) default NULL,
+  `downloadLink` varchar(200) default NULL,
+  `fileName` varchar(100) default NULL,
+  `filePath` varchar(200) default NULL,
+  `comment` varchar(400) default NULL,
+  `status` INT default 0,
+  `createTime` datetime default NULL,
+  `updateTime` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+
