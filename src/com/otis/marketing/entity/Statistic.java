@@ -1,6 +1,7 @@
 package com.otis.marketing.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 //@SuppressWarnings("serial")
@@ -8,7 +9,7 @@ import java.util.List;
 public class Statistic implements Serializable{
 	private String title;
 	
-	private List<StatisticItem> items;
+	private List<StatisticItem> items = new ArrayList<StatisticItem>();
 
 	public String getTitle() {
 		return title;
@@ -24,5 +25,8 @@ public class Statistic implements Serializable{
 
 	public void setItems(List<StatisticItem> items) {
 		this.items = items;
+	}
+	public void addItem(StatisticItem item) {
+		items.add(item);
 	}
 }

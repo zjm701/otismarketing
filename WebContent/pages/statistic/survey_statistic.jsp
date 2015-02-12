@@ -131,10 +131,8 @@ $(function () {
 </script>
 </head>
 <body>
-<s:include value="../header.jsp"/>
 <div class="container clearfix">
 	<!--sidebar-->
-    <s:include value="../leftMenu.jsp"/>
     <div class="main-wrap">
         <div> <center>Your favorit brand survey</center></div>
 		<div id="container0" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>

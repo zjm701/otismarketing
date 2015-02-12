@@ -1,7 +1,5 @@
 package com.otis.marketing.dao.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -10,7 +8,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 import com.otis.marketing.dao.QuestionDao;
-import com.otis.marketing.entity.Option;
 import com.otis.marketing.entity.Question;
 
 public class QuestionDaoImpl extends HibernateDaoSupport implements QuestionDao {

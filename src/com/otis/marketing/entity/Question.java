@@ -1,8 +1,9 @@
 package com.otis.marketing.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity
@@ -49,14 +49,10 @@ public class Question implements Serializable {
 	@Column(name = "optionsString", length = 1000)
 	private String optionsString;
 	
-	@Transient
-	private List<Option> options;
-
 	@Column(name = "linkRules", length = 1000)
 	private String linkRules;
 
 	public Question() {
-//		setOptions(splitOptionString(getOptionsString()));
 	}
 	
 	public Question(Question q) {
@@ -152,14 +148,6 @@ public class Question implements Serializable {
 	public void setLinkRules(String linkRules) {
 		this.linkRules = linkRules;
 	}
-	
-	public List<Option> getOptions() {
-		return options;
-	}
-
-	public void setOptions(List<Option> options) {
-		this.options = options;
-	}
 
 	public enum Type {
 		Single(0), Multiple(1), Question(2);
@@ -189,16 +177,16 @@ public class Question implements Serializable {
 		}
 	}
 	
-	public List<Option> splitOptionString(String optionString) {
-		List<Option> result = new ArrayList<Option>();
-		if(org.springframework.util.StringUtils.isEmpty(optionString)){
-			String[] options = optionString.split(Question.OPTION_DELIMITER);
+	public Map<Integer, Option> splitOptionString() {
+		Map<Integer, Option> result = new HashMap<Integer, Option>();
+		if(!org.springframework.util.StringUtils.isEmpty(getOptionsString())){
+			String[] options = getOptionsString().split(Question.OPTION_DELIMITER);
 			int index = 0;
 			for (String desc : options){
 				Option option = new Option();
 				option.setIndex(index ++);
 				option.setDescription(desc);
-				result.add(option);
+				result.put(option.getIndex(), option);
 			}
 		}
 		return result;

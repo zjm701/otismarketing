@@ -54,6 +54,10 @@
 			<result name="success">/pages/statistic/survey_statistic.jsp</result>
    	  	 	<result name="error">/pages/error.jsp</result>
 		</action>
+		<action name="findAllSurvey" class="statisticAction" method="findAllSurvey">
+			<result name="list">/pages/statistic/survey_list.jsp</result>
+   	  	 	<result name="error">/pages/error.jsp</result>
+		</action>
 	</package>
 
 	<package name="userManagement" namespace="/userManagement" extends="json-default">

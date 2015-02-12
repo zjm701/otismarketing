@@ -6,7 +6,7 @@ public class StatisticItem implements Serializable {
 
 	private String optionDesc;
 	
-	private int total;
+	private long total;
 	
 	public StatisticItem(){
 		
@@ -20,11 +20,11 @@ public class StatisticItem implements Serializable {
 		this.optionDesc = optionDesc;
 	}
 
-	public int getTotal() {
+	public long getTotal() {
 		return total;
 	}
 
-	public void setTotal(int total) {
+	public void setTotal(long total) {
 		this.total = total;
 	}
 }

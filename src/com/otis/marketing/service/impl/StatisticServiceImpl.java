@@ -16,9 +16,10 @@ public class StatisticServiceImpl implements StatisticService {
 	private StatisticDao statisticDao;
 	
 	@Override
-	public void getSurveyStatistic() {
-		statisticDao.getSurveyStatistic(1L);
-
+	public void getSurveyStatistic(Integer surveyId) {
+//		Survey survey = statisticDao.getSurveyById(surveyId);
+//		List<Question> questions = survey.getQuestions();
+		statisticDao.getSurveyStatistic(surveyId);
 	}
 
 }
