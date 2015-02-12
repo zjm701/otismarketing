@@ -7,7 +7,7 @@ import com.otis.marketing.web.dto.AppVersionBean;
 
 public interface AppVersionService {
 	
-	public void addNews(AppVersionBean version);
+	public void addNewVersion(AppVersionBean version);
 	
 	public List<AppVersionBean> getAllVersions();
 	

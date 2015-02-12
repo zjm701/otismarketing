@@ -120,4 +120,33 @@
 			<result name="success">/pages/newsManagement/previewNews.jsp</result>
 		</action>
 	</package>
+	
+	<package name="appVersion" namespace="/appVersion" extends="json-default">
+		<action name="goAppVersion" class="appVersionAction" method="goAppVersionInfoMain">
+			<result name="success">/pages/appVersion/versionsInfo.jsp</result>
+		</action>
+		<action name="getVersionsInfoList" class="appVersionAction" method="getVersionsInfoList">
+			<result name="versionInfos" type="json">
+				<param name="includeProperties">
+				^data\[\d+\]\.id,
+				^data\[\d+\]\.versionName,
+				^data\[\d+\]\.downLoadLink,
+				^data\[\d+\]\.status,
+				^data\[\d+\]\.createTime
+				</param>
+			</result>
+		</action>
+		<action name="addVersion" class="appVersionAction" method="addVersion">
+			<result name="success">/pages/appVersion/versionsInfo.jsp</result>
+		</action>
+		<action name="initUpdate" class="appVersionAction" method="initUpdate">
+			<result name="success">/pages/appVersion/updateVersion.jsp</result>
+		</action>
+		<action name="updateVersion" class="appVersionAction" method="updateVersion">
+			<result name="success">/pages/appVersion/versionsInfo.jsp</result>
+		</action>
+		<action name="deleteVersion" class="appVersionAction" method="deleteVersion">
+			<result name="success">/pages/appVersion/versionsInfo.jsp</result>
+		</action>
+	</package>
 </struts>

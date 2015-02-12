@@ -21,7 +21,7 @@ public class AppVersionServiceImpl implements AppVersionService{
 	private AppVersionDao appVersionDao;
 	
 	@Override
-	public void addNews(AppVersionBean version) {
+	public void addNewVersion(AppVersionBean version) {
 		AppVersion appVersion = new AppVersion();
 		if(version.getComment() != null) {
 			appVersion.setComment(version.getComment());
