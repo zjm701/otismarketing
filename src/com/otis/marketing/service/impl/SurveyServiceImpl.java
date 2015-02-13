@@ -29,7 +29,8 @@ public class SurveyServiceImpl implements SurveyService {
 
 	@Override
 	public void update(Survey survey) {
-		// TODO Auto-generated method stub
+		survey.setUpdateTime(CalendarUtils.currentTime());
+		surveyDao.update(survey);
 	}
 
 	@Override

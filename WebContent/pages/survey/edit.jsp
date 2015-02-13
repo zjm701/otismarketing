@@ -27,83 +27,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="../thirdparty/jquery-ui-1.10.2/jquery-ui.min.js"></script>
 <script type="text/javascript" src="../thirdparty/jquery-ui-1.10.2/i18n/jquery.ui.datepicker-zh-CN.js"></script>
+<script type="text/javascript" src="../js/survey.js"></script>
 <script type="text/javascript" >
-var cntQuestion = 0;
-var questionType = 0;
-var questionTypeName;
-$(document).ready( function () {
-});
-
 $(function() {
-	$("#startTime").datepicker({
-		option: {dateFormat : "yy-mm-dd"},
-		showOtherMonths: true,
-		selectOtherMonths: true,
-	    changeMonth: true,
-	    changeYear: true,
-	    onClose: function( selectedDate ) {
-	    	$("#endTime").datepicker( "option", "minDate", selectedDate );
-	    }
-	});
-	$("#endTime").datepicker({
-		option: $.datepicker.regional[ "zh-CN" ],
-		showOtherMonths: true,
-		selectOtherMonths: true,
-	    changeMonth: true,
-	    changeYear: true,
-	    onClose: function( selectedDate ) {
-	    	$("#startTime").datepicker( "option", "maxDate", selectedDate );
-	    }
-	});
-	$("#startTime").datepicker( "option", "dateFormat", "yy-mm-dd" );
-	$("#endTime").datepicker( "option", "dateFormat", "yy-mm-dd" );
-	
-	$("#divSingle").draggable({
-		revert: "valid",
-		start: function (event, ui) {
-			questionType = 0; //single
-			questionTypeName = "单选题";
-		}
-	}).button({icons: {primary: "ui-icon-radio-on"}});
-	
-	$("#divMultiple").draggable({
-		revert: "valid",
-		start: function (event, ui) {
-			questionType = 1; //multiple
-			questionTypeName = "多选题";
-		}
-	}).button({icons: {primary: "ui-icon-check"}});
-	
-	$("#divQuestion").draggable({
-		revert: "valid",
-		start: function (event, ui) {
-			questionType = 2; //question
-			questionTypeName = "问答题";
-		}
-	}).button({icons: {primary: "ui-icon-document"}});
-
-	$("#main").droppable();
-	
-	$("#right").droppable({
-		activeClass: "ui-state-default",
-		hoverClass: "ui-state-hover",
-		accept: ":not(.ui-sortable-helper)",
-		drop: function( event, ui ) {
-	        $(this).find(".placeholder").remove();
-	        addQuesion($(this).children().last());
-		}
-	});
-
-	$("#sortable").sortable({
-		items: "li:not(.placeholder)",
-		sort: function( event, ui){
-			$(this).removeClass("ui-state-default");
-		},
-		stop: function( event, ui){
-			sortQusetions();
-		}
-	});
-	
+	cntQuestion = <s:property value="#session.currentSurvey.questions.size"/>;
 	
 	$("input[name='save']").click(function() {
 		var title = $("input[name='title']");
@@ -118,9 +45,9 @@ $(function() {
 		}else{
 			var table = null;
 			var questions = [];
-
-			var isRequired = 0;
+			
 			var question_title = null;
+			var isRequired = 0;
 			var type = 0;
 			
 			for(var index = 1; index <= cntQuestion ;index++){
@@ -134,13 +61,20 @@ $(function() {
 						question_title.focus();
 						return;
 					}
+
+					var questionId = -1;
+					var qid = table.find("input[name='questionId']").first();
+					if(qid.length != 0){
+						questionId = parseInt(qid.val());
+					}
+					
 					if(table.find("input:checkbox").first().is(":checked")){
 						isRequired = 0;
 					}else{
 						isRequired = 1;
 					}
 					
-					type = table.find("input:hidden").first().val();
+					type = table.find("input[name='type']").first().val();
 					
 					var option = null;
 					var options = new Array();
@@ -212,6 +146,7 @@ $(function() {
 					}
 					
 					var question = {
+							questionId: questionId,
 							title: $.trim(question_title.val()),
 							type: parseInt(type),
 							isRequired: isRequired,
@@ -224,6 +159,7 @@ $(function() {
 			}
 
 			var survey = {
+				surveyId: parseInt($.trim($("input[name='surveyId']").val())),
 				title: $.trim(title.val()),
 				description: $.trim($("#description").val()),
 				startTime: $.trim($("#startTime").val()),
@@ -232,7 +168,7 @@ $(function() {
 			};
 			
 			$.ajax({
-				url: "add.action",//要访问的后台地址
+				url: "edit.action",//要访问的后台地址
 				data: "surveyJson=" + JSON.stringify(survey),//要发送的数据
 				type: "post", //使用get方法访问后台
 				dataType: "json", //返回json格式的数据
@@ -245,93 +181,6 @@ $(function() {
 		}
 	});
 });
-
-var addQuesion = function(parent){
-	var i = ++cntQuestion;
-    var question = null;
-    
-    if(questionType == 0 ){
-    	question = $("<li><table><tbody>"+
-    			"<tr><td width='40'>Q"+i+"</td><td width='60'><font color='red'>"+questionTypeName+"</font></td><td width='160'><input type='checkbox' name='isRequired' checked='true' value='1' />该题可跳过不回答</td><td width='140'><input type='button' onclick='deleteQusetion(this)' value='删除此题'/></td><td><input type='hidden' name='type' value='"+questionType+"'/></td></tr>"+
-    			"<tr><td></td><td>问&nbsp;&nbsp;题:</td><td colspan='2'><input type='text' name='question_title' size='35'/></td><td></td></tr>"+
-    			"<tr><td></td><td>选项1:</td><td><input type='text' name='option' size='15'/></td><td>选中跳至<input type='text' name='link' value='"+i+"' size='1'/>题</td><td></td></tr>"+
-    			"<tr><td></td><td>选项2:</td><td><input type='text' name='option' size='15'/></td><td>选中跳至<input type='text' name='link' value='"+i+"' size='1'/>题</td><td></td></tr>"+
-    			"<tr><td></td><td colspan='2'><input type='button' onclick=\"addTr(this,0)\" value='新增选项'></td><td></td><td></td></tr>"+
-    			"</tbody></table></li>");
-    }else if(questionType == 1){
-    	question = $("<li><table><tbody>"+
-				"<tr><td width='40'>Q"+i+"</td><td width='60'><font color='red'>"+questionTypeName+"</font></td><td width='160'><input type='checkbox' name='isRequired' checked='true' value='1' />该题可跳过不回答</td><td width='140'><input type='button' onclick='deleteQusetion(this)' value='删除此题'/></td><td><input type='hidden' name='type' value='"+questionType+"'/></td></tr>"+
-				"<tr><td></td><td>问&nbsp;&nbsp;题:</td><td colspan='2'><input type='text' name='question_title' size='35'/></td><td></td></tr>"+
-				"<tr><td></td><td>选项1:</td><td><input type='text' name='option' size='15'/></td><td></td><td></td></tr>"+
-				"<tr><td></td><td>选项2:</td><td><input type='text' name='option' size='15'/></td><td></td><td></td></tr>"+
-				"<tr><td></td><td colspan='2'><input type='button' onclick=\"addTr(this,1)\" value='新增选项'></td><td></td><td></td></tr>"+
-				"</tbody></table></li>");
-	}else if(questionType == 2){
-		question = $("<li><table><tbody>"+
-				"<tr><td width='40'>Q"+i+"</td><td width='60'><font color='red'>"+questionTypeName+"</font></td><td width='160'><input type='checkbox' name='isRequired' checked='true' value='1' />该题可跳过不回答</td><td width='140'><input type='button' onclick='deleteQusetion(this)' value='删除此题'/></td><td><input type='hidden' name='type' value='"+questionType+"'/></td></tr>"+
-				"<tr><td></td><td>问&nbsp;&nbsp;题:</td><td colspan='2'><input type='text' name='question_title' size='35'/></td></tr>"+
-				"</tbody></table></li>");
-	}
-    if(question != null){
-        parent.append(question);        //将子table添加到父div中
-    }
-};
-
-function deleteQusetion(button){
-	cntQuestion--;
-	var current_tr = $(button).parent().parent();
-	var quesionStr = current_tr.children('td').eq(0).text();
-	var questionIndex =  parseInt(quesionStr.substring(1));
-	
-	var current_li = current_tr.parent().parent().parent();
-	
-	current_li.nextAll().each(function(i){
-		var td = $(this).find("td").eq(0);
-		if(td.text().indexOf("Q")==0){
-			td.text("Q" + (questionIndex + i));
-		}
-	});
-	
-	current_li.remove();
-}
-
-function sortQusetions(){
-	$("#right li").each(function(i){
-		var td = $(this).find("td").eq(0);
-		if(td.text().indexOf("Q")==0){
-			td.text("Q" + (i + 1));
-		}
-	});
-}
-
-function addTr(button, questionType){
-   var current_tr = $(button).parent().parent();
-   var optionIndex = current_tr.siblings().size() - 1;
-   
-   var tr = null;
-   if(questionType == 0){
-	   tr = $("<tr><td></td><td>选项"+optionIndex+":</td><td><input type='text' name='option' size='15'/></td><td>选中跳至<input type='text' name='link' value='"+cntQuestion+"' size='1'/>题</td><td><input type='button' onclick='deleteTr(this)' value='删除此项'></td></tr>");
-   }else if(questionType == 1){
-	   tr = $("<tr><td></td><td>选项"+optionIndex+":</td><td><input type='text' name='option' size='15'/></td><td></td><td><input type='button' onclick='deleteTr(this)' value='删除此项'></td></tr>");
-   }
-   current_tr.before(tr);
-};
-
-function deleteTr(button){
-	var current_tr = $(button).parent().parent();
-	var optionStr = current_tr.children('td').eq(1).text();
-	var optionIndex =  parseInt(optionStr.substring(2, optionStr.length - 1));
-	
-	current_tr.nextAll().each(function(i){
-		var td = $(this).children("td").eq(1);
-		if(td.text().indexOf("选项")==0){
-			td.text("选项" + (optionIndex + i) +":");
-		}
-	});
-	
-	current_tr.remove(); //删除当前tr
-}
-
 </script>
 </head>
 <body id="main">
@@ -343,7 +192,7 @@ function deleteTr(button){
 		<div class="main-wrap">
 			<div class="crumb-wrap">
 				<div class="crumb-list">
-					<a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/survey/findAllSurvey">问卷管理</a><span class="crumb-step">&gt;</span><span>新增问卷</span>
+					<a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/survey/findAllSurvey">问卷管理</a><span class="crumb-step">&gt;</span><span>修改问卷</span>
 				</div>
 			</div>
 	        <div class="result-wrap">
@@ -355,7 +204,10 @@ function deleteTr(button){
 						<table class="insert-tab" width="100%">
 							<tr>
 								<th width="120"><i class="require-red">*</i>问卷标题:</th>
-								<td><input type="text" name="title" style="width: 440px" value='<s:property value="#session.currentSurvey.title"/>'></td>
+								<td>
+									<input type="text" name="title" style="width: 440px" value='<s:property value="#session.currentSurvey.title"/>'>
+									<input type="hidden" name="surveyId" value='<s:property value="#session.currentSurvey.surveyId"/>'>
+								</td>
 							</tr>
 							<tr>
 								<th>详细描述:</th>
@@ -380,6 +232,67 @@ function deleteTr(button){
 						</div>
 						<div id="right" class="ui-widget-content">
 							<ul id="sortable">
+								<s:iterator value="#session.currentSurvey.questions" status='qtn'>
+									<li>
+										<table>
+											<tbody>
+												<tr>
+													<td width="40">Q<s:property value="#qtn.count"/>:&nbsp;</td>
+													<td width='60'>
+														<font color='red'>
+															<s:if test="type==0">单选题</s:if>
+															<s:elseif test="type==1">多选题</s:elseif>
+															<s:elseif test="type==2">问答题</s:elseif>
+														</font>
+													</td>
+													<td width='160'>
+														<s:if test="isRequired==0"><input type='checkbox' name='isRequired' checked /></s:if>
+														<s:elseif test="isRequired==1"><input type='checkbox' name='isRequired' /></s:elseif>该题可跳过不回答
+													</td>
+													<td width='140'><input type='button' onclick='deleteQusetion(this)' value='删除此题'/></td>
+													<td><input type='hidden' name='type' value='<s:property value="type"/>' /><input type='hidden' name='questionId' value='<s:property value="questionId"/>'/></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>问&nbsp;&nbsp;题:</td>
+													<td colspan='2'><input type='text' name='question_title' size='35' value='<s:property value="title"/>'/></td>
+													<td></td>
+												</tr>
+												<s:if test="type==0 || type==1">
+													<s:generator val="optionsString" separator="-OPT-" id="options">
+													<s:iterator value="#options" id="opt" status="o">
+														<tr>
+															<td></td>
+															<td>选项<s:property value="#o.count"/>:</td>
+															<td><input type='text' name='option' size='15' value='<s:property value="opt"/>' /></td>
+															<td>
+																<s:if test="type==0">
+																	<s:generator val="linkRules" separator="-" id="links" >
+																	<s:iterator value="#links" id="lnk" status="l">
+																		<s:if test="#o.count == #l.count">选中跳至<input type='text' name='link' value='<s:property value="lnk"/>' size='1'/>题</s:if>
+																	</s:iterator>
+																	</s:generator>
+																</s:if>
+															</td>
+															<td>
+																<s:if test="#o.count>=3">
+																	<input type='button' onclick='deleteTr(this)' value='删除此项'>
+																</s:if>
+															</td>
+														</tr>
+							                  		</s:iterator>
+													</s:generator>
+													<tr>
+														<td></td>
+														<td colspan='2'><input type='button' onclick='addTr(this,<s:property value="type"/>)' value='新增选项'></td>
+														<td></td>
+														<td></td>
+													</tr>
+												</s:if>
+											</tbody>
+										</table>
+									</li>
+								</s:iterator>
 						    </ul>
 						</div>
 					</div>

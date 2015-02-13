@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.otis.marketing.entity.Question;
 import com.otis.marketing.entity.Survey;
 import com.otis.marketing.entity.Users;
@@ -30,11 +27,8 @@ public class SurveyAction extends BaseAction {
 
 	private static DateFormat df = null;
 
-	private static Gson gson = null;
-
 	static {
 		df = new SimpleDateFormat(dateformatString);
-		gson = new GsonBuilder().setDateFormat(dateformatString).create();
 	}
 
 	@Autowired
@@ -55,15 +49,15 @@ public class SurveyAction extends BaseAction {
 	}
 
 	public String toEdit() throws Exception {
+		logger.info("load a survey to edit it, surveyId=" + surveyId);
 		Survey s = new Survey(surveyService.getById(surveyId));
-		logger.info("s:"+s);
-		this.surveyJson = gson.toJson(s);
+		logger.info("load a survey, survey=" + s.getTitle());
 		getSession().put("currentSurvey", s);
-		getSession().put("currentSurveyJson", this.surveyJson);
 		return SUCCESS;
 	}
 
 	public String add() throws Exception {
+		logger.info("add a survey, surveyJson=" + surveyJson);
 		JSONObject json = new JSONObject(surveyJson);
 
 		Survey s = new Survey(json.getString("title"));
@@ -91,6 +85,42 @@ public class SurveyAction extends BaseAction {
 
 		surveyService.create(s);
 		this.message = "新增成功，标题为：" + s.getTitle();
+		return SUCCESS;
+	}
+
+	public String edit() throws Exception {
+		logger.info("edit a survey, surveyJson=" + surveyJson);
+		JSONObject json = new JSONObject(surveyJson);
+
+		Survey s = surveyService.getById(json.getInt("surveyId"));
+		s.setTitle(json.getString("title"));
+		s.setDescription(json.getString("description"));
+		if (!json.getString("startTime").isEmpty()) {
+			s.setStartTime(df.parse(json.getString("startTime") + " 00:00:00"));
+		}
+		if (!json.getString("endTime").isEmpty()) {
+			s.setEndTime(df.parse(json.getString("endTime") + " 23:59:59"));
+		}
+		s.clearQuestions();
+		
+		JSONArray questions = json.getJSONArray("questions");
+
+		for (int i = 0; i < questions.length(); i++) {
+			JSONObject q = (JSONObject) questions.get(i);
+			Question question = new Question(q.getString("title"));
+			if (q.getInt("questionId") != -1) {
+				question.setQuestionId(q.getInt("questionId"));
+			}
+			question.setType(q.getInt("type"));
+			question.setIsRequired(q.getInt("isRequired"));
+			question.setOrderNO(q.getInt("orderNO"));
+			question.setOptionsString(q.getString("optionsString"));
+			question.setLinkRules(q.getString("linksString"));
+			s.addQuestion(question);
+		}
+
+		surveyService.update(s);
+		this.message = "修改成功！";
 		return SUCCESS;
 	}
 

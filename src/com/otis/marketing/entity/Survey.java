@@ -62,7 +62,7 @@ public class Survey implements Serializable {
 	@Column(name = "endTime")
 	private Date endTime;
 
-	@ManyToOne(cascade = { CascadeType.REFRESH }, optional = true, targetEntity = Users.class, fetch=FetchType.EAGER)
+	@ManyToOne(cascade = { CascadeType.REFRESH }, optional = true, targetEntity = Users.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "authorId")
 	private Users author;
 
@@ -72,8 +72,8 @@ public class Survey implements Serializable {
 
 	public Survey() {
 	}
-	
-	public Survey(Survey s){
+
+	public Survey(Survey s) {
 		this.surveyId = s.surveyId;
 		this.title = s.title;
 		this.description = s.description;
@@ -195,10 +195,18 @@ public class Survey implements Serializable {
 		question.setSurvey(this);
 		this.questions.add(question);
 	}
-	
-	public List<Question> copyQuestions(){
+
+	public void clearQuestions() {
+		Question q = null;
+		for (int i = this.questions.size() - 1; i >= 0; i--) {
+			q = this.questions.remove(i);
+			q.setSurvey(null);
+		}
+	}
+
+	public List<Question> copyQuestions() {
 		List<Question> questions = new ArrayList<>();
-		for(Question q : this.getQuestions()){
+		for (Question q : this.getQuestions()) {
 			questions.add(new Question(q));
 		}
 		return questions;

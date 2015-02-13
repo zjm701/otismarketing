@@ -38,6 +38,9 @@
 		<action name="add" class="surveyAction" method="add">
 			<result name="success" type="json"></result>
 		</action>
+		<action name="edit" class="surveyAction" method="edit">
+			<result name="success" type="json"></result>
+		</action>
 		<action name="preview" class="surveyAction" method="preview">
 			<result name="success" type="json"></result>
 		</action>
