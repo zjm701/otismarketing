@@ -39,11 +39,11 @@ public class Survey implements Serializable {
 	@Column(name = "status", nullable = false)
 	private Integer status;
 
-	@Column(name = "type")
+	@Column(name = "type", updatable = false)
 	private Integer type;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "createTime")
+	@Column(name = "createTime", updatable = false)
 	private Date createTime;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -62,11 +62,11 @@ public class Survey implements Serializable {
 	@Column(name = "endTime")
 	private Date endTime;
 
-	@ManyToOne(cascade = { CascadeType.REFRESH }, optional = true, targetEntity = Users.class, fetch = FetchType.EAGER)
-	@JoinColumn(name = "authorId")
+	@ManyToOne(cascade = { CascadeType.REFRESH }, optional = true, fetch = FetchType.EAGER, targetEntity = Users.class)
+	@JoinColumn(name = "authorId", updatable = false)
 	private Users author;
 
-	@OneToMany(mappedBy = "survey", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "survey", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, targetEntity = Question.class)
 	@OrderBy(value = "orderNO ASC")
 	private List<Question> questions = new ArrayList<>();
 

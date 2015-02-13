@@ -27,8 +27,8 @@ public class Question implements Serializable {
 	@Column(name = "questionId")
 	private Integer questionId;
 
-	@ManyToOne(cascade = { CascadeType.ALL }, optional = false)
-	@JoinColumn(name = "surveyId")
+	@ManyToOne(cascade = { CascadeType.ALL }, optional = false, targetEntity = Survey.class)
+	@JoinColumn(name = "surveyId", updatable = false)
 	private Survey survey;
 
 	@Column(name = "title", nullable = false, length = 100)
@@ -37,7 +37,7 @@ public class Question implements Serializable {
 	@Column(name = "description", length = 1000)
 	private String description;
 
-	@Column(name = "type", nullable = false)
+	@Column(name = "type", nullable = false, updatable = false)
 	private Integer type;
 
 	@Column(name = "isRequired", nullable = false)
