@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.otis.marketing.dao.BaseDAO;
+import com.otis.marketing.dao.SurveyDao;
 import com.otis.marketing.entity.Survey;
 import com.otis.marketing.service.SurveyService;
 import com.otis.marketing.utils.CalendarUtils;
@@ -17,7 +17,7 @@ import com.otis.marketing.utils.CalendarUtils;
 @Transactional
 public class SurveyServiceImpl implements SurveyService {
 	@Resource
-	private BaseDAO<Survey> surveyDao;
+	private SurveyDao surveyDao;
 
 	@Override
 	public void create(Survey survey) {
@@ -35,14 +35,14 @@ public class SurveyServiceImpl implements SurveyService {
 
 	@Override
 	public void delete(int surveyId) {
-		Survey s = surveyDao.get(Survey.class, surveyId);
+		Survey s = surveyDao.get(surveyId);
 		s.setStatus(Survey.Status.Deleted.value());
 		surveyDao.update(s);
 	}
 
 	@Override
 	public void publish(int surveyId) {
-		Survey s = surveyDao.get(Survey.class, surveyId);
+		Survey s = surveyDao.get(surveyId);
 		s.setStatus(Survey.Status.Published.value());
 		s.setPublishTime(CalendarUtils.currentTime());
 		surveyDao.update(s);
@@ -50,11 +50,11 @@ public class SurveyServiceImpl implements SurveyService {
 
 	@Override
 	public Survey getById(int surveyId) {
-		return surveyDao.get(Survey.class, surveyId);
+		return surveyDao.get(surveyId);
 	}
 
 	@Override
 	public List<Survey> findAllSurvey() {
-		return surveyDao.find(" from Survey s where s.status!=-1 order by s.createTime desc");
+		return surveyDao.findAllSurvey();
 	}
 }

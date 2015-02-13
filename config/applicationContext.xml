@@ -101,4 +101,7 @@
 	<bean id="appVersionDao" class="com.otis.marketing.dao.impl.AppVersionDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	<bean id="surveyDao" class="com.otis.marketing.dao.impl.SurveyDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 </beans>
