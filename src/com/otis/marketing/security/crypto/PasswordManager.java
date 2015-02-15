@@ -140,4 +140,16 @@ public class PasswordManager {
 		}
 		return null;
 	}
+	
+	public static void main(String args[]) {
+		PasswordManager pm = PasswordManager.getInstance();
+		try {
+			String encryptPass = pm.encrypt("123456");
+			System.out.println(encryptPass);
+			String decryptPass = pm.decrypt(encryptPass);
+			System.out.println(decryptPass);
+		} catch (IllegalBlockSizeException | BadPaddingException e) {
+			e.printStackTrace();
+		}
+	}
 }

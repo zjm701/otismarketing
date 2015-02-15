@@ -21,11 +21,13 @@ public class MultipleAuthenticationFailureHandler extends
 		this.directUrl = directUrl;
 	}
 
+	//验证失败执行的方法，跳转到失败的URL
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request,
 			HttpServletResponse response, AuthenticationException exception)
 			throws IOException, ServletException {
 
+		//添加跳转的URL
 		setDefaultFailureUrl(directUrl);
 		super.onAuthenticationFailure(request, response, exception);
 	}

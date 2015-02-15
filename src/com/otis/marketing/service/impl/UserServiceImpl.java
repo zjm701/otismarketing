@@ -5,13 +5,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.otis.marketing.dao.UserDao;
 import com.otis.marketing.entity.Role;
 import com.otis.marketing.entity.Users;
+import com.otis.marketing.security.crypto.PasswordManager;
 import com.otis.marketing.service.UserService;
 import com.otis.marketing.utils.CalendarUtils;
 import com.otis.marketing.utils.Utils;
@@ -21,6 +27,8 @@ import com.otis.marketing.web.dto.User;
 @Transactional
 public class UserServiceImpl implements UserService {
 
+	private static Logger logger = Logger.getLogger(UserServiceImpl.class);
+	
 	private UserDao userDao;
 	
 	public void addUser(User userDto) {
@@ -29,7 +37,12 @@ public class UserServiceImpl implements UserService {
 		
 		Users user = new Users();
 		user.setEnabled(1);
-		user.setPassword(userDto.getPassword());
+		PasswordManager pm = PasswordManager.getInstance();
+		try {
+			user.setPassword(pm.encrypt(userDto.getPassword()));
+		} catch (IllegalBlockSizeException | BadPaddingException e) {
+			logger.error("Error! When encrypt the password during add new user.");
+		}
 		user.setUsername(userDto.getName());
 		user.setCreateDate(CalendarUtils.currentTime());
 		user.setUpdateDate(CalendarUtils.currentTime());
@@ -79,7 +92,14 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public void updatePwd(Integer userId, String newPassWord) {
-		userDao.changePassWord(newPassWord, userId);
+		PasswordManager pm = PasswordManager.getInstance();
+		
+		try {
+			userDao.changePassWord(pm.encrypt(newPassWord), userId);
+		} catch (DataAccessException | IllegalBlockSizeException
+				| BadPaddingException e) {
+			logger.error("Error! When encrypt the password during add new user.");
+		}
 	}
 
 	@Override

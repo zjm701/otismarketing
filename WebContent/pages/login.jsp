@@ -28,6 +28,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <label for="pwd">密码：</label>
                         <input type="password" name="password" id="pwd" size="40" class="admin_input_style" />
                     </li>
+                    <%if(request.getAttribute("loginFailureMsg") == null){%>
+				    	<%=""%>
+				    </br>
+				    <%}else{ %>
+				    <li>
+				    	 <%= request.getAttribute("loginFailureMsg")%>
+				    </li>
+				    <%}%>
                     <li>
                         <input type="submit" tabindex="3" value="确定" class="btn btn-primary" />
                     </li>

@@ -5,6 +5,7 @@
    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
       
+    <!-- 不需要过滤的URL -->
     <http pattern="/js/**/**" security="none"/>
     <http pattern="/css/**/**" security="none"/>
     <http pattern="/images/**/**" security="none"/>
@@ -14,31 +15,41 @@
     <http pattern="/pages/login.jsp" security="none"/>
     <http pattern="/webservice/**" security="none" />
     
+    <!-- 配置登陆页面的切入点 -->
+	<!-- entry-point-ref：安全退出后,再次请求受限资源时所跳转的URL -->
     <http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint" access-denied-page="/pages/error.jsp">
     	
+    	<!-- 安全退出 处理 -->
         <logout invalidate-session="true" logout-url="/logout.do" success-handler-ref="logoutFilter" />
         
+        <!-- 配置session超时后跳转的页面，以及一个用户只能登陆一次 -->
         <session-management invalid-session-url="/pages/sessionTimeOut.jsp">
 			<concurrency-control max-sessions="1" />
 		</session-management>
 		
+		<!-- 替换默认的登陆验证Filter -->
        	<custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER"  />
+       	
+       	<!-- 替换默认的验证过滤Filter -->
 		<custom-filter ref="securityFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
 		
     </http>
-    
+    <!-- 安全退出后,再次请求受限资源时所跳转的URL -->
     <beans:bean id="authenticationProcessingFilterEntryPoint" class="com.otis.marketing.security.login.MultipleAuthenticationEntryPoint">
 		<beans:property name="directUrl" value="/pages/login.jsp"></beans:property>
 	</beans:bean>
 
+	<!-- 配置登出页面 -->
 	<beans:bean id="logoutFilter" class="com.otis.marketing.security.logout.MultipleLogoutSuccessHandler">
 		<beans:property name="directUrl" value="/pages/login.jsp"></beans:property>
 	</beans:bean>
 	
+	<!-- 配置身份验证管理器 -->
 	<authentication-manager alias="authenticationManager">
 		<authentication-provider ref="multipleAuthenticationProvider"></authentication-provider>
 	</authentication-manager>
 
+	<!-- 配置身份验证器 -->
 	<beans:bean id="multipleAuthenticationProvider"
 		class="com.otis.marketing.security.authentication.provider.MultipleAuthenticationProvider">
 		<beans:property name="authenticationProviders">
@@ -48,42 +59,53 @@
 		</beans:property>
 	</beans:bean>
 	
+	<!-- 验证器并构建新用户凭证 -->
 	<beans:bean id="otisAuthenticationProvider"
 		class="com.otis.marketing.security.authentication.provider.OtisAuthenticationProvider">
 		<beans:property name="userDetailsService" ref="myUserDetailsService"></beans:property>
 	</beans:bean>
 	
+	<!-- 身份验证 -->
 	<beans:bean id="myUserDetailsService" class="com.otis.marketing.security.authentication.details.OtisUserDetailsService">
 		<beans:property name="userDao" ref="userDao"></beans:property>
 	</beans:bean>
 	
+	<!-- 自定义登陆验证过滤器 -->
 	<beans:bean id="loginFilter"
 		class="com.otis.marketing.security.authentication.filter.MultipleUsernamePasswordAuthenticationFilter">
 		<beans:property name="requiresAuthenticationRequestMatcher" ref="loginUrl" />
+		<!-- 注入用户凭证 -->
 		<beans:property name="tokenResolver" ref="otisAuthenticationTokenResolver"/>
+		<!-- 校验用户名及密码，并对用户授权 -->
 		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<!-- 验证通过所执行的请求 -->
 		<beans:property name="authenticationSuccessHandler" ref="authenticationSuccessHandler" />
+		<!-- 验证未通过所执行的请求 -->
 		<beans:property name="authenticationFailureHandler" ref="authenticationFailureHandler" />
 	</beans:bean>
-	
+	<!-- 登陆页面URL -->
 	<beans:bean id="loginUrl" class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
 		<beans:constructor-arg type="java.lang.String" value="/login.do"/>
 	</beans:bean>
 	
+	<!-- 构建登陆用户凭证 -->
 	<beans:bean id="otisAuthenticationTokenResolver"
 		class="com.otis.marketing.security.authentication.filter.OtisAuthenticationTokenResolver">
 	</beans:bean>
 	
+	<!-- 登陆验证成功后的处理结果 -->
 	<beans:bean id="authenticationSuccessHandler"
 		class="com.otis.marketing.security.authentication.handler.MultipleAuthenticationSuccessHandler">
 		<beans:property name="directUrl" value="/main"/>
 	</beans:bean>
 	
+	<!-- 登陆验证失败后的处理结果 -->
 	<beans:bean id="authenticationFailureHandler"
 		class="com.otis.marketing.security.authentication.handler.MultipleAuthenticationFailureHandler">
-		<beans:property name="directUrl" value="/goLogin" />
+		<beans:property name="directUrl" value="/loginFailure" />
 	</beans:bean>
 	
+	<!-- 自定义权限认证过滤器 -->
 	<beans:bean id="securityFilter"
 		class="com.otis.marketing.security.manage.filter.MultipleFilterSecurityInterceptor">
 		<beans:property name="authenticationManager" ref="authenticationManager" />
@@ -91,15 +113,18 @@
 		<beans:property name="accessDecisionManager" ref="multipleAccessDecisionManager" />
 	</beans:bean>
 	
+	<!-- 配置访问的资源属性 -->
 	<beans:bean id="multipleSecurityMetadataSource"
 		class="com.otis.marketing.security.manage.metadata.MultipleFilterInvocationSecurityMetadataSource">
 		<beans:property name="metadataSource" ref="otisSecurityMetadataSource" />
 	</beans:bean>
 	
+	<!-- 资源 -->
 	<beans:bean id="otisSecurityMetadataSource" class="com.otis.marketing.security.manage.metadata.OtisSecurityMetadataSource">
 		<beans:property name="resourceDao" ref="resourceDao" />
 	</beans:bean>
 	
+	<!-- 配置访问决策器 -->
 	<beans:bean id="multipleAccessDecisionManager"
 		class="com.otis.marketing.security.manage.decide.MultipleAccessDecisionManager" />
 		

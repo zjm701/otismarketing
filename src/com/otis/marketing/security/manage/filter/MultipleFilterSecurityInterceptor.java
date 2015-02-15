@@ -15,6 +15,13 @@ import org.springframework.security.access.intercept.InterceptorStatusToken;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 
+/**
+ * 该过滤器的主要作用就是通过spring的IoC生成securityMetadataSource。
+ * securityMetadataSource相当于本包中自定义的SecurityMetadataSourceServiceImpl。
+ * 该SecurityMetadataSourceServiceImpl的作用提从数据库提取权限和资源，装配到HashMap中， 供Spring
+ * Security使用，用于权限校验。
+ * 
+ */
 public class MultipleFilterSecurityInterceptor extends
 		AbstractSecurityInterceptor implements Filter {
 
@@ -29,6 +36,7 @@ public class MultipleFilterSecurityInterceptor extends
 		this.securityMetadataSource = securityMetadataSource;
 	}
 
+	// 注入SecurityMetadataSource
 	@Override
 	public SecurityMetadataSource obtainSecurityMetadataSource() {
 		return this.securityMetadataSource;
@@ -37,6 +45,7 @@ public class MultipleFilterSecurityInterceptor extends
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
+		// 封装对象供FilterSecurityInterceptor的处理代码调用
 		FilterInvocation invocation = new FilterInvocation(request, response,
 				chain);
 		invoke(invocation);
@@ -44,8 +53,10 @@ public class MultipleFilterSecurityInterceptor extends
 
 	public void invoke(FilterInvocation invocation) throws IOException,
 			ServletException {
+		// 框架获得封装的对象
 		InterceptorStatusToken token = super.beforeInvocation(invocation);
 		try {
+			// 通过过滤器提交验证请求
 			invocation.getChain().doFilter(invocation.getRequest(),
 					invocation.getResponse());
 		} finally {
@@ -53,6 +64,7 @@ public class MultipleFilterSecurityInterceptor extends
 		}
 	}
 
+	// 过滤器封装的对象
 	public Class<? extends Object> getSecureObjectClass() {
 		return FilterInvocation.class;
 	}

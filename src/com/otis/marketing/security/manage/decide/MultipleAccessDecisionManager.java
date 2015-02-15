@@ -11,7 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
 public class MultipleAccessDecisionManager implements AccessDecisionManager {
-
+	// 	判断用户所拥有的角色是否有访问当前请求资源的权限
+	
 	private static final Logger logger = Logger
 			.getLogger(MultipleAccessDecisionManager.class);
 
@@ -19,12 +20,14 @@ public class MultipleAccessDecisionManager implements AccessDecisionManager {
 	public void decide(Authentication authentication, Object filter,
 			Collection<ConfigAttribute> configAttributes)
 			throws AccessDeniedException, InsufficientAuthenticationException {
-
+		// 判断当前访问的资源
 		if (logger.isDebugEnabled()) {
 			logger.info("request user：" + authentication.getName());
 		}
 
+		// 遍历访问该资源的所需权限属性
 		for (ConfigAttribute attribute : configAttributes) {
+			// 遍历访问用户当前的权限属性
 			for (GrantedAuthority authority : authentication.getAuthorities()) {
 				if (attribute.getAttribute().equals(authority.getAuthority())) {
 					if (logger.isDebugEnabled()) {
@@ -35,6 +38,7 @@ public class MultipleAccessDecisionManager implements AccessDecisionManager {
 				}
 			}
 		}
+		// 不满足访问条件抛出异常
 		throw new AccessDeniedException("no access auth!");
 	}
 

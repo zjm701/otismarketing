@@ -10,6 +10,7 @@ public class MultipleAuthenticationProvider implements AuthenticationProvider {
 
 	private List<AuthenticationProvider> authenticationProviders;
 
+	// 根据登录前的用户凭证筛选匹配的Provider,并构建新的用户凭证供登陆后的决策器调用
 	@Override
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {

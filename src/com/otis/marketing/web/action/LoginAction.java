@@ -2,7 +2,10 @@ package com.otis.marketing.web.action;
 
 import java.util.Collection;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -38,4 +41,9 @@ public class LoginAction extends BaseAction {
 		return "goLogin";
 	}
 	
+	public String loginFailure() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		request.setAttribute("loginFailureMsg", "用户名或密码错误，请重新登录！");
+		return "goLogin";
+	}
 }

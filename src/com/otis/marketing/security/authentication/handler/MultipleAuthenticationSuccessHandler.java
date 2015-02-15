@@ -17,10 +17,12 @@ public class MultipleAuthenticationSuccessHandler extends
 		this.directUrl = directUrl;
 	}
 
+	//验证成功执行的方法，跳转到成功的URL
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request,
 			HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
+		//添加跳转的URL
 		setDefaultTargetUrl(directUrl);
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
