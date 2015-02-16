@@ -65,7 +65,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <script type="text/javascript">
-    var ue = UE.getEditor('newsEditor');
+	var ue = UE.getEditor('newsEditor', {
+		toolbars:[[
+					'source', '|', 'undo', 'redo', '|', 'bold', 'italic', 'underline', 'strikethrough', '|',
+					'superscript', 'subscript', '|', 'forecolor', 'backcolor', '|', 'removeformat', '|',
+					'insertorderedlist', 'insertunorderedlist', '|', 'selectall', 'cleardoc', 'paragraph', '|', 'fontfamily', 'fontsize','|',
+					'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
+					'link', 'unlink', '|', 'simpleupload',  'attachment',
+					'horizontal', 'preview', 'fullscreen'  
+		]]
+	});
 //     ue.ready(function() {
 //         ue.setContent('<s:property value="content" />');
 //     });
