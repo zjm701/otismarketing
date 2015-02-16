@@ -76,10 +76,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void updateUser(User user) {
 		Users u =userDao.findById(user.getId());
-		u.setPassword(user.getPassword());
 		u.setUsername(user.getName());
 		u.setUpdateDate(CalendarUtils.currentTime());
 		
+		PasswordManager pm = PasswordManager.getInstance();
+		
+		try {
+			u.setPassword(pm.encrypt(user.getPassword()));
+		} catch (IllegalBlockSizeException | BadPaddingException e) {
+			logger.error("Error! When encrypt the password during update user.");
+		}
 		userDao.updateUser(u);
 	}
 

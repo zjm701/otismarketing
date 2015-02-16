@@ -38,11 +38,17 @@ $(document).ready(function () {
 			"data": "id",
 			"render": function(data, type, full) {
 	            return "<a href='<%=path%>/userManagement/initUpdate?userId=" + data + "'>修改</a>" +
-	            	   "<a href='<%=path%>/userManagement/deleteUser?userId=" + data + "'>删除</a>";
+	            	   "<a href='javascript:deleteUser(" + data + ")" +  "'>删除</a>";
 	        }
 		} ]
     });
 });
+
+function deleteUser(userId) {
+	if(confirm('确定要删除用户?')){
+		window.location = "<%=path%>/userManagement/deleteUser?userId=" + userId;
+	}
+}
 </script>
 	
 </head>
@@ -61,7 +67,7 @@ $(document).ready(function () {
 			<div class="result-wrap">
 				<div class="result-title">
 					<div class="result-list">
-						<a href="<%=path%>/pages/addUser.jsp"><i class="icon-font">&#xe026;</i>新增用户</a><br><br>
+						<a href="<%=path%>/userManagement/toAddUser"><i class="icon-font">&#xe026;</i>新增用户</a><br><br>
 						<!-- table start -->
 						<table id="userList" class="display" cellspacing="0" width="100%">
 						    <thead>

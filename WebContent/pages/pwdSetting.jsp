@@ -17,6 +17,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	
 	function formCheck(){
+		if(updatePwd.password.value == '' || updatePwd.password.value == null){
+			alert("请输入新密码！");
+			return false;
+		}
 		if(updatePwd.password.value!=updatePwd.repassword.value){
 	    	alert("两次输入的密码不一致，请确认！");
 			return false;

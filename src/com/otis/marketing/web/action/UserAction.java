@@ -36,6 +36,12 @@ public class UserAction extends BaseAction {
 		return SUCCESS;
 	}
 
+	public String toAddUser() {
+		logger.info(userName);
+		logger.info(password);
+		return SUCCESS;
+	}
+	
 	public String getUserInfoList() {
 
 		List<User> users = userService.getAllUser();

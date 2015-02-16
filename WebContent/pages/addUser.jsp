@@ -13,6 +13,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/common.css" />
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/main.css"/>
 <script type="text/javascript" src="<%=path%>/js/modernizr.min.js"></script>
+<script type="text/javascript">
+function checkInput() {
+	var isSubmit = false;
+	if (document.getElementById("userName").value == null || document.getElementById("userName").value == '') {
+		alert("请输入用户名！");
+	}else if (document.getElementById("password").value == null || document.getElementById("password").value == '') {
+		alert("请输入密码！");
+	}else {
+		isSubmit = true;
+	}
+	return isSubmit;
+}
+</script>
 </head>
 <body>
 <!-- header -->
@@ -29,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <h1>用户信息</h1>
             </div>
             <div class="result-content">
-                <form action="<%=path%>/userManagement/addUser" method="post" id="myform" name="myform">
+                <s:form action="addUser" namespace="/userManagement" method="post" onsubmit="return checkInput();">
                     <table class="insert-tab" width="100%">
                         <tbody>
                         	<tr>
@@ -52,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </td>
                             </tr>
                         </tbody></table>
-                </form>
+                </s:form>
             </div>
         </div>
     </div>
