@@ -1,6 +1,10 @@
 package com.otis.marketing.service;
 
+import java.util.List;
+
+import com.otis.marketing.entity.Statistic;
+
 public interface StatisticService {
 
-	public void getSurveyStatistic(Integer surveyId);
+	public List<Statistic> getSurveyStatistic(Integer surveyId);
 }

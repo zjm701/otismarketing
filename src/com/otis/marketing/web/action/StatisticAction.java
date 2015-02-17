@@ -3,6 +3,7 @@ package com.otis.marketing.web.action;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.otis.marketing.entity.Statistic;
 import com.otis.marketing.entity.Survey;
 import com.otis.marketing.service.StatisticService;
 import com.otis.marketing.service.SurveyService;
@@ -31,6 +33,9 @@ public class StatisticAction extends BaseAction {
 	}
 	
 	private Integer surveyId;
+	
+	private List<Statistic> statList;
+	
 	@Autowired
 	private StatisticService statisticService;
 	
@@ -39,12 +44,19 @@ public class StatisticAction extends BaseAction {
 
 	
 	public String getSurveyStatistic() {
-		statisticService.getSurveyStatistic(surveyId);
+		statList = statisticService.getSurveyStatistic(surveyId);
+		getSession().put("currentStatList", statList);
 		return SUCCESS;
 	}
 	public String findAllSurvey() {
 		List<Survey> list = surveyService.findAllSurvey();
 		getSession().put("AllSurvey", list);
 		return "list";
+	}
+	public Integer getSurveyId() {
+		return surveyId;
+	}
+	public void setSurveyId(Integer surveyId) {
+		this.surveyId = surveyId;
 	}
 }
