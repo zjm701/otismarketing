@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.otis.marketing.entity.Statistic, com.otis.marketing.entity.StatisticItem, java.util.List"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%
 String path = request.getContextPath();
@@ -16,19 +16,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
+
 $(function () {
-    $('#container0').highcharts({
+	<%
+		List<Statistic> list = (List<Statistic>)session.getAttribute("currentStatList");
+		int index = 0;
+		for (Statistic stat : list) {
+	%>
+	$('#container<%=index++ %>').highcharts({
         chart: {
             type: 'bar'
         },
         title: {
-            text: 'Survey for favorit brand'
+            text: '<%=stat.getTitle() %>'
         },
         subtitle: {
-            text: 'Source: Otis.org'
+            text: ''
         },
         xAxis: {
-            categories: ['Benz', 'BMW', 'Audi'],
+            categories: [<%=stat.getOptionString() %>],
             title: {
                 text: null
             }
@@ -36,7 +42,7 @@ $(function () {
         yAxis: {
             min: 0,
             title: {
-                text: 'Unit(People)',
+                text: '单位(人)',
                 align: 'high'
             },
             labels: {
@@ -44,7 +50,7 @@ $(function () {
             }
         },
         tooltip: {
-            valueSuffix: 'p'
+            valueSuffix: '人选择'
         },
         plotOptions: {
             bar: {
@@ -69,64 +75,12 @@ $(function () {
         },
         series: [{
             
-            data: [107, 31, 635]
+            data: [<%=stat.getTotalString() %>]
         }]
     });
-    $('#container1').highcharts({
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: 'When did you get this brand'
-        },
-        subtitle: {
-            text: 'Source: Otis.org'
-        },
-        xAxis: {
-            categories: ['3 months ago', '6 months ago', '9 months ago'],
-            title: {
-                text: null
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Unit(People)',
-                align: 'high'
-            },
-            labels: {
-                overflow: 'justify'
-            }
-        },
-        tooltip: {
-            valueSuffix: 'p'
-        },
-        plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
-                }
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'top',
-            x: -40,
-            y: 100,
-            floating: true,
-            borderWidth: 1,
-            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-            shadow: true
-        },
-        credits: {
-            enabled: false
-        },
-        series: [{
-            
-            data: [97, 31, 4]
-        }]
-    });
+	<%
+		}
+	%>
 });
 </script>
 </head>
@@ -134,9 +88,14 @@ $(function () {
 <div class="container clearfix">
 	<!--sidebar-->
     <div class="main-wrap">
-        <div> <center>Your favorit brand survey</center></div>
-		<div id="container0" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
-<div id="container1" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+    <%
+    index = 0;
+    for (Statistic stat : list) {
+    %>
+    	<div id="container<%=index++ %>" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+    <%	
+    }
+    %>
     </div>
 </div>
 </body>

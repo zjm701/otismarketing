@@ -1,5 +1,6 @@
 package com.otis.marketing.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,15 +21,16 @@ public class StatisticDaoImpl extends HibernateDaoSupport implements StatisticDa
 	private static Logger logger = Logger.getLogger(StatisticDaoImpl.class);
 	
 	@Override
-	public Statistic getSurveyStatistic(Integer surveyId) {
-		Statistic statistic = new Statistic();
+	public List<Statistic> getSurveyStatistic(Integer surveyId) {
+		List<Statistic> result = new ArrayList<Statistic>();
 		DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class).add(Restrictions.idEq(surveyId));
 		List findByCriteria = this.getHibernateTemplate().findByCriteria(criteria);
 		if (findByCriteria != null && !findByCriteria.isEmpty()){
 			Survey survey = (Survey)findByCriteria.get(0);
-			statistic.setTitle(survey.getTitle());
 			List<Question> questions = survey.getQuestions();
 			for (Question question : questions) {
+				Statistic statistic = new Statistic();
+				statistic.setTitle(question.getTitle());
 				Map<Integer, Option> options = question.splitOptionString();
 				List list = this.getHibernateTemplate().find("select a.intValue, sum(1) as sum from Answer a where a.question.id=? group by a.intValue", question.getQuestionId());
 				for (Integer key : options.keySet()){
@@ -46,9 +48,10 @@ public class StatisticDaoImpl extends HibernateDaoSupport implements StatisticDa
 					}
 					statistic.addItem(item);
 				}
+				result.add(statistic);
 			}
 		}
-		return statistic;
+		return result;
 	}
 	
 	
