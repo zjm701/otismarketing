@@ -61,7 +61,7 @@ public class AppVersionServiceImpl implements AppVersionService{
 			versionBean.setCreateTime(Utils.formateDate(version.getCreateTime()));
 			versionBean.setUpdateTime(Utils.formateDate(version.getUpdateTime()));
 			versionBean.setDownLoadLink(version.getDownloadLink());
-			
+			versionBean.setStatus(version.getStatus().toString());
 			versions.add(versionBean);
 		}
 		

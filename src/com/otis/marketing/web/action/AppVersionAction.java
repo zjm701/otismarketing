@@ -30,10 +30,6 @@ public class AppVersionAction extends BaseAction {
 
 	@Autowired
 	private AppVersionService appVersionService;
-	
-	public String goAppVersionInfoMain() {
-		return SUCCESS;
-	}
 
 	public String getVersionsInfoList() {
 		List<AppVersionBean> versionList = appVersionService.getAllVersions();

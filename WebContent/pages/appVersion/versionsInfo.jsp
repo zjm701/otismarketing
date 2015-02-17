@@ -26,23 +26,7 @@ $(document).ready(function () {
         "sPaginationType": "full_numbers",
         'bPaginate': true,
         "bProcessing": true,
-        "ajax": "<%=basePath%>appVersion/getVersionsInfoList",
-        "columns": [
-                    { "data": "id" },
-                    { "data": "versionName" },
-                    { "data": "downLoadLink" },
-                    { "data": "status" },
-                    { "data": "createTime" }
-                   ],
-        "columnDefs": [ {
-			"targets": 5,
-			"data": "id",
-			"render": function(data, type, full) {
-	            return "<a href='<%=path%>/appVersion/initUpdate?id=" + data + "'>修改</a>" +
-	            	   "<a href='<%=path%>/appVersion/deleteVersion?id=" + data + "'>删除</a>" +
-	            	   "<a href='#'>发布</a>";
-	        }
-		} ]
+        "bServerSide": false
     });
 //     $('#newsList tbody').on( 'click', 'a', function () {
 //         var data = $('#newsList').dataTable.row( $(this).parents('tr') ).data();
@@ -50,6 +34,12 @@ $(document).ready(function () {
 //     } );
     
 });
+
+function deleteVersion(versionId) {
+	if(confirm('确定要删除?')){
+		window.location = "<%=path%>/appVersion/deleteVersion?id=" + versionId;
+	}
+}
 </script>
 	
 </head>
@@ -81,6 +71,25 @@ $(document).ready(function () {
 						           	<th>操作</th>
 						        </tr>
 						    </thead>
+						    <tbody>
+								<s:iterator value="data" id="data">
+								<tr>
+									<td><s:property value="#data.id"/></td>
+									<td>
+										<s:property value="#data.versionName"/>
+									</td>
+									<td><s:property value="#data.downLoadLink"/></td>
+									<td>
+										<s:if test="status==0">未发布</s:if>
+										<s:elseif test="status==1">已发布</s:elseif>
+									</td>
+									<td><s:property value="#data.createTime" /></td>
+									<td>
+										<s:if test="#data.status==0"><a href="initUpdate?id=<s:property value="#data.id"/>" >修改</a><a href="#" onclick="deleteVersion(<s:property value="#data.id"/>)" >删除</a><a href="#" >发布</a></s:if>
+									</td>
+								</tr>
+							    </s:iterator>
+							</tbody>
 						</table>
 					
 					<!-- table end -->

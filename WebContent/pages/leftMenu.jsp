@@ -24,7 +24,7 @@ String path = request.getContextPath();
 					<%
 						}
 					%>
-					<li><a href="<%=path%>/appVersion/goAppVersion"><i class="icon-font">&#xe009;</i>App版本管理</a></li>
+					<li><a href="<%=path%>/appVersion/getVersionsInfoList"><i class="icon-font">&#xe009;</i>App版本管理</a></li>
 				</ul>
 			</li>
 		</ul>

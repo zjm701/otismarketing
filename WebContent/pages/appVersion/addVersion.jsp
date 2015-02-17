@@ -13,6 +13,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/common.css" />
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/main.css"/>
 <script type="text/javascript" src="<%=path%>/js/modernizr.min.js"></script>
+<script type="text/javascript">
+function checkInput() {
+	var isSubmit = false;
+	if (document.getElementById("versionName").value == null || document.getElementById("versionName").value == '') {
+		alert("请输入版本！");
+	}else if (document.getElementById("downLoadLink").value == null || document.getElementById("downLoadLink").value == '') {
+		alert("请输入下载地址！");
+	}else {
+		isSubmit = true;
+	}
+	return isSubmit;
+}
+</script>
 </head>
 <body>
 <!-- header -->
@@ -22,14 +35,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <s:include value="../leftMenu.jsp"/>
     <div class="main-wrap">
          <div class="crumb-wrap">
-            <div class="crumb-list"><a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="#">App版本管理</a><span class="crumb-step">&gt;</span><span>新增App版本</span></div>
+            <div class="crumb-list"><a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/appVersion/getVersionsInfoList">App版本管理</a><span class="crumb-step">&gt;</span><span>新增App版本</span></div>
         </div>
         <div class="result-wrap">
             <div class="result-title">
                 <h1>版本信息</h1>
             </div>
             <div class="result-content">
-                <form action="<%=path%>/appVersion/addVersion" method="post" id="myform" name="myform">
+                <s:form action="addVersion" namespace="/appVersion" method="post" onsubmit="return checkInput();">
                     <table class="insert-tab" width="100%">
                         <tbody>
                         	<tr>
@@ -48,11 +61,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th></th>
                                 <td>
                                     <input class="btn btn-primary btn6 mr10" value="确定" type="submit">
-                                    <input class="btn btn6" onclick="window.location.href='<%=path%>/appVersion/goAppVersion'" value="返回" type="button">
+                                    <input class="btn btn6" onclick="window.location.href='<%=path%>/appVersion/getVersionsInfoList'" value="返回" type="button">
                                 </td>
                             </tr>
                         </tbody></table>
-                </form>
+                </s:form>
             </div>
         </div>
     </div>
