@@ -26,7 +26,8 @@ $(document).ready(function () {
         "sPaginationType": "full_numbers",
         'bPaginate': true,
         "bProcessing": true,
-        "bServerSide": false
+        "bServerSide": false,
+        "aoColumnDefs": [{"bSortable": false, "aTargets": [5]}] 
     });
 //     $('#newsList tbody').on( 'click', 'a', function () {
 //         var data = $('#newsList').dataTable.row( $(this).parents('tr') ).data();
