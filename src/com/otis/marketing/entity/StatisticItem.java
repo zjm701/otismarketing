@@ -8,6 +8,8 @@ public class StatisticItem implements Serializable {
 	
 	private long total;
 	
+	private double percentage;
+	
 	public StatisticItem(){
 		
 	}
@@ -26,5 +28,13 @@ public class StatisticItem implements Serializable {
 
 	public void setTotal(long total) {
 		this.total = total;
+	}
+
+	public double getPercentage() {
+		return percentage;
+	}
+
+	public void setPercentage(double percentage) {
+		this.percentage = percentage;
 	}
 }
