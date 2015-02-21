@@ -38,9 +38,14 @@ public class StatisticDaoImpl extends HibernateDaoSupport implements StatisticDa
 					item.setOptionDesc(options.get(key).getDescription());
 					
 					if (list != null && list.size() > 0) {
+						double total = 0D;
+						for (int i = 0; i < list.size(); i ++) {
+							total += (Long)((Object[])list.get(i))[1];
+						}
 						for (int i = 0; i < list.size(); i ++) {
 							if (key == (Integer)((Object[])list.get(i))[0]) {
 								item.setTotal((Long)((Object[])list.get(i))[1]);
+								item.setPercentage(item.getTotal() / total);
 							} else {
 								continue;
 							}

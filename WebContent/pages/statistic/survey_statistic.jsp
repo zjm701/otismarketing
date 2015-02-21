@@ -92,7 +92,39 @@ $(function () {
     index = 0;
     for (Statistic stat : list) {
     %>
-    	<div id="container<%=index++ %>" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+    	<table width="80%">
+			<tr>
+				<td>
+					<div id="container<%=index++ %>" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+				</td>
+				<td>
+					<div class="main-wrap">
+						<div class="crumb-wrap">
+							<div class="crumb-list">
+					    		<table class="display" cellspacing="0" width="100%">
+					    			<tr>
+					    				<th>选项</th>
+					    				<th>选择人数</th>
+					    				<th>百分比</th>
+					    			</tr>
+    <%
+    	for (StatisticItem item : stat.getItems()) {
+	%>
+									<tr>
+					    				<td><%=item.getOptionDesc() %></td>
+					    				<td><%=item.getTotal() %></td>
+					    				<td><%=item.getPercentage()*100 %>%</td>
+					    			</tr>
+	<%    		
+    	}
+    %>
+					    		</table>
+					    	</div>
+					    </div>
+					</div>
+				</td>
+			</tr>
+		</table>
     <%	
     }
     %>
