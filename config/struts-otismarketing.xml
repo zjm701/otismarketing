@@ -104,30 +104,20 @@
 	</package>
 	
 	<package name="newsManagement" namespace="/newsManagement" extends="json-default">
-		<action name="goNewsManagement" class="newsAction" method="goNewsInfoMain">
-			<result name="success">/pages/newsManagement/newsInfo.jsp</result>
-		</action>
 		<action name="getAllNews" class="newsAction" method="getNewsInfoList">
-			<result name="newsInfos" type="json">
-				<param name="includeProperties">
-				^data\[\d+\]\.id,
-				^data\[\d+\]\.title,
-				^data\[\d+\]\.status,
-				^data\[\d+\]\.createTime
-				</param>
-			</result>
+			<result name="newsInfos">/pages/newsManagement/newsInfo.jsp</result>
 		</action>
 		<action name="addNews" class="newsAction" method="addNews">
-			<result name="success">/pages/newsManagement/newsInfo.jsp</result>
+			<result name="success" type="redirectAction">getAllNews</result>
 		</action>
 		<action name="initUpdateNews" class="newsAction" method="initUpdate">
 			<result name="success">/pages/newsManagement/updateNews.jsp</result>
 		</action>
 		<action name="updateNews" class="newsAction" method="updateNews">
-			<result name="success">/pages/newsManagement/newsInfo.jsp</result>
+			<result name="success" type="redirectAction">getAllNews</result>
 		</action>
 		<action name="deleteNews" class="newsAction" method="deleteNews">
-			<result name="success">/pages/newsManagement/newsInfo.jsp</result>
+			<result name="success" type="redirectAction">getAllNews</result>
 		</action>
 		<action name="previewNews" class="newsAction" method="previewNews">
 			<result name="success">/pages/newsManagement/previewNews.jsp</result>

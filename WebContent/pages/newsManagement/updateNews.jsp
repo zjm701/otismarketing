@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <s:include value="../leftMenu.jsp"/>
     <div class="main-wrap">
          <div class="crumb-wrap">
-            <div class="crumb-list"><a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/pages/newsManagement/newsInfo.jsp">新闻管理</a><span class="crumb-step">&gt;</span><span>修改新闻</span></div>
+            <div class="crumb-list"><a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/newsManagement/getAllNews">新闻管理</a><span class="crumb-step">&gt;</span><span>修改新闻</span></div>
         </div>
         <div class="result-wrap">
             <div class="result-title">
@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            </div>
 	            <br>
             	<input class="btn btn-primary btn6 mr10" value="确定" type="submit" >
-            	<input class="btn btn6" onclick="window.location.href='<%=path%>/newsManagement/goNewsManagement'" value="返回" type="button">
+            	<input class="btn btn6" onclick="window.location.href='<%=path%>/newsManagement/getAllNews'" value="返回" type="button">
             </div>
             </s:form>
             <div>

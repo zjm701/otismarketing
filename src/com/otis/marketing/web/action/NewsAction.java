@@ -33,10 +33,6 @@ public class NewsAction extends BaseAction {
 	@Autowired
 	private NewsService newsService;
 
-	public String goNewsInfoMain() {
-		return SUCCESS;
-	}
-
 	public String getNewsInfoList() {
 		List<NewsBean> newsList = newsService.getAllNews();
 		data.addAll(newsList);

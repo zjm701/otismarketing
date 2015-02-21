@@ -26,23 +26,8 @@ $(document).ready(function () {
         "sPaginationType": "full_numbers",
         'bPaginate': true,
         "bProcessing": true,
-        "ajax": "<%=basePath%>newsManagement/getAllNews",
-        "columns": [
-                    { "data": "id" },
-                    { "data": "title" },
-                    { "data": "status" },
-                    { "data": "createTime" }
-                   ],
-        "columnDefs": [ {
-			"targets": 4,
-			"data": "id",
-			"render": function(data, type, full) {
-	            return "<a href='<%=path%>/newsManagement/previewNews?newsId=" + data + "'>查看</a>" +
-	                   "<a href='<%=path%>/newsManagement/initUpdateNews?newsId=" + data + "'>修改</a>" +
-	            	   "<a href='<%=path%>/newsManagement/deleteNews?newsId=" + data + "'>删除</a>" +
-	            	   "<a href='#'>发布</a>";
-	        }
-		} ]
+        "bServerSide": false,
+        "aoColumnDefs": [{"bSortable": false, "aTargets": [4]}] 
     });
 //     $('#newsList tbody').on( 'click', 'a', function () {
 //         var data = $('#newsList').dataTable.row( $(this).parents('tr') ).data();
@@ -50,6 +35,13 @@ $(document).ready(function () {
 //     } );
     
 });
+
+function deleteNews(newsId) {
+	if(confirm('确定要删除?')){
+		window.location = "<%=path%>/newsManagement/deleteNews?newsId=" + newsId;
+	}
+}
+
 </script>
 	
 </head>
@@ -80,6 +72,25 @@ $(document).ready(function () {
 						           	<th>操作</th>
 						        </tr>
 						    </thead>
+						    <tbody>
+								<s:iterator value="data" id="data">
+								<tr>
+									<td><s:property value="#data.id"/></td>
+									<td>
+										<s:property value="#data.title"/>
+									</td>
+									<td>
+										<s:if test="status==0">未发布</s:if>
+										<s:elseif test="status==1">已发布</s:elseif>
+									</td>
+									<td><s:property value="#data.createTime" /></td>
+									<td>
+										<a href="previewNews?newsId=<s:property value="#data.id"/>" >查看</a>
+										<s:if test="#data.status==0"><a href="initUpdateNews?newsId=<s:property value="#data.id"/>" >修改</a><a href="#" onclick="deleteNews(<s:property value="#data.id"/>)" >删除</a><a href="#" >发布</a></s:if>
+									</td>
+								</tr>
+							    </s:iterator>
+							</tbody>
 						</table>
 					
 					<!-- table end -->

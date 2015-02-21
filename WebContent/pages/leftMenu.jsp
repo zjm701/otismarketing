@@ -13,7 +13,7 @@ String path = request.getContextPath();
 		<ul class="sidebar-list">
 			<li>
 				<ul class="sub-menu">
-					<li><a href="<%=path%>/newsManagement/goNewsManagement"><i class="icon-font">&#xe005;</i>新闻管理</a></li>
+					<li><a href="<%=path%>/newsManagement/getAllNews"><i class="icon-font">&#xe005;</i>新闻管理</a></li>
 					<li><a href="<%=path%>/survey/findAllSurvey"><i class="icon-font">&#xe004;</i>问卷管理</a></li>
 					<li><a href="<%=path%>/statistic/findAllSurvey"><i class="icon-font">&#xe031;</i>问卷统计</a></li>
 					<%
