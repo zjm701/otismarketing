@@ -20,6 +20,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" charset="utf-8" src="<%=path%>/thirdparty/ueditor1_4_3/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
 	function setValues(){
+		if(document.getElementById("title").value == null || document.getElementById("title").value == '') {
+			alert("请输入标题！");
+			return false;
+		}
 		document.getElementById("content").value = getContent();
 		return true;
 	}
@@ -43,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <s:form action="updateNews" namespace="/newsManagement" method="post" onsubmit="return setValues()">
 	        <table>
 	           	<tr>
-	            	<td><s:textfield name="title" /></td>
+	            	<td><s:textfield name="title" id="title" /></td>
 	            </tr>
 	        </table>
 	        <br>

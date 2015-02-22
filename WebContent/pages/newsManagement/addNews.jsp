@@ -21,6 +21,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script type="text/javascript">
 	function submitForm(){
+		if(document.getElementById("title").value == null || document.getElementById("title").value == '') {
+			alert("请输入标题！");
+			return;
+		}
 		document.getElementById("content").value = getContent();
 		document.addForm.submit();
 	}
@@ -43,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="result-content">
             <form action="<%=path%>/newsManagement/addNews" method="post" id="addForm" name="addForm">
-            	标题：<input type="text" name="title"><br><br>
+            	标题：<input type="text" name="title" id="title"><br><br>
             	<s:hidden name="content" id="content" value=""/>
             
             	<script type="text/plain" id="newsEditor" style="width:1000px;height:240px;"></script><br>

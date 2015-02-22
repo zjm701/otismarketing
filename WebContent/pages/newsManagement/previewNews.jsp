@@ -37,12 +37,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <s:form action="initUpdateNews" namespace="/newsManagement" method="post">
 	        <table>
 	           	<tr>
-	            	<td><s:property value="title" /></td>
+	            	<td>标题：<s:property value="title" /></td>
 	            </tr>
 	        </table>
 	        <br>
             <div class="result-content">
-            	<s:hidden name="newsId" id="newsId" />
+            	<s:hidden name="newsId" id="newsId" />内容：
 	            <div>
 	            	${requestScope.content}
 	            </div>
