@@ -23,7 +23,7 @@
 			<value>root</value>
 		</property>
 		<property name="password">
-			<value>admin</value>
+			<value>summer01</value>
 		</property>
 		<property name="minPoolSize">
 			<value>1</value>

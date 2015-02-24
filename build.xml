@@ -3,7 +3,7 @@
 	
 	<property name="app.name" value="otismarketing"/> 
 	<property name="app.version" value="1.0"/>
-	<property name="deploy.webapps" value="C:/SoftWare/apache-tomcat-8.0.15/webapps"/>
+	<property name="deploy.webapps" value="e:/otis/apache-tomcat-8.0.15/webapps"/>
 	
 	<property name="build.dir" value="build"/>
 	<property name="webroot.dir" value="WebContent"/>

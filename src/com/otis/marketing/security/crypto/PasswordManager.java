@@ -144,7 +144,7 @@ public class PasswordManager {
 	public static void main(String args[]) {
 		PasswordManager pm = PasswordManager.getInstance();
 		try {
-			String encryptPass = pm.encrypt("123456");
+			String encryptPass = pm.encrypt("summer01");
 			System.out.println(encryptPass);
 			String decryptPass = pm.decrypt(encryptPass);
 			System.out.println(decryptPass);
