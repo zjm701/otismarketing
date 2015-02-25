@@ -4,7 +4,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
+import org.apache.struts2.interceptor.ServletResponseAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -19,13 +22,15 @@ import com.otis.marketing.service.SurveyService;
 @SuppressWarnings("serial")
 @Scope("request")
 @Controller("statisticAction")
-public class StatisticAction extends BaseAction {
+public class StatisticAction extends BaseAction implements ServletResponseAware{
 	private static Logger logger = Logger.getLogger(StatisticAction.class);
 	private static String dateformatString = "yyyy-MM-dd HH:mm:ss";
 
 	private static DateFormat df = null;
 
 	private static Gson gson = null;
+	
+	private HttpServletResponse response;
 
 	static {
 		df = new SimpleDateFormat(dateformatString);
@@ -33,6 +38,8 @@ public class StatisticAction extends BaseAction {
 	}
 	
 	private Integer surveyId;
+	
+	private Integer index;
 	
 	private List<Statistic> statList;
 	
@@ -42,21 +49,51 @@ public class StatisticAction extends BaseAction {
 	@Autowired
 	private SurveyService surveyService;
 
+	@Override
+	public void setServletResponse(HttpServletResponse response) {
+		this.response = response;
+	}
 	
 	public String getSurveyStatistic() {
 		statList = statisticService.getSurveyStatistic(surveyId);
 		getSession().put("currentStatList", statList);
 		return SUCCESS;
 	}
+	
 	public String findAllSurvey() {
 		List<Survey> list = surveyService.findAllSurvey();
 		getSession().put("AllSurvey", list);
 		return "list";
 	}
+	
+	public String exportSurveyStatistic() {
+		try{
+			if(index == null){
+				statisticService.exportBySurvey(response, surveyId);
+			}else{
+				statisticService.exportByQuestion(response, surveyId, index);
+			}
+			
+			return SUCCESS;
+		} catch (Exception e) {
+			logger.debug(e);
+			return ERROR;
+		}
+	}
+	
 	public Integer getSurveyId() {
 		return surveyId;
 	}
 	public void setSurveyId(Integer surveyId) {
 		this.surveyId = surveyId;
 	}
+
+	public Integer getIndex() {
+		return index;
+	}
+
+	public void setIndex(Integer index) {
+		this.index = index;
+	}
+
 }

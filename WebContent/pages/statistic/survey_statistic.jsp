@@ -85,6 +85,7 @@ $(function () {
 </script>
 </head>
 <body>
+<a href="<%=path%>/statistic/export?surveyId=<%=request.getAttribute("surveyId") %>">导出统计结果</a>
 <div class="container clearfix">
 	<!--sidebar-->
     <div class="main-wrap">
@@ -95,7 +96,7 @@ $(function () {
     	<table width="80%">
 			<tr>
 				<td>
-					<div id="container<%=index++ %>" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+					<div id="container<%=index %>" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
 				</td>
 				<td>
 					<div class="main-wrap">
@@ -106,6 +107,7 @@ $(function () {
 					    				<th>选项</th>
 					    				<th>选择人数</th>
 					    				<th>百分比</th>
+					    				<th><a href="<%=path%>/statistic/export?surveyId=<%=request.getAttribute("surveyId") %>&index=<%=index++ %>">导出当前结果</a></th>
 					    			</tr>
     <%
     	for (StatisticItem item : stat.getItems()) {
