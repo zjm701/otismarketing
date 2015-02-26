@@ -29,11 +29,14 @@ public class StatisticServiceImpl implements StatisticService {
 	
 	private HSSFCellStyle cellStyle;
 	
+	private HSSFSheet sheet;
+	
 	@Resource
 	private StatisticDao statisticDao;
 	
 	public StatisticServiceImpl() {
 		workbook = new HSSFWorkbook();
+		sheet = workbook.createSheet();
 		cellStyle = workbook.createCellStyle();
 	}
 	
@@ -49,10 +52,9 @@ public class StatisticServiceImpl implements StatisticService {
 	}
 	
 	public void exportByQuestion(HttpServletResponse response, Integer surveyId, Integer index) throws Exception {
-		HSSFSheet sheet = workbook.createSheet();
-		int i = 0;
+		int i = 0, j = 0;
 		for (Statistic stat : getSurveyStatistic(surveyId)) {
-			if (i != index) {
+			if (index != j ++ ) {
 				continue;
 			}
 			HSSFRow row = sheet.createRow(i++);
@@ -75,7 +77,6 @@ public class StatisticServiceImpl implements StatisticService {
 	
 	@Override
 	public void exportBySurvey(HttpServletResponse response, Integer surveyId) throws Exception {
-		HSSFSheet sheet = workbook.createSheet();
 		int i = 0;
 		for (Statistic stat : getSurveyStatistic(surveyId)) {
 			HSSFRow row = sheet.createRow(i++);
