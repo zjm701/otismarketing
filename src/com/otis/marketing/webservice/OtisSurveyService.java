@@ -11,12 +11,12 @@ import javax.ws.rs.core.MediaType;
 public interface OtisSurveyService {
 
 	@GET
-	@Path("/getSurvey")
-	@Produces( {MediaType.APPLICATION_JSON} )
+	@Path(value = "/getSurvey")
+	@Produces({ MediaType.APPLICATION_JSON })
 	public String getSurveyById(@QueryParam("surveyId") String surveyId);
 	
 	@POST
-	@Path("/")
-	@Produces( {MediaType.APPLICATION_JSON} )
+	@Path(value = "/submitReply")
+	@Produces({ MediaType.APPLICATION_JSON })
 	public String submitReply(@QueryParam("content") String content);
 }

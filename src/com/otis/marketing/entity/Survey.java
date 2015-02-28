@@ -20,6 +20,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.google.gson.annotations.Expose;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "tbl_survey")
@@ -28,12 +30,15 @@ public class Survey implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "surveyId")
+	@Expose()
 	private Integer surveyId;
 
 	@Column(name = "title", nullable = false, length = 100)
+	@Expose()
 	private String title;
 
 	@Column(name = "description", length = 1000)
+	@Expose()
 	private String description;
 
 	@Column(name = "status", nullable = false)
@@ -56,10 +61,12 @@ public class Survey implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "startTime")
+	@Expose()
 	private Date startTime;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "endTime")
+	@Expose()
 	private Date endTime;
 
 	@ManyToOne(cascade = { CascadeType.REFRESH }, optional = true, fetch = FetchType.EAGER, targetEntity = Users.class)
@@ -68,6 +75,7 @@ public class Survey implements Serializable {
 
 	@OneToMany(mappedBy = "survey", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, targetEntity = Question.class)
 	@OrderBy(value = "orderNO ASC")
+	@Expose
 	private List<Question> questions = new ArrayList<>();
 
 	public Survey() {

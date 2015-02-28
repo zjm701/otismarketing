@@ -2,7 +2,6 @@ package com.otis.marketing.entity;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -15,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "tbl_question")
@@ -25,6 +26,7 @@ public class Question implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "questionId")
+	@Expose()
 	private Integer questionId;
 
 	@ManyToOne(cascade = { CascadeType.ALL }, optional = false, targetEntity = Survey.class)
@@ -32,21 +34,27 @@ public class Question implements Serializable {
 	private Survey survey;
 
 	@Column(name = "title", nullable = false, length = 100)
+	@Expose()
 	private String title;
 
 	@Column(name = "description", length = 1000)
+	@Expose()
 	private String description;
 
 	@Column(name = "type", nullable = false, updatable = false)
+	@Expose()
 	private Integer type;
 
 	@Column(name = "isRequired", nullable = false)
+	@Expose()
 	private Integer isRequired;
 
 	@Column(name = "orderNO", nullable = false)
+	@Expose()
 	private Integer orderNO;
 
 	@Column(name = "optionsString", length = 1000)
+	@Expose()
 	private String optionsString;
 	
 	@Column(name = "linkRules", length = 1000)
