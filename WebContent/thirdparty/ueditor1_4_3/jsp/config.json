@@ -8,8 +8,11 @@
     "imageCompressEnable": true, /* 是否压缩图片,默认是true */
     "imageCompressBorder": 1600, /* 图片压缩最长边限制 */
     "imageInsertAlign": "none", /* 插入的图片浮动方式 */
-    "imageUrlPrefix": "/otismarketing", /* 图片访问路径前缀 */			/* need to change the path when deploy*/
-    "imagePathFormat": "/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
+    "imageUrlPrefix": "http://localhost:8080/upload", /* 图片访问路径前缀 */			/* need to change the path when deploy*/
+    "imageUsingVirtualPath": "yes", /* 是否使用虚拟路径映射，设置为yes时开启*/
+    "imageRealMappingPath": "c:/otismarketing/upload", /* 虚拟路径映射的实际物理目录，仅当imageUsingVirtualPath=yes时该配置有效*/ /* need to change the path when deploy*/
+    "imagePathFormat": "/media/image/{uuid}", /* 禁用虚拟路径映射配置（imageUsingVirtualPath=no）但tomcat开启虚拟映射时，该配置项不能对应虚拟路径  */
+    /*"imagePathFormat": "../upload/image/{yyyy}{mm}{dd}/{time}{rand:6}",*/ /* 上传保存路径,可以自定义保存路径和文件名格式 */
                                 /* {filename} 会替换成原文件名,配置这项需要注意中文乱码问题 */
                                 /* {rand:6} 会替换成随机数,后面的数字是随机数的位数 */
                                 /* {time} 会替换成时间戳 */
