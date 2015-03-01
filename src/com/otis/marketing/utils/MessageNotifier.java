@@ -22,7 +22,7 @@ public class MessageNotifier {
 	public void pushMessage(List<String> tokens, String password, String message, Integer count) {
 		try{
 			PushNotificationPayload payLoad =  PushNotificationPayload.fromJSON(message);  
-            payLoad.addAlert("iphone推送测试 www.baidu.com"); // 消息内容  
+            payLoad.addAlert("Otis App 新消息"); // 消息内容  
             payLoad.addBadge(count); // iphone应用图标上小红圈上的数值  
             payLoad.addSound("default"); // 铃音 默认  
             
@@ -44,14 +44,14 @@ public class MessageNotifier {
             int failed = failedNotifications.size();  
             int successful = successfulNotifications.size();  
             if (successful > 0 && failed == 0) {  
-            	logger.debug("-----All notifications pushed 成功 (" + successfulNotifications.size() + "):");  
+            	logger.info("-----All notifications pushed 成功 (" + successfulNotifications.size() + "):");  
             } else if (successful == 0 && failed > 0) {  
-            	logger.debug("-----All notifications 失败 (" + failedNotifications.size() + "):");  
+            	logger.warn("-----All notifications 失败 (" + failedNotifications.size() + "):");  
             } else if (successful == 0 && failed == 0) {  
             	logger.warn("No notifications could be sent, probably because of a critical error");  
             } else {  
-            	logger.debug("------Some notifications 失败 (" + failedNotifications.size() + "):");  
-            	logger.debug("------Others 成功 (" + successfulNotifications.size() + "):");  
+            	logger.info("------Some notifications 失败 (" + failedNotifications.size() + "):");  
+            	logger.info("------Others 成功 (" + successfulNotifications.size() + "):");  
             }
 		}catch(Exception e){
 			logger.error(e);
