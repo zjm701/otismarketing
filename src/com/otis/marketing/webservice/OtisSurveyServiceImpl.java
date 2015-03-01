@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
@@ -22,7 +21,6 @@ public class OtisSurveyServiceImpl implements OtisSurveyService {
 	private static Logger logger = Logger.getLogger(OtisSurveyServiceImpl.class);
 	
 	public OtisSurveyServiceImpl() {
-		logger.debug("In constructor");
 	}
 	
 	@Autowired
@@ -46,16 +44,19 @@ public class OtisSurveyServiceImpl implements OtisSurveyService {
 
 	@Override
 	public String submitReply(String content) {
-		JsonObject json = new JsonObject();
 		try{
 		}catch(Exception e){
-			
+			return getFailedJsonResult();
 		}
-		return json.toString();
+		return getSuccessfulJsonResult();
 	}
 	
-	public static void main(String[] args) {
-		
+	private String getSuccessfulJsonResult() {
+		return "{\"result\":\"successful\"}";
+	}
+	
+	private String getFailedJsonResult() {
+		return "{\"result\":\"failed\"}";
 	}
 
 }
