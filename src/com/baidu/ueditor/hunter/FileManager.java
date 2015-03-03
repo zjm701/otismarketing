@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.baidu.ueditor.PathFormat;
 import com.baidu.ueditor.define.AppInfo;
@@ -15,6 +17,8 @@ import com.baidu.ueditor.define.State;
 
 public class FileManager {
 
+	private final static Log log = LogFactory.getLog(FileManager.class);
+	
 	private String dir = null;
 	private String rootPath = null;
 	private String[] allowFiles = null;
@@ -30,7 +34,6 @@ public class FileManager {
 	}
 	
 	public State listFile ( int index ) {
-		
 		File dir = new File( this.dir );
 		State state = null;
 

@@ -13,7 +13,6 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.baidu.ueditor.define.ActionMap;
@@ -100,7 +99,25 @@ public final class ConfigManager {
 				conf.put( "maxSize", this.jsonConfig.getLong( "fileMaxSize" ) );
 				conf.put( "allowFiles", this.getArray( "fileAllowFiles" ) );
 				conf.put( "fieldName", this.jsonConfig.getString( "fileFieldName" ) );
-				savePath = this.jsonConfig.getString( "filePathFormat" );
+				
+				//add by eric
+				String filePathFormat = this.jsonConfig.getString("filePathFormat");
+				String fileUsingVirtualPath = this.jsonConfig.getString("fileUsingVirtualPath");
+				
+				if("yes".equalsIgnoreCase(fileUsingVirtualPath)){
+				    String fileRealMappingPath = this.jsonConfig.getString("fileRealMappingPath");
+				    savePath = fileRealMappingPath + filePathFormat;
+				    virtualPath = true;
+				    conf.put( "realMappingPath", fileRealMappingPath);//put into conf map using key=realMappingPath
+				    log.debug("file real savePath(including PathFormat):" + savePath);
+				}else if("no".equalsIgnoreCase(fileUsingVirtualPath)){
+                    log.debug("not virtual, using filePathFormat as savePath");
+				    savePath = filePathFormat;
+				}else{
+				    log.warn("invalid fileUsingVirtualPath in json.config:" + fileUsingVirtualPath+",it should be 'yes' or 'no'...");
+				}
+				
+				//savePath = this.jsonConfig.getString( "filePathFormat" );
 				break;
 				
 			case ActionMap.UPLOAD_IMAGE:
