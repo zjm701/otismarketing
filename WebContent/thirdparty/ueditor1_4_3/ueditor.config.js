@@ -20,7 +20,7 @@
      * window.UEDITOR_HOME_URL = "/xxxx/xxxx/";
      */
 	//var URL = window.UEDITOR_HOME_URL || getUEBasePath();
-	var URL = "/otismarketing/thirdparty/ueditor1_4_3/";
+	var URL = "http://localhost:8080/otismarketing/thirdparty/ueditor1_4_3/";  //部署时候需要修改
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
      */

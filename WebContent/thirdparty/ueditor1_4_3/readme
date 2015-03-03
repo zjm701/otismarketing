@@ -1,5 +1,6 @@
 1. 修改ueditor的jsp目录下的config.json文件里面图片和文件的上传路径imageUrlPrefix、imageRealMappingPath和fileRealMappingPath、fileUrlPrefix
 2. 添加虚拟路径，修改tomcat配置文件server.xml,在host里面添加<Context docBase="C:/otismarketing/upload/media" path="/upload/media"/>
 3. 修改tomcat的web.xml文件， listings改成true
+4. 修改ueditor预定义图片路径，修改ueditor.config.js文件，更改URL的配置
 
 相应的路径在deploy时修改为对应的物理路径
