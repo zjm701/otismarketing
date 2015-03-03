@@ -16,4 +16,6 @@ public interface AppVersionService {
 	public void updateAppVersion(AppVersionBean version);
 	
 	public void deleteAppVersion(Integer versionId);
+	
+	public void publish(Integer versionId);
 }

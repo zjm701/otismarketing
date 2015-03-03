@@ -126,6 +126,9 @@
 		<action name="previewNews" class="newsAction" method="previewNews">
 			<result name="success">/pages/newsManagement/previewNews.jsp</result>
 		</action>
+		<action name="publishNews" class="newsAction" method="publish">
+			<result name="success" type="redirectAction">getAllNews</result>
+		</action>
 	</package>
 	
 	<package name="appVersion" namespace="/appVersion" extends="json-default">
@@ -142,6 +145,9 @@
 			<result name="success" type="redirectAction">getVersionsInfoList</result>
 		</action>
 		<action name="deleteVersion" class="appVersionAction" method="deleteVersion">
+			<result name="success" type="redirectAction">getVersionsInfoList</result>
+		</action>
+		<action name="publishVersion" class="appVersionAction" method="publish">
 			<result name="success" type="redirectAction">getVersionsInfoList</result>
 		</action>
 	</package>

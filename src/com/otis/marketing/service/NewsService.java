@@ -16,4 +16,6 @@ public interface NewsService {
 	public void updateNews(NewsBean news);
 	
 	public void deleteNews(Integer newsId);
+	
+	public void publishNews(Integer newsId);
 }

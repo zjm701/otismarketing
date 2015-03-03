@@ -82,6 +82,12 @@ public class AppVersionAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	public String publish() {
+		appVersionService.publish(id);
+		
+		return SUCCESS;
+	}
+	
 	public String getVersionName() {
 		return versionName;
 	}

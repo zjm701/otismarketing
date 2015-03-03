@@ -41,6 +41,11 @@ function deleteVersion(versionId) {
 		window.location = "<%=path%>/appVersion/deleteVersion?id=" + versionId;
 	}
 }
+function publishVersion(versionId) {
+	if(confirm('确定要发布?')){
+		window.location = "<%=path%>/appVersion/publishVersion?id=" + versionId;
+	}
+}
 </script>
 	
 </head>
@@ -86,7 +91,7 @@ function deleteVersion(versionId) {
 									</td>
 									<td><s:property value="#data.createTime" /></td>
 									<td>
-										<s:if test="#data.status==0"><a href="initUpdate?id=<s:property value="#data.id"/>" >修改</a><a href="#" onclick="deleteVersion(<s:property value="#data.id"/>)" >删除</a><a href="#" >发布</a></s:if>
+										<s:if test="#data.status==0"><a href="initUpdate?id=<s:property value="#data.id"/>" >修改</a><a href="#" onclick="deleteVersion(<s:property value="#data.id"/>)" >删除</a><a href="#" onclick="publishVersion(<s:property value="#data.id"/>)">发布</a></s:if>
 									</td>
 								</tr>
 							    </s:iterator>

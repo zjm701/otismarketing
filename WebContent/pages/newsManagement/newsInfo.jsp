@@ -41,7 +41,11 @@ function deleteNews(newsId) {
 		window.location = "<%=path%>/newsManagement/deleteNews?newsId=" + newsId;
 	}
 }
-
+function publishNews(newsId) {
+	if(confirm('确定要发布?')){
+		window.location = "<%=path%>/newsManagement/publishNews?newsId=" + newsId;
+	}
+}
 </script>
 	
 </head>
@@ -86,7 +90,7 @@ function deleteNews(newsId) {
 									<td><s:property value="#data.createTime" /></td>
 									<td>
 										<a href="previewNews?newsId=<s:property value="#data.id"/>" >查看</a>
-										<s:if test="#data.status==0"><a href="initUpdateNews?newsId=<s:property value="#data.id"/>" >修改</a><a href="#" onclick="deleteNews(<s:property value="#data.id"/>)" >删除</a><a href="#" >发布</a></s:if>
+										<s:if test="#data.status==0"><a href="initUpdateNews?newsId=<s:property value="#data.id"/>" >修改</a><a href="#" onclick="deleteNews(<s:property value="#data.id"/>)" >删除</a><a href="#" onclick="publishNews(<s:property value="#data.id"/>)">发布</a></s:if>
 									</td>
 								</tr>
 							    </s:iterator>

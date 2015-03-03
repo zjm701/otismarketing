@@ -84,6 +84,12 @@ public class NewsAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	public String publish() {
+		newsService.publishNews(newsId);
+	
+		return SUCCESS;
+	}
+	
 	public String getTitle() {
 		return title;
 	}

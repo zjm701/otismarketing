@@ -100,4 +100,15 @@ public class AppVersionServiceImpl implements AppVersionService{
 		this.appVersionDao = appVersionDao;
 	}
 
+	@Override
+	public void publish(Integer versionId) {
+		//TODO: push msg
+		
+		AppVersion appVersion = appVersionDao.findAppVersionById(versionId);
+		appVersion.setUpdateTime(CalendarUtils.currentTime());
+		appVersion.setStatus(1);
+		
+		appVersionDao.updateAppVersion(appVersion);
+	}
+
 }

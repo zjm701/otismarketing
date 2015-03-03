@@ -71,6 +71,16 @@ public class NewsServiceImpl implements NewsService {
 	}
 	
 	@Override
+	public void publishNews(Integer newsId) {
+		// TODO: push msg
+		News news = newsDao.findNewsById(newsId);
+		news.setUpdateTime(CalendarUtils.currentTime());
+		news.setStatus(1);
+		
+		newsDao.updateNews(news);
+	}
+	
+	@Override
 	public void deleteNews(Integer newsId) {
 		News news = newsDao.findNewsById(newsId);
 		newsDao.deleteNews(news);
@@ -85,5 +95,4 @@ public class NewsServiceImpl implements NewsService {
 	public void setNewsDao(NewsDao newsDao) {
 		this.newsDao = newsDao;
 	}
-
 }
