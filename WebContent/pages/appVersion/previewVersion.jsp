@@ -13,55 +13,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/common.css" />
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/main.css"/>
 <script type="text/javascript" src="<%=path%>/js/modernizr.min.js"></script>
-<script type="text/javascript">
-function checkInput() {
-	var isSubmit = false;
-	if (document.getElementById("userName").value == null || document.getElementById("userName").value == '') {
-		alert("请输入用户名！");
-	}else if (document.getElementById("password").value == null || document.getElementById("password").value == '') {
-		alert("请输入密码！");
-	}else {
-		isSubmit = true;
-	}
-	return isSubmit;
-}
-</script>
+
 </head>
 <body>
 <!-- header -->
-<s:include value="header.jsp"/>
+<s:include value="../header.jsp"/>
 <div class="container clearfix">
 	<!--sidebar-->
-    <s:include value="leftMenu.jsp"/>
+    <s:include value="../leftMenu.jsp"/>
     <div class="main-wrap">
          <div class="crumb-wrap">
-            <div class="crumb-list"><a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/userManagement/goUserManagement">用户管理</a><span class="crumb-step">&gt;</span><span>新增用户</span></div>
+            <div class="crumb-list"><a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/appVersion/getVersionsInfoList">App版本管理</a><span class="crumb-step">&gt;</span><span>查看</span></div>
         </div>
         <div class="result-wrap">
             <div class="result-title">
-                <h1>用户信息</h1>
+                <h1>版本信息</h1>
             </div>
             <div class="result-content">
-                <s:form action="addUser" namespace="/userManagement" method="post" onsubmit="return checkInput();">
+                <s:form action="updateVersion" namespace="/appVersion" method="post" onsubmit="return checkInput();">
+                	<s:hidden name="id" id="id" />
                     <table class="insert-tab" width="100%">
                         <tbody>
                         	<tr>
-                            <th width="120"><i class="require-red">*</i>用户名：</th>
+                            <th width="120">版本：</th>
                             <td>
-                                <input class="common-text required" id="userName" name="userName" size="50" value="" type="text">
+                                <s:property value="versionName" />
                             </td>
                         	</tr>
                             <tr>
-                                <th><i class="require-red">*</i>密码：</th>
+                                <th>下载地址：</th>
                                 <td>
-                                    <input class="common-text required" id="password" name="password" size="50" value="" type="password">
+                                    <s:property value="downLoadLink" />
                                 </td>
                             </tr>
                             <tr>
                                 <th></th>
                                 <td>
-                                    <input class="btn btn-primary btn6 mr10" value="提交" type="submit">
-                                    <input class="btn btn6" onclick="window.location.href='<%=path%>/userManagement/goUserManagement'" value="返回" type="button">
+                                    <input class="btn btn6" onclick="window.location.href='<%=path%>/appVersion/getVersionsInfoList'" value="返回" type="button">
                                 </td>
                             </tr>
                         </tbody></table>

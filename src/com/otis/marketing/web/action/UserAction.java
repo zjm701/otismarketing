@@ -3,6 +3,9 @@ package com.otis.marketing.web.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Controller;
 
 import com.otis.marketing.entity.Users;
 import com.otis.marketing.security.OtisContext;
+import com.otis.marketing.security.crypto.PasswordManager;
 import com.otis.marketing.service.UserService;
 import com.otis.marketing.web.dto.User;
 
@@ -61,7 +65,12 @@ public class UserAction extends BaseAction {
 
 	public String initUpdate() {
 		Users user = userService.getUserById(userId);
-		this.password = user.getPassword();
+		PasswordManager pm = PasswordManager.getInstance();
+		try {
+			this.password = pm.decrypt(user.getPassword());
+		} catch (IllegalBlockSizeException | BadPaddingException e) {
+			e.printStackTrace();
+		}
 		this.userName = user.getUsername();
 
 		return SUCCESS;

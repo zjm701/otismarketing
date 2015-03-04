@@ -17,7 +17,7 @@
     
     <!-- 配置登陆页面的切入点 -->
 	<!-- entry-point-ref：安全退出后,再次请求受限资源时所跳转的URL -->
-    <http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint" access-denied-page="/pages/error.jsp">
+    <http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint" access-denied-page="/pages/403Error.jsp">
     	
     	<!-- 安全退出 处理 -->
         <logout invalidate-session="true" logout-url="/logout.do" success-handler-ref="logoutFilter" />

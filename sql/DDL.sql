@@ -71,11 +71,11 @@ CREATE TABLE `tbl_resource` (
 -- ----------------------------
 -- Records of tbl_resource
 -- ----------------------------
-INSERT INTO `tbl_resource` VALUES ('1', 'User Edit', '', '/pages/userInfo.jsp');
-INSERT INTO `tbl_resource` VALUES ('2', 'Index Page', '', '/pages/index.jsp');
---TODO==================
---/pages/survey/survey_list.jsp
---/pages/survey/add.jsp
+
+--User part--
+INSERT INTO `tbl_resource` VALUES ('1', 'User List', '', '/userManagement/goUserManagement');
+INSERT INTO `tbl_resource` VALUES ('2', 'Add User', '', '/userManagement/toAddUser');
+INSERT INTO `tbl_resource` VALUES ('3', 'User update initialize', '', '/userManagement/initUpdate');
 
 -- ----------------------------
 -- Table structure for `tbl_role_resource`
@@ -97,7 +97,7 @@ CREATE TABLE `tbl_role_resource` (
 -- ----------------------------
 INSERT INTO `tbl_role_resource` VALUES ('1', '1', '1');
 INSERT INTO `tbl_role_resource` VALUES ('2', '2', '1');
-INSERT INTO `tbl_role_resource` VALUES ('3', '2', '2');
+INSERT INTO `tbl_role_resource` VALUES ('3', '3', '1');
 
 -- begining of survey module
 

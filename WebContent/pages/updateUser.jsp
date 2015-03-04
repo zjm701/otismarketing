@@ -38,7 +38,7 @@ function checkInput() {
     <s:include value="leftMenu.jsp"/>
     <div class="main-wrap">
          <div class="crumb-wrap">
-            <div class="crumb-list"><a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/pages/userInfo.jsp">用户管理</a><span class="crumb-step">&gt;</span><span>用户修改</span></div>
+            <div class="crumb-list"><a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><a class="crumb-name" href="<%=path%>/userManagement/goUserManagement">用户管理</a><span class="crumb-step">&gt;</span><span>用户修改</span></div>
         </div>
         <div class="result-wrap">
             <div class="result-title">

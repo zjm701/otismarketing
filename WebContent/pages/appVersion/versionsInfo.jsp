@@ -91,6 +91,7 @@ function publishVersion(versionId) {
 									</td>
 									<td><s:property value="#data.createTime" /></td>
 									<td>
+										<a href="previewVersion?id=<s:property value="#data.id"/>" >查看</a>
 										<s:if test="#data.status==0"><a href="initUpdate?id=<s:property value="#data.id"/>" >修改</a><a href="#" onclick="deleteVersion(<s:property value="#data.id"/>)" >删除</a><a href="#" onclick="publishVersion(<s:property value="#data.id"/>)">发布</a></s:if>
 									</td>
 								</tr>
