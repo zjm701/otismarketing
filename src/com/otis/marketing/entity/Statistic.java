@@ -20,8 +20,10 @@ public class Statistic implements Serializable{
 	
 	public void build4UI() {
 		for (StatisticItem item : getItems()) {
-			optionString += "'" + item.getOptionDesc() + "',";
-			totalString += item.getTotal() + ",";
+			String currentOpt = "'" + item.getOptionDesc() + "'";
+			optionString += currentOpt + ",";
+			totalString += "[" + currentOpt + "," + item.getTotal() + "],";
+//			totalString += item.getTotal() + ",";
 		}
 		optionString = optionString.substring(0, optionString.lastIndexOf(","));
 		totalString = totalString.substring(0, totalString.lastIndexOf(","));

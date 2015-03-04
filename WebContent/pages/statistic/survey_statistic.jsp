@@ -24,58 +24,36 @@ $(function () {
 		for (Statistic stat : list) {
 	%>
 	$('#container<%=index++ %>').highcharts({
-        chart: {
-            type: 'bar'
+		chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
         },
         title: {
             text: '<%=stat.getTitle() %>'
         },
-        subtitle: {
-            text: ''
-        },
-        xAxis: {
-            categories: [<%=stat.getOptionString() %>],
-            title: {
-                text: null
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: '单位(人)',
-                align: 'high'
-            },
-            labels: {
-                overflow: 'justify'
-            }
-        },
         tooltip: {
-            valueSuffix: '人选择'
+    	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
         },
         plotOptions: {
-            bar: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
                 dataLabels: {
-                    enabled: true
-                }
+                    enabled: false
+                },
+                showInLegend: true
             }
         },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'top',
-            x: -40,
-            y: 100,
-            floating: true,
-            borderWidth: 1,
-            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-            shadow: true
-        },
-        credits: {
-            enabled: false
-        },
+        exporting: {
+			enabled: false
+		},
         series: [{
-            
-            data: [<%=stat.getTotalString() %>]
+            type: 'pie',
+            name: '选择百分比',
+            data: [
+                <%=stat.getTotalString() %>
+            ]
         }]
     });
 	<%
