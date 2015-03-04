@@ -19,13 +19,9 @@
 	<jaxrs:server id="otisMarketingWebService" address="/">
 		<jaxrs:serviceBeans>
 			<ref bean="otisMarketingService" />
-			<ref bean="otisSurveyService" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
-	
 
 	<bean id="otisMarketingService" class="com.otis.marketing.webservice.OtisMarketingServiceImpl" />
-	
-	<bean id="otisSurveyService" class="com.otis.marketing.webservice.OtisSurveyServiceImpl" />
 	
 </beans>
