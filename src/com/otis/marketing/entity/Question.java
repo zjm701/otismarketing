@@ -21,7 +21,7 @@ import com.google.gson.annotations.Expose;
 @Table(name = "tbl_question")
 public class Question implements Serializable {
 	
-	public static final String OPTION_DELIMITER = "-OPT-";
+	public static final String OPTION_DELIMITER = "ʃʃ";
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

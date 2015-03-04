@@ -132,9 +132,9 @@ $(function() {
 						return;
 					}
 					if(options.length > 0){
-						optionsString = "-OPT-";
+						optionsString = "ʃʃ";
 						for(var j = 0; j < options.length; j++){
-							optionsString = optionsString + options[j] + "-OPT-";
+							optionsString = optionsString + options[j] + "ʃʃ";
 						}
 					}
 
@@ -259,7 +259,7 @@ $(function() {
 													<td></td>
 												</tr>
 												<s:if test="type==0 || type==1">
-													<s:generator val="optionsString" separator="-OPT-" id="options">
+													<s:generator val="optionsString" separator="ʃʃ" id="options">
 													<s:iterator value="#options" id="opt" status="o">
 														<tr>
 															<td></td>
