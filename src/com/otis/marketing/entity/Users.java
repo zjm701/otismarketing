@@ -37,10 +37,10 @@ public class Users implements Serializable, UserDetails {
 	@Column(name = "id")
 	private Integer id;
 
-	@Column(name = "username", length = 20)
+	@Column(name = "username", length = 50)
 	private String username;
 
-	@Column(name = "password", length = 20)
+	@Column(name = "password", length = 200)
 	private String password;
 
 	@Temporal(TemporalType.TIMESTAMP)

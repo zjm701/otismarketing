@@ -21,8 +21,8 @@ INSERT INTO `tbl_role` VALUES ('2', 'ROLE_USER', 'User');
 DROP TABLE IF EXISTS `otismarketing`.`tbl_user`;
 CREATE TABLE `otismarketing`.`tbl_user` (
   `id` INT NOT NULL auto_increment,
-  `username` varchar(20) default NULL,
-  `password` varchar(50) default NULL,
+  `username` varchar(50) default NULL,
+  `password` varchar(200) default NULL,
   `enabled` INT default 1,
   `createtime` datetime default NULL,
   `updatetime` datetime default NULL,
@@ -32,8 +32,8 @@ CREATE TABLE `otismarketing`.`tbl_user` (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `tbl_user` VALUES ('1', 'admin', 'admin', 1, '2014-01-04 18:17:54', '2014-01-04 18:17:54');
-INSERT INTO `tbl_user` VALUES ('2', 'user', 'user', 1, '2014-01-04 18:30:43', '2014-01-04 18:30:43');
+INSERT INTO `tbl_user` VALUES ('1', 'admin', 'bad23d65eb63034c', 1, '2014-01-04 18:17:54', '2014-01-04 18:17:54');
+INSERT INTO `tbl_user` VALUES ('2', 'user', '7c2a6637c0cf65ed', 1, '2014-01-04 18:30:43', '2014-01-04 18:30:43');
 
 -- ----------------------------
 -- Table structure for `tbl_user_role`
