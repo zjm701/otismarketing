@@ -9,16 +9,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <title>问卷管理</title>
-<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=path%>/thirdparty/dataTables/css/jquery.dataTables.css" />
+<link rel="stylesheet" type="text/css" href="<%=path%>/thirdparty/jquery-ui-1.10.2/lightness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/common.css" />
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/main.css" />
+<script type="text/javascript" src="<%=path%>/js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="<%=path%>/js/modernizr.min.js"></script>
 <script type="text/javascript" src="<%=path%>/thirdparty/dataTables/js/jquery.js"></script>
 <script type="text/javascript" src="<%=path%>/thirdparty/dataTables/js/jquery.dataTables.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=path%>/thirdparty/dataTables/css/jquery.dataTables.css" />
+<script type="text/javascript" src="<%=path%>/thirdparty/jquery-ui-1.10.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<%=path%>/js/survey.js"></script>
 
 <script type="text/javascript" >
-$(document).ready(function () {
+$(function () {
     $('#surveyList').dataTable({
         "oLanguage": {
             "sUrl": "<%=path%>/thirdparty/dataTables/jquery.dataTable.cn.txt"
@@ -49,38 +52,42 @@ function publishSurvey(a){
 	var td = $(a).parent().siblings().first();
 	var id = td.find("input:hidden").first().val();
 	var title = td.text();
-	if( confirm('您确定要发布问卷("'+title+'")么?')){
-		$.ajax({
-			url: "publish.action",//要访问的后台地址
-			data: "surveyId=" + id,//要发送的数据
-			type: "get", //使用get方法访问后台
-			dataType: "json", //返回json格式的数据
-			async: true,
-			success: function(msg){//msg为返回的数据，在这里做数据绑定
-				alert(msg.message);
-				location.href = "findAllSurvey.action";
-			}
-		});
-	}
+	
+	openConfirm("发布?", 
+				'您确定要发布问卷("'+title+'")么?',
+				function() {
+					$.ajax({
+						url: "publish.action",//要访问的后台地址
+						data: "surveyId=" + id,//要发送的数据
+						type: "get", //使用get方法访问后台
+						dataType: "json", //返回json格式的数据
+						async: true,
+						success: function(msg){//msg为返回的数据，在这里做数据绑定
+							openAlert("提示", msg.message, toSurveyList);
+						}
+					});}
+				);
 }
 
 function deleteSurvey(a){
 	var td = $(a).parent().siblings().first();
 	var id = td.find("input:hidden").first().val();
 	var title = td.text();
-	if( confirm('您确定要删除问卷("'+title+'")么?')){
-		$.ajax({
-			url: "delete.action",//要访问的后台地址
-			data: "surveyId=" + id,//要发送的数据
-			type: "get", //使用get方法访问后台
-			dataType: "json", //返回json格式的数据
-			async: true,
-			success: function(msg){//msg为返回的数据，在这里做数据绑定
-				alert(msg.message);
-				location.href = "findAllSurvey.action";
-			}
-		});
-	}
+	
+	openConfirm("删除?", 
+				'您确定要删除问卷("'+title+'")么?',
+				function() {
+					$.ajax({
+						url: "delete.action",//要访问的后台地址
+						data: "surveyId=" + id,//要发送的数据
+						type: "get", //使用get方法访问后台
+						dataType: "json", //返回json格式的数据
+						async: true,
+						success: function(msg){//msg为返回的数据，在这里做数据绑定
+							openAlert("提示", msg.message, toSurveyList);
+						}
+					});}
+				);
 }
 </script>
 </head>
@@ -137,6 +144,13 @@ function deleteSurvey(a){
 				</div>
 			</div>
 		</div>
+	</div>
+	
+    <div id="alertMsg" >
+  		<p></p>
+	</div>
+    <div id="confirmMsg" >
+  		<p></p>
 	</div>
 </body>
 </html>

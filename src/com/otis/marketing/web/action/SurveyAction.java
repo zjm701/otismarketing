@@ -84,7 +84,7 @@ public class SurveyAction extends BaseAction {
 		}
 
 		surveyService.create(s);
-		this.message = "新增成功，标题为：" + s.getTitle();
+		this.message = "新增问卷成功，标题为：" + s.getTitle();
 		return SUCCESS;
 	}
 
@@ -120,7 +120,7 @@ public class SurveyAction extends BaseAction {
 		}
 
 		surveyService.update(s);
-		this.message = "修改成功！";
+		this.message = "修改问卷成功！";
 		return SUCCESS;
 	}
 
@@ -132,13 +132,13 @@ public class SurveyAction extends BaseAction {
 
 	public String delete() throws Exception {
 		surveyService.delete(surveyId);
-		this.message = "删除成功!";
+		this.message = "删除问卷成功!";
 		return SUCCESS;
 	}
 
 	public String publish() throws Exception {
 		surveyService.publish(surveyId);
-		this.message = "发布成功!";
+		this.message = "发布问卷成功!";
 		return SUCCESS;
 	}
 

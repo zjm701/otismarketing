@@ -31,11 +31,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div id="content">
 				<hr>
 				<table>
+					<tr><td colspan='2'>(<i class="require-red">*</i>为必答题)</td></tr>
 					<s:iterator value="#session.currentSurvey.questions" status='st'>
 						<tr height="10"></tr>
 						<tr>
 							<td width="40">Q<s:property value="#st.count"/>:&nbsp;</td>
-							<td><s:property value="title" /></td>
+							<td><s:if test="isRequired==1"><i class="require-red">*</i></s:if><s:property value="title" /></td>
 						</tr>
 						<s:if test="type==0 || type==1">
 							<s:generator val="optionsString" separator="ʃʃ" id="options">

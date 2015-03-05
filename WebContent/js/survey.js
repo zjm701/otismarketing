@@ -1,8 +1,48 @@
 var cntQuestion = 0;
 var questionType = 0;
 var questionTypeName;
+var callbackAlert = null;
 
-$(function() {
+$(function() {	
+	$("#alertMsg").dialog({
+		autoOpen: false,
+		modal: true,
+		resizable: false,
+		closeOnEscape: false,
+		height: 180,
+		width: 300,
+		buttons: {
+			"确  定": function() {
+				$(this).dialog("close"); 
+				if(callbackAlert != null){
+					callbackAlert();
+				}
+				callbackAlert = null;
+			}
+		}
+	});
+
+    $('#confirmMsg').dialog({
+		autoOpen: false,
+		modal: true,
+		resizable: false,
+		closeOnEscape: false,
+		height: 180,
+		width: 300,
+        buttons: {
+            "取 消": function() {
+                $(this).dialog('close');
+            },
+            "确  定": function() {
+				$(this).dialog("close"); 
+				if(callbackAlert != null){
+					callbackAlert();
+				}
+				callbackAlert = null;
+			}
+        }
+    });
+
 	$("#startTime").datepicker({
 		showOtherMonths: true,
 		selectOtherMonths: true,
@@ -68,6 +108,22 @@ $(function() {
 		}
 	});
 });
+
+function openAlert(title, msg, callback){
+	callbackAlert = callback;
+	$("#alertMsg").children('p').first(0).text(msg);
+	$("#alertMsg").dialog("option","title", title).dialog("open");
+}
+
+function openConfirm(title, msg, callback){
+	callbackAlert = callback;
+	$("#confirmMsg").children('p').first(0).text(msg);
+	$("#confirmMsg").dialog("option","title", title).dialog("open");
+}
+
+function toSurveyList(){
+	location.href = "findAllSurvey.action";
+}
 
 var addQuesion = function(parent){
 	var i = ++cntQuestion;

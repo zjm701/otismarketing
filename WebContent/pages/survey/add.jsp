@@ -9,11 +9,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <title>新增问卷</title>
-<link rel="stylesheet" href="../thirdparty/jquery-ui-1.10.2/lightness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="<%=path%>/thirdparty/jquery-ui-1.10.2/lightness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/common.css" />
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/main.css"/>
-<script type="text/javascript" src="<%=path%>/js/modernizr.min.js"></script>
-
 <style type="text/css">
 	#top {float: left; width: 100%; height: auto; margin: 10px 10px 10px 0; }
 	#left { float: left; width: 140px; height: 200px; margin: 10px 10px 10px 0; }
@@ -24,21 +22,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	#divQuestion { width: 120px; height: 35px; float: top; margin: 10px 10px 10px 0; }
 </style>
 
-<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="../thirdparty/jquery-ui-1.10.2/jquery-ui.min.js"></script>
-<script type="text/javascript" src="../thirdparty/jquery-ui-1.10.2/i18n/jquery.ui.datepicker-zh-CN.js"></script>
-<script type="text/javascript" src="../js/survey.js"></script>
+<script type="text/javascript" src="<%=path%>/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="<%=path%>/js/modernizr.min.js"></script>
+<script type="text/javascript" src="<%=path%>/thirdparty/jquery-ui-1.10.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<%=path%>/thirdparty/jquery-ui-1.10.2/i18n/jquery.ui.datepicker-zh-CN.js"></script>
+<script type="text/javascript" src="<%=path%>/js/survey.js"></script>
 <script type="text/javascript" >
 $(function() {
 	$("input[name='save']").click(function() {
 		var title = $("input[name='title']");
 		if($.trim(title.val())==""){
-			alert("请输入问卷的标题!");
-			title.focus();
+			openAlert("填写错误", "请输入问卷的标题!", function(){title.focus();});
 			return;
 		}
 		if(cntQuestion==0){
-			alert("请至少添加一个问题!");
+			openAlert("填写错误", "请至少添加一个问题!");
 			return;
 		}else{
 			var table = null;
@@ -55,8 +53,7 @@ $(function() {
 				}else{
 					question_title = table.find("input[name='question_title']").first();
 					if($.trim(question_title.val())==""){
-						alert("Q"+index+":请输入问题!");
-						question_title.focus();
+						openAlert("填写错误", "Q"+index+":请输入题干!", function(){question_title.focus();});
 						return;
 					}
 					if(table.find("input:checkbox").first().is(":checked")){
@@ -89,8 +86,7 @@ $(function() {
 							if(option.length >= 1){
 								if($.trim(option.val())==""){
 									needSubmit = false;
-									alert("Q"+index+":请输入选项"+(cntOption+1)+"!");
-									option.focus();
+									openAlert("填写错误", "Q"+index+":请输入选项"+(cntOption+1)+"!", function(){option.focus();});
 									return;
 								}else{
 									options[cntOption] = $.trim(option.val());
@@ -102,14 +98,12 @@ $(function() {
 								var val = $.trim(link.val());
 								if(val==""){
 									needSubmit = false;
-									alert("Q"+index+":请输入选项"+(cntOption+1)+"的选中跳至的下一题！");
-									link.focus();
+									openAlert("填写错误", "Q"+index+":请输入选项"+(cntOption+1)+"的选中跳至的下一题！", function(){link.focus();});
 									return;
 								}else{
 									if(isNaN(val) || parseInt(val) <= 0 || parseInt(val) > cntQuestion){
 										needSubmit = false;
-										alert("Q"+index+":选项"+(cntOption+1)+"的选中跳至的下一题必须是 1~"+cntQuestion+" 整数！");
-										link.focus();
+										openAlert("填写错误", "Q"+index+":选项"+(cntOption+1)+"的选中跳至的下一题必须是 1~"+cntQuestion+" 整数！", function(){link.focus();});
 										return;
 									}else{
 										links[cntOption] = parseInt(val);
@@ -163,8 +157,7 @@ $(function() {
 				dataType: "json", //返回json格式的数据
 				async: true,
 				success: function(msg){//msg为返回的数据，在这里做数据绑定
-					alert(msg.message);
-					location.href = "findAllSurvey.action";
+					openAlert("提示", msg.message, toSurveyList);
 				}
 			});
 		}
@@ -206,7 +199,7 @@ $(function() {
 							</tr>
 							<tr>
 								<th></th>
-								<td><input type="button" name="save" value="保存" class="btn btn-primary btn6 mr10" ></td>
+								<td><input type="button" name="save" value="提  交" class="btn btn-primary btn6 mr10" ></td>
 							</tr>
 						</table>
 					</div>
@@ -227,5 +220,9 @@ $(function() {
 	        </div>
         </div>
     </div>
+    
+    <div id="alertMsg" >
+  		<p></p>
+	</div>
 </body>
 </html>
