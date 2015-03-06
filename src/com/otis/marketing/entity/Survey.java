@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +18,9 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import com.google.gson.annotations.Expose;
 
@@ -69,11 +71,13 @@ public class Survey implements Serializable {
 	@Expose()
 	private Date endTime;
 
-	@ManyToOne(cascade = { CascadeType.REFRESH }, optional = true, fetch = FetchType.EAGER, targetEntity = Users.class)
+	@ManyToOne(optional = true, fetch = FetchType.EAGER, targetEntity = Users.class)
+	@Cascade({CascadeType.REFRESH})
 	@JoinColumn(name = "authorId", updatable = false)
 	private Users author;
 
-	@OneToMany(mappedBy = "survey", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, targetEntity = Question.class)
+	@OneToMany(mappedBy = "survey", fetch = FetchType.EAGER, targetEntity = Question.class)
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE_ORPHAN})
 	@OrderBy(value = "orderNO ASC")
 	@Expose
 	private List<Question> questions = new ArrayList<>();
@@ -210,6 +214,7 @@ public class Survey implements Serializable {
 			q = this.questions.remove(i);
 			q.setSurvey(null);
 		}
+		this.questions.clear();
 	}
 
 	public List<Question> copyQuestions() {

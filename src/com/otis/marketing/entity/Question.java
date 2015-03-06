@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import com.google.gson.annotations.Expose;
 
@@ -29,7 +31,8 @@ public class Question implements Serializable {
 	@Expose()
 	private Integer questionId;
 
-	@ManyToOne(cascade = { CascadeType.ALL }, optional = false, targetEntity = Survey.class)
+	@ManyToOne(optional = false, targetEntity = Survey.class)
+	@Cascade({CascadeType.REFRESH})
 	@JoinColumn(name = "surveyId", updatable = false)
 	private Survey survey;
 
