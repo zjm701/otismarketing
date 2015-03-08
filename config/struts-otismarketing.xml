@@ -60,7 +60,7 @@
 			<result name="success">/pages/statistic/survey_statistic.jsp</result>
    	  	 	<result name="error">/pages/error.jsp</result>
 		</action>
-		<action name="findAllSurvey" class="statisticAction" method="findAllSurvey">
+		<action name="findAllSurvey" class="surveyAction" method="findAllSurvey">
 			<result name="list">/pages/statistic/survey_list.jsp</result>
    	  	 	<result name="error">/pages/error.jsp</result>
 		</action>

@@ -25,8 +25,10 @@ public class Statistic implements Serializable{
 			totalString += "[" + currentOpt + "," + item.getTotal() + "],";
 //			totalString += item.getTotal() + ",";
 		}
-		optionString = optionString.substring(0, optionString.lastIndexOf(","));
-		totalString = totalString.substring(0, totalString.lastIndexOf(","));
+		if (getItems() != null && getItems().size() > 0) {
+			optionString = optionString.substring(0, optionString.lastIndexOf(","));
+			totalString = totalString.substring(0, totalString.lastIndexOf(","));
+		}
 	}
 
 	public String getTitle() {
