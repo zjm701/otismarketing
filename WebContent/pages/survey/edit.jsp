@@ -126,16 +126,22 @@ $(function() {
 						return;
 					}
 					if(options.length > 0){
-						optionsString = "ʃʃ";
 						for(var j = 0; j < options.length; j++){
-							optionsString = optionsString + options[j] + "ʃʃ";
+							if( j == 0){
+								optionsString = "" + options[j];
+							}else{
+								optionsString = optionsString + "ʃʃ" + options[j];
+							}
 						}
 					}
 
 					if(links.length > 0){
-						linksString = "-";
 						for(var k = 0; k < options.length; k++){
-							linksString = linksString + links[k] + "-";
+							if( k == 0){
+								linksString = "" + links[k];
+							}else{
+								linksString = linksString + "-" + links[k];
+							}
 						}
 					}
 					
