@@ -1,5 +1,6 @@
 package com.otis.marketing.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -15,4 +16,6 @@ public interface SurveyDao {
 	public Survey get(int id) throws DataAccessException;
 
 	public List<Survey> findAllSurvey() throws DataAccessException;
+
+	public int updateSurveysToEnd(Date endDate) throws DataAccessException;
 }
