@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>问卷管理</title>
+<title>问卷统计</title>
 <link rel="stylesheet" type="text/css" href="<%=path%>/thirdparty/dataTables/css/jquery.dataTables.css" />
 <link rel="stylesheet" type="text/css" href="<%=path%>/thirdparty/jquery-ui-1.10.2/lightness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="<%=path%>/css/common.css" />
@@ -44,7 +44,7 @@ $(function () {
 		<div class="main-wrap">
 			<div class="crumb-wrap">
 				<div class="crumb-list">
-					<a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><span class="crumb-name">问卷管理</span>
+					<a href="<%=path%>/pages/index.jsp">首页</a><span class="crumb-step">&gt;</span><span class="crumb-name">问卷统计</span>
 				</div>
 			</div>
 			<div class="result-wrap">
