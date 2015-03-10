@@ -75,7 +75,7 @@ CREATE TABLE `tbl_resource` (
 --User part--
 INSERT INTO `tbl_resource` VALUES ('1', 'User List', '', '/userManagement/goUserManagement');
 INSERT INTO `tbl_resource` VALUES ('2', 'Add User', '', '/userManagement/toAddUser');
-INSERT INTO `tbl_resource` VALUES ('3', 'User update initialize', '', '/userManagement/initUpdate');
+INSERT INTO `tbl_resource` VALUES ('3', 'User Update', '', '/userManagement/initUpdate');
 
 -- ----------------------------
 -- Table structure for `tbl_role_resource`
