@@ -55,6 +55,11 @@ public class SurveyServiceImpl implements SurveyService {
 
 	@Override
 	public List<Survey> findAllSurvey() {
+		updateSurveysToEnd();
 		return surveyDao.findAllSurvey();
+	}
+	
+	private int updateSurveysToEnd(){
+		return surveyDao.updateSurveysToEnd(CalendarUtils.currentTime());
 	}
 }

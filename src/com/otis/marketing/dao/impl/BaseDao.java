@@ -26,4 +26,8 @@ public class BaseDao<T> extends HibernateDaoSupport {
 	public List<T> find(String hql, Object... values) {
 		return (List<T>) this.getHibernateTemplate().find(hql, values);
 	}
+
+	public int execute(String hql, Object... values) {
+		return this.getHibernateTemplate().bulkUpdate(hql, values);
+	}
 }

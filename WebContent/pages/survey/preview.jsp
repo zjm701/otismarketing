@@ -18,7 +18,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 	<div class="result-wrap">
 		<div class="result-title">
-			<h1>${sessionScope.currentSurvey.title}</h1>
+			<h1>${sessionScope.currentSurvey.title}
+				<i class="require-red">
+					(<s:if test="#session.currentSurvey.status==0">未发布</s:if>
+					<s:elseif test="#session.currentSurvey.status==1">收集中</s:elseif>
+					<s:elseif test="#session.currentSurvey.status==2">已结束</s:elseif>)
+				</i>
+			</h1>
 		</div>
 		<div class="result-content">
 			<div id="top">
