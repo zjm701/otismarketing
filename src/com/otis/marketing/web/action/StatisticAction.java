@@ -2,6 +2,7 @@ package com.otis.marketing.web.action;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -14,8 +15,12 @@ import org.springframework.stereotype.Controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.otis.marketing.entity.Answer;
+import com.otis.marketing.entity.Question;
+import com.otis.marketing.entity.Reply;
 import com.otis.marketing.entity.Statistic;
 import com.otis.marketing.entity.Survey;
+import com.otis.marketing.service.ReplyService;
 import com.otis.marketing.service.StatisticService;
 import com.otis.marketing.service.SurveyService;
 
@@ -48,6 +53,9 @@ public class StatisticAction extends BaseAction implements ServletResponseAware{
 	
 	@Autowired
 	private SurveyService surveyService;
+	
+	@Autowired
+	private ReplyService replyService;
 
 	@Override
 	public void setServletResponse(HttpServletResponse response) {
@@ -60,15 +68,10 @@ public class StatisticAction extends BaseAction implements ServletResponseAware{
 		return SUCCESS;
 	}
 	
-	public String findAllSurvey() {
-		List<Survey> list = surveyService.findAllSurvey();
-		getSession().put("AllSurvey", list);
-		return "list";
-	}
-	
 	public String exportSurveyStatistic() {
 		try{
 			if(index == null){
+				//导出所有统计结果
 				statisticService.exportBySurvey(response, surveyId);
 			}else{
 				statisticService.exportByQuestion(response, surveyId, index);

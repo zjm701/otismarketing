@@ -1,12 +1,14 @@
 package com.otis.marketing.webservice;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
+import com.otis.marketing.entity.Reply;
 
 @Path("/otisService")
 public interface OtisMarketingService {
@@ -29,5 +31,10 @@ public interface OtisMarketingService {
 	@POST
 	@Path(value = "/submitReply")
 	@Consumes({ MediaType.APPLICATION_JSON })
-	public String submitReply(@QueryParam("content") String content);
+	public String submitReply(String content);
+	
+	@GET
+	@Path(value = "/transfer")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public String transferBean(@QueryParam("content") String content);
 }

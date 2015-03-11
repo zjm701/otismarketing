@@ -59,6 +59,4 @@ public class StatisticDaoImpl extends HibernateDaoSupport implements StatisticDa
 		return result;
 	}
 	
-	
-
 }

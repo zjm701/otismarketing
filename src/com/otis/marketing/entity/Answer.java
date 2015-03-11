@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "tbl_answer")
@@ -23,8 +25,9 @@ public class Answer implements Serializable {
 	@Column(name = "answerId")
 	private Integer answerId;
 	
-	@ManyToOne(cascade = { CascadeType.ALL }, optional = false)
-	@JoinColumn(name = "replyId")
+	@ManyToOne(optional = false, targetEntity = Reply.class)
+	@Cascade({org.hibernate.annotations.CascadeType.REFRESH})
+	@JoinColumn(name = "replyId", updatable = false)
 	private Reply reply;
 	
 	@OneToOne(cascade = { CascadeType.ALL }, optional = false)

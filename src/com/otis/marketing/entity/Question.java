@@ -25,6 +25,12 @@ public class Question implements Serializable {
 	
 	public static final String OPTION_DELIMITER = "ʃʃ";
 	
+	public static final Integer SINGLE_SELECTION_TYPE = 0;
+	
+	public static final Integer MULTI_SELECTION_TYPE = 1;
+	
+	public static final Integer SHORT_ANSWERS_TYPE = 2;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "questionId")
