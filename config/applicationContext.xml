@@ -104,4 +104,10 @@
 	<bean id="surveyDao" class="com.otis.marketing.dao.impl.SurveyDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	<bean id="questionDao" class="com.otis.marketing.dao.impl.QuestionDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="replyDao" class="com.otis.marketing.dao.impl.ReplyDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 </beans>
