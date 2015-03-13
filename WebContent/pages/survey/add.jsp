@@ -31,12 +31,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 $(function() {
 	$("input[name='save']").click(function() {
 		var title = $("input[name='title']");
-		if($.trim(title.val())==""){
-			openAlert("填写错误", "请输入问卷的标题!", function(){title.focus();});
+		var description = $("#description");
+		var endTime = $("#endTime");
+		if( !checkRequired(title, "问卷标题") || !checkMaxLength(title, "问卷标题", 100) ){
+			return;
+		}
+		if( !checkMaxLength (description, "详细描述", 500)){
+			return;
+		}
+		if( !checkRequired (endTime, "截止时间")){
 			return;
 		}
 		if(cntQuestion==0){
-			openAlert("填写错误", "请至少添加一个问题!");
+			openAlert("填写错误", "请至少添加一个问题");
 			return;
 		}else{
 			var table = null;
@@ -52,10 +59,10 @@ $(function() {
 					break;
 				}else{
 					question_title = table.find("input[name='question_title']").first();
-					if($.trim(question_title.val())==""){
-						openAlert("填写错误", "Q"+index+":请输入题干!", function(){question_title.focus();});
+					if( !checkRequired(question_title, "Q"+index+":问题") || !checkMaxLength(question_title, "Q"+index+":问题", 100) ){
 						return;
 					}
+
 					if(table.find("input:checkbox").first().is(":checked")){
 						isRequired = 0;
 					}else{
@@ -84,9 +91,8 @@ $(function() {
 							
 							option = $(this).find("input[name='option']").first();
 							if(option.length >= 1){
-								if($.trim(option.val())==""){
+								if( !checkRequired(option, "Q"+index+":选项"+(cntOption+1)) || !checkMaxLength(option, "Q"+index+":选项"+(cntOption+1), 50) ){
 									needSubmit = false;
-									openAlert("填写错误", "Q"+index+":请输入选项"+(cntOption+1)+"!", function(){option.focus();});
 									return;
 								}else{
 									options[cntOption] = $.trim(option.val());
@@ -96,14 +102,13 @@ $(function() {
 							link = $(this).find("input[name='link']").first();
 							if(link.length >= 1){
 								var val = $.trim(link.val());
-								if(val==""){
+								if( !checkRequired(link, "Q"+index+":选项"+(cntOption+1)+"的选中跳至第几题") ){
 									needSubmit = false;
-									openAlert("填写错误", "Q"+index+":请输入选项"+(cntOption+1)+"的选中跳至的下一题！", function(){link.focus();});
 									return;
 								}else{
 									if(isNaN(val) || parseInt(val) <= 0 || parseInt(val) > cntQuestion){
 										needSubmit = false;
-										openAlert("填写错误", "Q"+index+":选项"+(cntOption+1)+"的选中跳至的下一题必须是 1~"+cntQuestion+" 整数！", function(){link.focus();});
+										openAlert("填写错误", "Q"+index+":选项"+(cntOption+1)+"的选中跳至第几题必须是 1~"+cntQuestion+" 整数", function(){link.focus();});
 										return;
 									}else{
 										links[cntOption] = parseInt(val);
@@ -150,9 +155,9 @@ $(function() {
 
 			var survey = {
 				title: $.trim(title.val()),
-				description: $.trim($("#description").val()),
+				description: $.trim(description.val()),
 				startTime: $.trim($("#startTime").val()),
-				endTime: $.trim($("#endTime").val()),
+				endTime: $.trim(endTime.val()),
 				questions: questions
 			};
 			
@@ -200,7 +205,7 @@ $(function() {
 								<td><textarea id="description" cols="50" rows="3"></textarea></td>
 							</tr>
 							<tr>
-								<th>时&nbsp;&nbsp;&nbsp;&nbsp;间:</th>
+								<th><i class="require-red">*</i>时&nbsp;&nbsp;&nbsp;&nbsp;间:</th>
 								<td>从&nbsp;<input type="text" id="startTime" name="startTime" size="15">&nbsp;到&nbsp;<input type="text" id="endTime" name="endTime" size="15"></td>
 							</tr>
 							<tr>

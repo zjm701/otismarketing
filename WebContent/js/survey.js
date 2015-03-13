@@ -109,6 +109,26 @@ $(function() {
 	});
 });
 
+function checkRequired(obj, name){
+	var val = $.trim(obj.val());
+	if( val == ""){
+		openAlert("填写错误", '请输入"'+name+'"', function(){obj.focus();});
+		return false; // not pass
+	}else{
+		return true; //pass
+	}
+}
+
+function checkMaxLength(obj, name, max){
+	var val = $.trim(obj.val());
+	if( val.length > max) {
+		openAlert("填写错误", '"'+name+'"的长度不能超过'+max, function(){obj.focus();});
+		return false; // not pass
+	}else{
+		return true; //pass
+	}
+}
+
 function openAlert(title, msg, callback){
 	callbackAlert = callback;
 	$("#alertMsg").children('p').first(0).text(msg);
@@ -133,8 +153,8 @@ var addQuesion = function(parent){
     	question = $("<li><table><tbody>"+
     			"<tr><td width='40'>Q"+i+"</td><td width='60'><font color='red'>"+questionTypeName+"</font></td><td width='160'><input type='checkbox' name='isRequired' checked />该题可跳过不回答</td><td width='140'><input type='button' onclick='deleteQusetion(this)' value='删除此题'/></td><td><input type='hidden' name='type' value='"+questionType+"'/></td></tr>"+
     			"<tr><td></td><td>问&nbsp;&nbsp;题:</td><td colspan='2'><input type='text' name='question_title' size='35'/></td><td></td></tr>"+
-    			"<tr><td></td><td>选项1:</td><td><input type='text' name='option' size='15'/></td><td>选中跳至<input type='text' name='link' value='"+i+"' size='1'/>题</td><td></td></tr>"+
-    			"<tr><td></td><td>选项2:</td><td><input type='text' name='option' size='15'/></td><td>选中跳至<input type='text' name='link' value='"+i+"' size='1'/>题</td><td></td></tr>"+
+    			"<tr><td></td><td>选项1:</td><td><input type='text' name='option' size='15'/></td><td>选中跳至第<input type='text' name='link' value='"+i+"' size='1'/>题</td><td></td></tr>"+
+    			"<tr><td></td><td>选项2:</td><td><input type='text' name='option' size='15'/></td><td>选中跳至第<input type='text' name='link' value='"+i+"' size='1'/>题</td><td></td></tr>"+
     			"<tr><td></td><td colspan='2'><input type='button' onclick='addTr(this,0)' value='新增选项'></td><td></td><td></td></tr>"+
     			"</tbody></table></li>");
     }else if(questionType == 1){
@@ -189,7 +209,7 @@ function addTr(button, questionType){
    
    var tr = null;
    if(questionType == 0){
-	   tr = $("<tr><td></td><td>选项"+optionIndex+":</td><td><input type='text' name='option' size='15'/></td><td>选中跳至<input type='text' name='link' value='"+cntQuestion+"' size='1'/>题</td><td><input type='button' onclick='deleteTr(this)' value='删除此项'></td></tr>");
+	   tr = $("<tr><td></td><td>选项"+optionIndex+":</td><td><input type='text' name='option' size='15'/></td><td>选中跳至第<input type='text' name='link' value='"+cntQuestion+"' size='1'/>题</td><td><input type='button' onclick='deleteTr(this)' value='删除此项'></td></tr>");
    }else if(questionType == 1){
 	   tr = $("<tr><td></td><td>选项"+optionIndex+":</td><td><input type='text' name='option' size='15'/></td><td></td><td><input type='button' onclick='deleteTr(this)' value='删除此项'></td></tr>");
    }
