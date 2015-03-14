@@ -23,8 +23,9 @@ public class OtisStruts2Filter extends StrutsPrepareAndExecuteFilter {
 			FilterChain chain) throws IOException, ServletException {
 
 		try {
-			HttpServletRequest request = (HttpServletRequest) req;
-			if (request.getRequestURI().contains("/webservice")) {
+			HttpServletRequest request = (HttpServletRequest) req; //upload  fd
+			if (request.getRequestURI().contains("/webservice") || request.getRequestURI().contains("/tk")
+					|| request.getRequestURI().contains("/upload") || request.getRequestURI().contains("/fd")) {
 				chain.doFilter(req, res);
 			} else if (request.getRequestURI().contains("/ueditor1_4_3/jsp/")) {
 				chain.doFilter(new StrutsRequestWrapper((HttpServletRequest) req), res);

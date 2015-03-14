@@ -9,6 +9,7 @@
     <http pattern="/js/**/**" security="none"/>
     <http pattern="/css/**/**" security="none"/>
     <http pattern="/images/**/**" security="none"/>
+    <http pattern="/swf/**/**" security="none"/>
     <http pattern="/thirdparty/**/**" security="none"/>
     <http pattern="/upload/**/**" security="none"/>
     <http pattern="/fonts/**/**" security="none"/>
