@@ -3,10 +3,13 @@
 3. 修改tomcat的web.xml文件， listings改成true
 4. 修改ueditor预定义图片路径，修改ueditor.config.js文件，更改URL的配置
 
-5. stream-config.properties文件的C:/otismarketing/upload/appInstall改为服务器物理路径
+5. stream-config.properties文件的C:/otismarketing/upload/appInstall改为实际服务器上传的App文件存储物理路径
 6. 对于大文件的存储增加tomcat虚拟路径，例如：<Context docBase="C:/SoftWare/ftpserver-1.0.6/apache-ftpserver-1.0.6/res/home" path="/install/files"/>，其中docBase改成服务器物理路径
-7. 修改stram-v1.js中的路径，1296、1297行,里面的路径对应于新加的大文件虚拟路径			
+7. 修改stram-v1.js中的路径，1296、1297行,里面的路径对应于新加的大文件虚拟路径
 			downLoadLinkObj.innerHTML = "http://localhost:8080" + "/install/file/" + file.name;
 			document.getElementById("downLoadLink").value = "http://localhost:8080" + "/install/files/" + file.name;
 
 相应的路径在deploy时修改为对应的物理路径
+
+修改Tomcat的URIEncoding="UTF-8", 在config/server.xml中的Connector中增加编码设置，例如：
+<Connector port="8080" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443" URIEncoding="UTF-8" />

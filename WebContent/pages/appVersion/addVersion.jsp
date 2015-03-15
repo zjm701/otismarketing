@@ -74,6 +74,7 @@ function checkInput() {
                                 <s:form action="addVersion" namespace="/appVersion" method="post" onsubmit="return checkInput();">
 				                	<input type="hidden" id="versionName" name="versionName" value="" />
 				                	<input type="hidden" id="downLoadLink" name="downLoadLink" value="" />
+				                	<input type="hidden" id="uploadFileName" name="uploadFileName" value="" />
                                     <input class="btn btn-primary btn6 mr10" value="确定" type="submit">
                                     <input class="btn btn6" onclick="window.location.href='<%=path%>/appVersion/getVersionsInfoList'" value="返回" type="button">
                                 </s:form>

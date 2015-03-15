@@ -1,5 +1,6 @@
 package com.otis.marketing.service.impl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.otis.marketing.dao.AppVersionDao;
 import com.otis.marketing.entity.AppVersion;
 import com.otis.marketing.service.AppVersionService;
+import com.otis.marketing.uploader.config.Configurations;
 import com.otis.marketing.utils.CalendarUtils;
 import com.otis.marketing.utils.Utils;
 import com.otis.marketing.web.dto.AppVersionBean;
@@ -32,9 +34,7 @@ public class AppVersionServiceImpl implements AppVersionService{
 		if(version.getFileName() != null) {
 			appVersion.setFileName(version.getFileName());
 		}
-		if(version.getFilePath() != null) {
-			appVersion.setFilePath(version.getFilePath());
-		}
+		appVersion.setFilePath(Configurations.getFileRepository());
 		if(version.getVersionId() != null) {
 			appVersion.setVersionId(version.getVersionId());
 		}
@@ -80,9 +80,21 @@ public class AppVersionServiceImpl implements AppVersionService{
 		if(version.getDownLoadLink() != null) {
 			appVersion.setDownloadLink(version.getDownLoadLink());
 		}
-		
 		if(version.getVersionName() != null) {
 			appVersion.setVersionName(version.getVersionName());
+		}
+		
+		String oldFile = appVersion.getFileName();
+		if(version.getFileName() != null) {
+			appVersion.setFileName(version.getFileName());
+		}
+		
+		if(!oldFile.equals(version.getFileName())) {
+			//remove old file
+			File file = new File(Configurations.getFileRepository() + "/" + oldFile);
+			if(file.exists() && file.isFile()){
+				file.delete();
+			}
 		}
 		appVersion.setUpdateTime(CalendarUtils.currentTime());
 		
@@ -93,6 +105,11 @@ public class AppVersionServiceImpl implements AppVersionService{
 	public void deleteAppVersion(Integer versionId) {
 		AppVersion appVersion = appVersionDao.findAppVersionById(versionId);
 		appVersionDao.deleteAppVersion(appVersion);
+		//remove the upload file
+		File file = new File(Configurations.getFileRepository() + "/" + appVersion.getFileName());
+		if(file.exists() && file.isFile()){
+			file.delete();
+		}
 	}
 	
 	@Autowired

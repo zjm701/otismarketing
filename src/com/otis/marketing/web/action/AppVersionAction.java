@@ -28,6 +28,8 @@ public class AppVersionAction extends BaseAction {
 
 	private List<AppVersionBean> data = new ArrayList<AppVersionBean>();
 
+	private String uploadFileName;
+	
 	@Autowired
 	private AppVersionService appVersionService;
 
@@ -42,6 +44,7 @@ public class AppVersionAction extends BaseAction {
 		AppVersionBean version = new AppVersionBean();
 		version.setVersionName(versionName);
 		version.setDownLoadLink(downLoadLink);
+		version.setFileName(uploadFileName);
 
 		appVersionService.addNewVersion(version);
 
@@ -61,6 +64,7 @@ public class AppVersionAction extends BaseAction {
 		AppVersion appVersion = appVersionService.getAppVersionById(id);
 		this.versionName = appVersion.getVersionName();
 		this.downLoadLink = appVersion.getDownloadLink();
+		this.uploadFileName = appVersion.getFileName();
 
 		return SUCCESS;
 	}
@@ -70,6 +74,7 @@ public class AppVersionAction extends BaseAction {
 		version.setId(id);
 		version.setVersionName(versionName);
 		version.setDownLoadLink(downLoadLink);
+		version.setFileName(uploadFileName);
 
 		appVersionService.updateAppVersion(version);
 		
@@ -114,6 +119,14 @@ public class AppVersionAction extends BaseAction {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getUploadFileName() {
+		return uploadFileName;
+	}
+
+	public void setUploadFileName(String uploadFileName) {
+		this.uploadFileName = uploadFileName;
 	}
 	
 }

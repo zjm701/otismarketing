@@ -1295,6 +1295,8 @@
 			var downLoadLinkObj = document.getElementById("downLoadLinkTd");
 			downLoadLinkObj.innerHTML = "http://localhost:8080" + "/install/file/" + file.name;
 			document.getElementById("downLoadLink").value = "http://localhost:8080" + "/install/files/" + file.name;
+			document.getElementById("uploadFileName").value = file.name;
+			
 		},
 		onQueueComplete : function(msg) {
 			fShowMessage("onQueueComplete(msg: "+msg+")	---==>		[OK]");
