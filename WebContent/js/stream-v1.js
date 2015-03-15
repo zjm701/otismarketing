@@ -1148,7 +1148,8 @@
 			swfURL : cfg.swfURL || "/swf/FlashUploader.swf",
 			tokenURL : cfg.tokenURL || "/tk",
 			frmUploadURL : cfg.frmUploadURL || Browser.firefox ? "/fd;" + document.cookie : "/fd",
-			uploadURL : cfg.uploadURL || "/upload"
+			uploadURL : cfg.uploadURL || "/upload",
+			uploadPath : cfg.uploadPath
 		};
 		Parent.apply(this, arguments);
 	}
@@ -1293,8 +1294,9 @@
 			fShowMessage("File:" + file.name + ", Size:" + file.size + " onComplete	[OK]");
 			//set down load link value
 			var downLoadLinkObj = document.getElementById("downLoadLinkTd");
-			downLoadLinkObj.innerHTML = "http://localhost:8080" + "/install/file/" + file.name;
-			document.getElementById("downLoadLink").value = "http://localhost:8080" + "/install/files/" + file.name;
+			//downLoadLinkObj.innerHTML = "http://localhost:8080" + "/install/file/" + file.name;
+			downLoadLinkObj.innerHTML = this.config.uploadPath + file.name
+			document.getElementById("downLoadLink").value = this.config.uploadPath + file.name;
 			document.getElementById("uploadFileName").value = file.name;
 			
 		},

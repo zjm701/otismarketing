@@ -5,9 +5,7 @@
 
 5. stream-config.properties文件的C:/otismarketing/upload/appInstall改为实际服务器上传的App文件存储物理路径
 6. 对于大文件的存储增加tomcat虚拟路径，例如：<Context docBase="C:/SoftWare/ftpserver-1.0.6/apache-ftpserver-1.0.6/res/home" path="/install/files"/>，其中docBase改成服务器物理路径
-7. 修改stram-v1.js中的路径，1296、1297行,里面的路径对应于新加的大文件虚拟路径
-			downLoadLinkObj.innerHTML = "http://localhost:8080" + "/install/file/" + file.name;
-			document.getElementById("downLoadLink").value = "http://localhost:8080" + "/install/files/" + file.name;
+7. 修改addVersion.jsp和updateVersion.jsp中的config，将uploadPath改为实际服务器的公网IP，例如：uploadPath: "http://localhost:8080" + "/install/file/",
 
 相应的路径在deploy时修改为对应的物理路径
 
