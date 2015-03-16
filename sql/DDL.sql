@@ -76,7 +76,14 @@ CREATE TABLE `tbl_resource` (
 INSERT INTO `tbl_resource` VALUES ('1', 'User List', '', '/userManagement/goUserManagement');
 INSERT INTO `tbl_resource` VALUES ('2', 'Add User', '', '/userManagement/toAddUser');
 INSERT INTO `tbl_resource` VALUES ('3', 'User Update', '', '/userManagement/initUpdate');
-INSERT INTO `tbl_resource` VALUES ('4', 'App Version', '', '/appVersion/getVersionsInfoList');
+--App part--
+INSERT INTO `tbl_resource` VALUES ('4', 'App List', '', '/appVersion/getVersionsInfoList');
+INSERT INTO `tbl_resource` VALUES ('5', 'Preview App', '', '/appVersion/previewVersion');
+INSERT INTO `tbl_resource` VALUES ('6', 'App Update', '', '/appVersion/initUpdate');
+--News part--
+INSERT INTO `tbl_resource` VALUES ('7', 'News List', '', '/newsManagement/getAllNews');
+INSERT INTO `tbl_resource` VALUES ('8', 'Preview News', '', '/newsManagement/previewNews');
+INSERT INTO `tbl_resource` VALUES ('9', 'News Update', '', '/newsManagement/initUpdateNews');
 
 -- ----------------------------
 -- Table structure for `tbl_role_resource`
@@ -101,6 +108,16 @@ INSERT INTO `tbl_role_resource` VALUES ('2', '2', '1');
 INSERT INTO `tbl_role_resource` VALUES ('3', '3', '1');
 INSERT INTO `tbl_role_resource` VALUES ('4', '4', '1');
 INSERT INTO `tbl_role_resource` VALUES ('5', '4', '2');
+INSERT INTO `tbl_role_resource` VALUES ('6', '5', '1');
+INSERT INTO `tbl_role_resource` VALUES ('7', '5', '2');
+INSERT INTO `tbl_role_resource` VALUES ('8', '6', '1');
+INSERT INTO `tbl_role_resource` VALUES ('9', '6', '2');
+INSERT INTO `tbl_role_resource` VALUES ('10', '7', '1');
+INSERT INTO `tbl_role_resource` VALUES ('11', '7', '2');
+INSERT INTO `tbl_role_resource` VALUES ('12', '8', '1');
+INSERT INTO `tbl_role_resource` VALUES ('13', '8', '2');
+INSERT INTO `tbl_role_resource` VALUES ('14', '9', '1');
+INSERT INTO `tbl_role_resource` VALUES ('15', '9', '2');
 -- begining of survey module
 
 -- ----------------------------
