@@ -2,6 +2,7 @@ package com.otis.marketing.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -39,7 +40,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 		criteria.add(Restrictions.ne("username", "admin"));
 		criteria.add(Restrictions.eq("enabled", 1));
 		criteria.addOrder(Order.asc("id"));
-		
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		@SuppressWarnings("rawtypes")
 		List findByCriteria = this.getHibernateTemplate().findByCriteria(criteria);
 		List<Users> users = findByCriteria;
