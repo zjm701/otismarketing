@@ -1,11 +1,11 @@
 1. 修改ueditor的jsp目录下的config.json文件里面图片和文件的上传路径imageUrlPrefix、imageRealMappingPath和fileRealMappingPath、fileUrlPrefix
 2. 添加虚拟路径，修改tomcat配置文件server.xml,在host里面添加<Context docBase="C:/otismarketing/upload/media" path="/upload/media"/>
-3. 修改tomcat的web.xml文件， listings改成true
-4. 修改ueditor预定义图片路径，修改ueditor.config.js文件，更改URL的配置
+3. /** 修改tomcat的web.xml文件， listings改成true	**/
+4. 修改ueditor预定义图片路径，修改ueditor.config.js文件，更改URL的配置, 例如：var URL = "http://115.159.54.213:8080/otismarketing/thirdparty/ueditor1_4_3/";
 
 5. stream-config.properties文件的C:/otismarketing/upload/appInstall改为实际服务器上传的App文件存储物理路径
-6. 对于大文件的存储增加tomcat虚拟路径，例如：<Context docBase="C:/SoftWare/ftpserver-1.0.6/apache-ftpserver-1.0.6/res/home" path="/install/files"/>，其中docBase改成服务器物理路径
-7. 修改addVersion.jsp和updateVersion.jsp中的config，将uploadPath改为实际服务器的公网IP，例如：uploadPath: "http://localhost:8080" + "/install/file/",
+6. 对于大文件的存储增加tomcat虚拟路径，例如：<Context docBase="C:/otismarketing/upload/appInstall" path="/install/files"/>，其中docBase改成服务器物理路径
+7. 修改addVersion.jsp和updateVersion.jsp中的config，将uploadPath改为实际服务器的公网IP，例如：uploadPath: "http://localhost:8080" + "/install/files/",
 
 相应的路径在deploy时修改为对应的物理路径
 
