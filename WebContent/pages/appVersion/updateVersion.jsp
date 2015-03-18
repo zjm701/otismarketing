@@ -95,7 +95,7 @@ function checkInput() {
  * 是在ID为i_stream_message_container的页面元素中写日志
  */
 	var config = {
-		uploadPath: "http://localhost:8080" + "/install/file/",
+		uploadPath: "http://localhost:8080" + "/install/files/",
 		browseFileId : "i_select_files", /** 选择文件的ID, 默认: i_select_files */
 		browseFileBtn : "<div>请选择文件</div>", /** 显示选择文件的样式, 默认: `<div>请选择文件</div>` */
 		dragAndDropArea: "i_select_files", /** 拖拽上传区域，Id（字符类型"i_select_files"）或者DOM对象, 默认: `i_select_files` */
