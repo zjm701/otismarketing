@@ -27,14 +27,15 @@ public class OtisStruts2Filter extends StrutsPrepareAndExecuteFilter {
 			if (request.getRequestURI().contains("/webservice") || request.getRequestURI().contains("/tk")
 					|| request.getRequestURI().contains("/upload") || request.getRequestURI().contains("/fd")) {
 				chain.doFilter(req, res);
-			} else if (request.getRequestURI().contains("/ueditor1_4_3/jsp/")) {
+			} else if (request.getRequestURI().contains("/ueditor1_4_3")) {
 				chain.doFilter(new StrutsRequestWrapper((HttpServletRequest) req), res);
 			} else {
 				super.doFilter(req, res, chain);
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			e.printStackTrace();
+			//TODO: org.apache.catalina.connector.ClientAbortException: java.io.IOException: Connection reset by peer
+			//e.printStackTrace();
 		}
 	}
 }
