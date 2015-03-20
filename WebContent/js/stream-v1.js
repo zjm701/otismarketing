@@ -1119,7 +1119,7 @@
 			autoRemoveCompleted : !!cfg.autoRemoveCompleted,
 			autoUploading : cfg.autoUploading == null ? true : !!cfg.autoUploading,
 			dragAndDropArea: cfg.dragAndDropArea,
-			dragAndDropTips: cfg.dragAndDropTips || "<span>或把文件拖拽到这里</span>",
+			dragAndDropTips: cfg.dragAndDropTips || "<span></span>",
 			fileFieldName : cfg.fileFieldName || "FileData",
 			browser : cfg.browser,
 			browseFileId : cfg.browseFileId || "i_select_files",

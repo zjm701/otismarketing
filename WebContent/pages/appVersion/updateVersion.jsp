@@ -58,7 +58,7 @@ function checkInput() {
                         	<tr>
                                 <th><i class="require-red">*</i>文件上传：</th>
                                 <td>
-                                    <div id="i_select_files" style="width:600px;height:70px"></div>
+                                    <div id="i_select_files" style="width:600px;height:40px"></div>
 									<div id="i_stream_files_queue"></div>
 									<button onclick="javascript:_t.upload();">开始上传</button>
                                 </td>
@@ -99,7 +99,7 @@ function checkInput() {
 		browseFileId : "i_select_files", /** 选择文件的ID, 默认: i_select_files */
 		browseFileBtn : "<div>请选择文件</div>", /** 显示选择文件的样式, 默认: `<div>请选择文件</div>` */
 		dragAndDropArea: "i_select_files", /** 拖拽上传区域，Id（字符类型"i_select_files"）或者DOM对象, 默认: `i_select_files` */
-		dragAndDropTips: "<span>或把文件拖拽到这里</span>", /** 拖拽提示, 默认: `<span>把文件(文件夹)拖拽到这里</span>` */
+		dragAndDropTips: "<span></span>", /** 拖拽提示, 默认: `<span>把文件(文件夹)拖拽到这里</span>` */
 		filesQueueId : "i_stream_files_queue", /** 文件上传容器的ID, 默认: i_stream_files_queue */
 		filesQueueHeight : 100, /** 文件上传容器的高度（px）, 默认: 450 */
 		messagerId : "i_stream_message_container", /** 消息显示容器的ID, 默认: i_stream_message_container */
