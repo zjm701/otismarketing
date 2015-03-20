@@ -84,6 +84,11 @@ INSERT INTO `tbl_resource` VALUES ('6', 'App Update', '', '/appVersion/initUpdat
 INSERT INTO `tbl_resource` VALUES ('7', 'News List', '', '/newsManagement/getAllNews');
 INSERT INTO `tbl_resource` VALUES ('8', 'Preview News', '', '/newsManagement/previewNews');
 INSERT INTO `tbl_resource` VALUES ('9', 'News Update', '', '/newsManagement/initUpdateNews');
+--Survey part--
+INSERT INTO `tbl_resource` VALUES ('10', 'Survey List', '', '/survey/findAllSurvey');
+INSERT INTO `tbl_resource` VALUES ('11', 'Preview Survey', '', '/survey/preview');
+INSERT INTO `tbl_resource` VALUES ('12', 'Add Survey', '', '/survey/toAdd');
+INSERT INTO `tbl_resource` VALUES ('13', 'Update Survey', '', '/survey/toEdit');
 
 -- ----------------------------
 -- Table structure for `tbl_role_resource`
@@ -118,6 +123,14 @@ INSERT INTO `tbl_role_resource` VALUES ('12', '8', '1');
 INSERT INTO `tbl_role_resource` VALUES ('13', '8', '2');
 INSERT INTO `tbl_role_resource` VALUES ('14', '9', '1');
 INSERT INTO `tbl_role_resource` VALUES ('15', '9', '2');
+INSERT INTO `tbl_role_resource` VALUES ('16', '10', '1');
+INSERT INTO `tbl_role_resource` VALUES ('17', '10', '2');
+INSERT INTO `tbl_role_resource` VALUES ('18', '11', '1');
+INSERT INTO `tbl_role_resource` VALUES ('19', '11', '2');
+INSERT INTO `tbl_role_resource` VALUES ('20', '12', '1');
+INSERT INTO `tbl_role_resource` VALUES ('21', '12', '2');
+INSERT INTO `tbl_role_resource` VALUES ('22', '13', '1');
+INSERT INTO `tbl_role_resource` VALUES ('23', '13', '2');
 -- begining of survey module
 
 -- ----------------------------
