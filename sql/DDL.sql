@@ -89,6 +89,10 @@ INSERT INTO `tbl_resource` VALUES ('10', 'Survey List', '', '/survey/findAllSurv
 INSERT INTO `tbl_resource` VALUES ('11', 'Preview Survey', '', '/survey/preview');
 INSERT INTO `tbl_resource` VALUES ('12', 'Add Survey', '', '/survey/toAdd');
 INSERT INTO `tbl_resource` VALUES ('13', 'Update Survey', '', '/survey/toEdit');
+--Statistic part--
+INSERT INTO `tbl_resource` VALUES ('14', 'Statistic List', '', '/statistic/findAllSurvey');
+INSERT INTO `tbl_resource` VALUES ('15', 'Review Statistic', '', '/statistic/getSurveyStatistic');
+INSERT INTO `tbl_resource` VALUES ('16', 'Export Statistic', '', '/statistic/export');
 
 -- ----------------------------
 -- Table structure for `tbl_role_resource`
@@ -131,6 +135,12 @@ INSERT INTO `tbl_role_resource` VALUES ('20', '12', '1');
 INSERT INTO `tbl_role_resource` VALUES ('21', '12', '2');
 INSERT INTO `tbl_role_resource` VALUES ('22', '13', '1');
 INSERT INTO `tbl_role_resource` VALUES ('23', '13', '2');
+INSERT INTO `tbl_role_resource` VALUES ('24', '14', '1');
+INSERT INTO `tbl_role_resource` VALUES ('25', '14', '2');
+INSERT INTO `tbl_role_resource` VALUES ('26', '15', '1');
+INSERT INTO `tbl_role_resource` VALUES ('27', '15', '2');
+INSERT INTO `tbl_role_resource` VALUES ('28', '16', '1');
+INSERT INTO `tbl_role_resource` VALUES ('29', '16', '2');
 -- begining of survey module
 
 -- ----------------------------
