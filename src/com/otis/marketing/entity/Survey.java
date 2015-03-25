@@ -105,6 +105,12 @@ public class Survey implements Serializable {
 		this.status = Status.New.value();
 		this.type = Type.Default.value();
 	}
+	
+	public void buildOptions() {
+		for (Question question : this.getQuestions()) {
+			question.buildOptions();
+		}
+	}
 
 	public Integer getSurveyId() {
 		return surveyId;

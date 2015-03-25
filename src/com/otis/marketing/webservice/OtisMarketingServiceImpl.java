@@ -64,6 +64,7 @@ public class OtisMarketingServiceImpl implements OtisMarketingService {
 	@Override
 	public String getSurveyById(String surveyId) {
 		Survey survey = surveyService.getById(Integer.parseInt(surveyId));
+		survey.buildOptions();
 		GsonBuilder builder = new GsonBuilder();
 		builder.excludeFieldsWithoutExposeAnnotation();
 		builder.serializeNulls();
