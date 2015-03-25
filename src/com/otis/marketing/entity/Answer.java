@@ -2,18 +2,17 @@ package com.otis.marketing.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @SuppressWarnings("serial")
 @Entity
@@ -25,13 +24,14 @@ public class Answer implements Serializable {
 	@Column(name = "answerId")
 	private Integer answerId;
 	
-	@ManyToOne(optional = false, targetEntity = Reply.class)
-	@Cascade({org.hibernate.annotations.CascadeType.REFRESH})
+	@OneToOne(optional = true, targetEntity = Reply.class)
+	@Cascade({CascadeType.SAVE_UPDATE})
 	@JoinColumn(name = "replyId", updatable = false)
 	private Reply reply;
 	
-	@OneToOne(cascade = { CascadeType.ALL }, optional = false)
-	@JoinColumn(name = "questionId")
+	@OneToOne(optional = true, targetEntity = Question.class)
+	@Cascade({CascadeType.REFRESH})
+	@JoinColumn(name = "questionId", updatable = false)
 	private Question question;
 	
 	@Column(name = "intValue")

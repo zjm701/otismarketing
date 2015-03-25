@@ -37,10 +37,11 @@ public class Reply implements Serializable {
 	private String userName;
 	
 	@OneToMany(mappedBy = "reply", fetch = FetchType.EAGER, targetEntity = Answer.class)
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE_ORPHAN})
+	@Cascade({CascadeType.SAVE_UPDATE})
 	private List<Answer> answers = new ArrayList();
 	
-	@OneToOne(cascade = { javax.persistence.CascadeType.ALL }, optional = false)
+	@OneToOne(optional = false)
+	@Cascade({CascadeType.ALL})
 	@JoinColumn(name = "surveyId")
 	private Survey survey;
 	

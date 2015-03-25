@@ -93,6 +93,7 @@ public class OtisMarketingServiceImpl implements OtisMarketingService {
 				Question question = replyService.getQuestionById(anJson.getQuestionId());
 				if (question != null) {
 					an.setQuestion(question);
+					an.setReply(reply);
 					switch (question.getType()) {
 					case 0:
 						an.setIntValue(Integer.parseInt(anJson.getValue()));
@@ -102,6 +103,7 @@ public class OtisMarketingServiceImpl implements OtisMarketingService {
 							Answer anMulti = new Answer();
 							anMulti.setQuestion(question);
 							anMulti.setIntValue(value);
+							anMulti.setReply(reply);
 							answers.add(anMulti);
 						};
 						break;

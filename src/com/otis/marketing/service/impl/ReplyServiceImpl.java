@@ -27,7 +27,7 @@ public class ReplyServiceImpl implements ReplyService {
 	
 	@Override
 	public Question getQuestionById(Integer questionId) {
-		return questionDao.getQuestionById(questionId);
+		return questionDao.get(questionId);
 	}
 
 }
