@@ -50,6 +50,9 @@ public class News implements Serializable {
 	@Column(name = "updateTime")
 	private Date updateTime;
 
+	@Column(name = "viewTimes")
+	private Integer viewTimes;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -112,6 +115,14 @@ public class News implements Serializable {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public Integer getViewTimes() {
+		return viewTimes;
+	}
+
+	public void setViewTimes(Integer viewTimes) {
+		this.viewTimes = viewTimes;
 	}
 	
 }

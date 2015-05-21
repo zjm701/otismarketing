@@ -47,16 +47,22 @@ public class OtisMarketingServiceImpl implements OtisMarketingService {
 
 	@Override
 	public String getNewsDetails(String newsId) {
-		
-		News news = null;
-		if(newsId != null) {
-			news = newsService.getNewsById(Integer.valueOf(newsId));
-		}
-		
 		JsonObject json = new JsonObject();
-		json.addProperty("title", news.getTitle());
-		json.addProperty("content", news.getContent());
-		json.addProperty("createTime", Utils.formateDateTime(news.getCreateTime()));
+		try {
+			News news = null;
+			if(newsId != null && !"".equals(newsId)) {
+				news = newsService.getNewsById(Integer.valueOf(newsId));
+			} else {
+				return getFailedJsonResult();
+			}
+			
+			json.addProperty("title", news.getTitle());
+			json.addProperty("content", news.getContent());
+			json.addProperty("createTime", Utils.formateDateTime(news.getCreateTime()));
+			
+		} catch (Exception e) {
+			return getFailedJsonResult();
+		}
 		
 		return json.toString();
 	}
@@ -128,6 +134,20 @@ public class OtisMarketingServiceImpl implements OtisMarketingService {
 	@Override
 	public String submitReply(String content) {
 		return transferBean(content);
+	}
+	
+	@Override
+	public String viewNewsTime(String newsId) {
+		try{
+			if(newsId != null && !"".equals(newsId)) {
+				newsService.viewNewsTime(Integer.valueOf(newsId));
+			} else {
+				return getFailedJsonResult();
+			}
+			return getSuccessfulJsonResult();
+		} catch (Exception e) {
+			return getFailedJsonResult();
+		}
 	}
 	
 	private String getSuccessfulJsonResult() {

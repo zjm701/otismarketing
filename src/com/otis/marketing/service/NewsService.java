@@ -18,4 +18,6 @@ public interface NewsService {
 	public void deleteNews(Integer newsId);
 	
 	public void publishNews(Integer newsId);
+	
+	public void viewNewsTime(Integer newsId);
 }

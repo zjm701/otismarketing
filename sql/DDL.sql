@@ -229,6 +229,7 @@ CREATE TABLE `otismarketing`.`tbl_news` (
   `enabled` INT default 1,
   `status` INT default 0,
   `authorId` INT NOT NULL,
+  `viewTimes` INT default 0,
   `createTime` datetime default NULL,
   `updateTime` datetime default NULL,
   PRIMARY KEY  (`id`),

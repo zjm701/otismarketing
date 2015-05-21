@@ -90,7 +90,11 @@ function publishNews(newsId) {
 									<td><s:property value="#data.createTime" /></td>
 									<td>
 										<a href="previewNews?newsId=<s:property value="#data.id"/>" >查看</a>
-										<s:if test="#data.status==0"><a href="initUpdateNews?newsId=<s:property value="#data.id"/>" >修改</a><a href="#" onclick="deleteNews(<s:property value="#data.id"/>)" >删除</a><a href="#" onclick="publishNews(<s:property value="#data.id"/>)">发布</a></s:if>
+										<s:if test="#data.status==0">
+											<a href="initUpdateNews?newsId=<s:property value="#data.id"/>" >修改</a>
+											<a href="#" onclick="publishNews(<s:property value="#data.id"/>)">发布</a>
+										</s:if>
+										<a href="#" onclick="deleteNews(<s:property value="#data.id"/>)" >删除</a>
 									</td>
 								</tr>
 							    </s:iterator>

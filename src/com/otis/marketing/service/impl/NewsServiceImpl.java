@@ -95,4 +95,12 @@ public class NewsServiceImpl implements NewsService {
 	public void setNewsDao(NewsDao newsDao) {
 		this.newsDao = newsDao;
 	}
+
+	@Override
+	public void viewNewsTime(Integer newsId) {
+		News news = newsDao.findNewsById(newsId);
+		news.setViewTimes(news.getViewTimes() + 1);
+		
+		newsDao.updateNews(news);
+	}
 }

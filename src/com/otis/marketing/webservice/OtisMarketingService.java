@@ -8,8 +8,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.otis.marketing.entity.Reply;
-
 @Path("/otisService")
 public interface OtisMarketingService {
 
@@ -37,4 +35,9 @@ public interface OtisMarketingService {
 	@Path(value = "/transfer")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public String transferBean(@QueryParam("content") String content);
+	
+	@GET
+	@Path(value = "/viewNewsTime")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public String viewNewsTime(@QueryParam("newsId") String newsId);
 }
