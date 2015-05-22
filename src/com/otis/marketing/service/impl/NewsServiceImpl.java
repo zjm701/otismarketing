@@ -50,6 +50,7 @@ public class NewsServiceImpl implements NewsService {
 			newsBean.setStatus(news.getStatus());
 			newsBean.setTitle(news.getTitle());
 			newsBean.setUpdateTime(Utils.formateDate(news.getUpdateTime()));
+			newsBean.setViewTimes(news.getViewTimes());
 			
 			newsList.add(newsBean);
 		}

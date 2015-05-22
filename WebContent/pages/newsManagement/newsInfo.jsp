@@ -27,7 +27,7 @@ $(document).ready(function () {
         'bPaginate': true,
         "bProcessing": true,
         "bServerSide": false,
-        "aoColumnDefs": [{"bSortable": false, "aTargets": [4]}] 
+        "aoColumnDefs": [{"bSortable": false, "aTargets": [5]}] 
     });
 //     $('#newsList tbody').on( 'click', 'a', function () {
 //         var data = $('#newsList').dataTable.row( $(this).parents('tr') ).data();
@@ -73,6 +73,7 @@ function publishNews(newsId) {
 						            <th>标题</th>
 						            <th>状态</th>
 						            <th>创建时间</th>
+						            <th>浏览次数</th>
 						           	<th>操作</th>
 						        </tr>
 						    </thead>
@@ -88,6 +89,7 @@ function publishNews(newsId) {
 										<s:elseif test="status==1">已发布</s:elseif>
 									</td>
 									<td><s:property value="#data.createTime" /></td>
+									<td><s:property value="#data.viewTimes" /></td>
 									<td>
 										<a href="previewNews?newsId=<s:property value="#data.id"/>" >查看</a>
 										<s:if test="#data.status==0">

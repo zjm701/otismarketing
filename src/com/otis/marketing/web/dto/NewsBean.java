@@ -19,6 +19,8 @@ public class NewsBean implements Serializable {
 	private String createTime;
 
 	private String updateTime;
+	
+	private Integer viewTimes;
 
 	public Integer getId() {
 		return id;
@@ -74,6 +76,14 @@ public class NewsBean implements Serializable {
 
 	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public Integer getViewTimes() {
+		return viewTimes;
+	}
+
+	public void setViewTimes(Integer viewTimes) {
+		this.viewTimes = viewTimes;
 	}
 
 }
